@@ -1,0 +1,175 @@
+<resources>
+
+
+    <attr format="reference" name="colorCard"/>
+    <attr format="reference" name="colorBackground"/>
+    <attr format="reference" name="colorTextPrimary"/>
+    <attr format="reference" name="colorIcon"/>
+    <attr format="reference" name="colorTextNormal"/>
+    <attr format="reference" name="colorTextSecond"/>
+    <attr format="reference" name="colorTextHoliday"/>
+    <attr format="reference" name="colorHoliday"/>
+    <attr format="reference" name="colorTextDrawer"/>
+    <attr format="reference" name="colorTextDay"/>
+    <attr format="reference" name="colorTextDayName"/>
+    <attr format="reference" name="colorMonthSwitch"/>
+    <attr format="reference" name="colorTextAthan"/>
+    <attr format="reference" name="colorDivider"/>
+    <attr format="reference" name="colorCurrentDay"/>
+    <attr format="reference" name="colorSelectDay"/>
+    <attr format="reference" name="colorDrawerBackground"/>
+    <attr format="reference" name="colorDrawerSelect"/>
+    <attr format="reference" name="colorDrawerIcon"/>
+
+    <attr format="reference" name="circleCurrentDay" />
+    <attr format="reference" name="circleSelect" />
+    <attr format="reference" name="appDivider" />
+
+    <!-- Base application theme. -->
+
+    <style name="Theme.iPoli.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="WhiteDrawerIconStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/md_white</item>
+    </style>
+
+    <style name="Base.Theme.iPoli" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="alertDialogTheme">@style/Theme.iPoli.AlertDialog</item>
+        <item name="drawerArrowStyle">@style/WhiteDrawerIconStyle</item>
+        <!--persian cal colors -->
+        <item name="colorCard">@color/light_card_background</item>
+        <item name="colorBackground">@color/light_background</item>
+        <item name="colorTextPrimary">@color/light_text_primary</item>
+        <item name="colorIcon">@color/light_icon</item>
+        <item name="colorTextNormal">@color/light_text_normal</item>
+        <item name="colorTextSecond">@color/light_text_second</item>
+        <item name="colorTextHoliday">@color/light_text_holiday</item>
+        <item name="colorHoliday">@color/light_holiday</item>
+        <item name="colorTextDrawer">@color/light_text_drawer</item>
+        <item name="colorTextDay">@color/light_text_day</item>
+        <item name="colorTextDayName">@color/light_text_day_name</item>
+        <item name="colorTextAthan">@color/light_text_athan</item>
+        <item name="colorDivider">@color/light_divider</item>
+        <item name="colorCurrentDay">@color/light_current_day</item>
+        <item name="colorSelectDay">@color/light_select_day</item>
+        <item name="colorDrawerBackground">@color/light_drawer_background</item>
+        <item name="colorDrawerSelect">@color/light_drawer_select</item>
+        <item name="colorDrawerIcon">@color/light_icon_drawer</item>
+        <item name="colorMonthSwitch">@color/light_month_switch</item>
+
+        <item name="circleCurrentDay">@drawable/circle_current_day_light</item>
+        <item name="circleSelect">@drawable/circle_select_light</item>
+        <item name="appDivider">@drawable/app_divider_light</item>
+        <!--persian colors end-->
+    </style>
+
+    <style name="Theme.iPoli.DialogActivity" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowAnimationStyle">@style/ScaleInDialogAnimation</item>
+    </style>
+
+    <style name="Theme.iPoli" parent="Base.Theme.iPoli" />
+
+    <style name="Theme.iPoli.SignIn" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="Theme.iPoli.ToolbarImage" parent="Theme.iPoli">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ChatMessage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TextAppearance.iPoli.EditText" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">@color/md_light_text_87</item>
+    </style>
+
+    <style name="CategoryIndicator">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">@drawable/ic_context_indicator</item>
+    </style>
+
+    <style name="DialogContainer">
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">24dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+    </style>
+
+    <style name="Theme.iPoli.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.iPoli.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="SlideInDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_top_long</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom_long</item>
+    </style>
+
+    <style name="ScaleInDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/scale_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_out</item>
+    </style>
+
+    <style name="AgendaCalendarWeekDayTextAppearance" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
+
+    <style name="WhiteEditTextTheme" parent="Base.TextAppearance.AppCompat.Small">
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/md_light_text_87</item>
+        <item name="colorControlNormal">@color/md_light_text_87</item>
+        <item name="colorControlActivated">@color/md_light_text_87</item>
+        <item name="android:textColorPrimary">@color/md_light_text_87</item>
+    </style>
+
+    <style name="SubQuestWhiteEditText">
+        <item name="android:theme">@style/WhiteEditTextTheme</item>
+    </style>
+
+    <style name="ChallengeWhiteEditTextTheme" parent="Base.TextAppearance.AppCompat.Medium">
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/md_light_text_87</item>
+        <item name="colorControlNormal">@color/md_light_text_87</item>
+        <item name="colorControlActivated">@color/md_light_text_87</item>
+        <item name="android:textColorPrimary">@color/md_light_text_87</item>
+    </style>
+
+    <style name="ChallengeWhiteEditText">
+        <item name="android:theme">@style/ChallengeWhiteEditTextTheme</item>
+    </style>
+
+    <style name="ChallengeTextInputLayout" parent="Base.TextAppearance.AppCompat">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:textColorHint">@color/md_light_text_54</item>
+        <item name="colorAccent">@color/md_light_text_87</item>
+        <item name="colorControlNormal">@color/md_light_text_87</item>
+        <item name="colorControlActivated">@color/md_light_text_87</item>
+    </style>
+
+    <style name="TextAppearance.iPoli.Challenge.TextInputLayout" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textColor">@color/md_light_text_54</item>
+    </style>
+</resources>
