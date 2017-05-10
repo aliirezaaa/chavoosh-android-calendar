@@ -98,7 +98,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         /*change direction of fragment to rtl or else
 
          */
-        changDirection();
+
 
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
@@ -143,11 +143,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         return view;
     }
 
-    private void changDirection() {
-        Configuration configuration = getResources().getConfiguration();
-        configuration.setLayoutDirection(new Locale("fa"));
-        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
-    }
+
 
     public Calendar makeCalendarFromDate(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -197,6 +193,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
     private void changeTitle(PersianDate date) {
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(getToolbarText(date)), Locale.getDefault());
         String displayDate=String.valueOf(date.getYear()+"-"+date.getMonth()+"-"+utils.getWeekDayName(date));
+       Utils.getInstance(getContext()).setFont(toolbarTitle);
         toolbarTitle.setText(displayDate);
     }
 

@@ -1,6 +1,10 @@
 package io.ipoli.android;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +20,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +40,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -131,10 +137,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private boolean isRateDialogShown;
     public ActionBarDrawerToggle actionBarDrawerToggle;
     private MenuItem navigationItemSelected;
+    private static Application instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        changeLanguage("fa");
+//        changDirection();
+        instance=this.getApplication();
         appComponent().inject(this);
 
         if (!App.hasPlayer()) {
@@ -176,6 +186,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
+    }
+
+    private void changeLanguage(String langouage) {
+        Resources res = getResources();
+// Change locale settings in the app.
+        DisplayMetrics dm = res.getDisplayMetrics();
+        android.content.res.Configuration conf = res.getConfiguration();
+        conf.setLocale(new Locale(langouage)); // API 17+ only.
+// Use conf.locale = new Locale(...) if targeting lower versions
+        res.updateConfiguration(conf, dm);
+    }
+    private void changDirection() {
+        Configuration configuration = getResources().getConfiguration();
+        configuration.setLayoutDirection(new Locale("fa"));
+        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
     }
 
     @Override
@@ -594,5 +619,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void startOverview() {
         changeCurrentFragment(new OverviewFragment());
+    }
+
+    public static Context getContext(){
+
+        return instance.getApplicationContext();
     }
 }
