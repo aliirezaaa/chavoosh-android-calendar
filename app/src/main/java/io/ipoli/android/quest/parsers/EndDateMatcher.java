@@ -22,7 +22,7 @@ import io.ipoli.android.quest.suggestions.providers.DueDateSuggestionsProvider;
 public class EndDateMatcher extends BaseMatcher<LocalDate> {
 
     private static final String DUE_TODAY_TOMORROW_PATTERN = "(?:^|\\s)(امروز|فردا)(?:$|\\s)";
-    private static final String DUE_MONTH_PATTERN = "(?:^|\\s)on\\s(\\d){1,2}(\\s)?(st|th|nd|rd)?\\s(of\\s)?(next month|this month|January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec){1}(?:$|\\s)";
+    private static final String DUE_MONTH_PATTERN = "(?:^|\\s)در زمان\\s(\\d){1,2}(\\s)?(st|th|nd|rd)?\\s(of\\s)?(next month|this month|January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec){1}(?:$|\\s)";
     private static final String DUE_AFTER_IN_PATTERN = "(?:^|\\s)(after|in)\\s(\\d{1,2}|one|two|three)\\s(day|week|month|year)s?(?:$|\\s)";
     private static final String DUE_FROM_NOW_PATTERN = "(?:^|\\s)(\\d{1,2}|one|two|three)\\s(day|week|month|year)s?\\sfrom\\snow(?:$|\\s)";
     private static final String DUE_THIS_NEXT_PATTERN = "(?:^|\\s)(this|next)\\s(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Mon|Tue|Wed|Thur|Fri|Sat|Sun)(?:$|\\s)";
