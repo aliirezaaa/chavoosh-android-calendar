@@ -109,6 +109,8 @@ dependencies {
     compile 'org.slf4j:slf4j-nop:1.7.25'
     compile 'org.apache.commons:commons-lang3:3.3.2'
     compile 'com.android.support:appcompat-v7:25.3.1'
+    compile project(':library')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 apply plugin: 'com.google.gms.google-services'

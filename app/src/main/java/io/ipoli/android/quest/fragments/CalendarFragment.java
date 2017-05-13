@@ -1,10 +1,12 @@
 package io.ipoli.android.quest.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -17,9 +19,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+//import com.ibm.icu.util.Calendar;
 
+import com.ibm.icu.util.ULocale;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.threeten.bp.LocalDate;
 
@@ -33,7 +40,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 import io.ipoli.android.Constants;
 import io.ipoli.android.MainActivity;
 import io.ipoli.android.R;
@@ -44,16 +50,13 @@ import io.ipoli.android.app.events.EventSource;
 import io.ipoli.android.app.help.HelpDialog;
 import io.ipoli.android.app.ui.FabMenuView;
 import io.ipoli.android.app.ui.events.FabMenuTappedEvent;
-import io.ipoli.android.app.ui.events.ToolbarCalendarTapEvent;
 import io.ipoli.android.app.utils.DateUtils;
 import io.ipoli.android.app.utils.Time;
-
 import io.ipoli.android.persian.calendar.CivilDate;
 import io.ipoli.android.persian.calendar.DateConverter;
 import io.ipoli.android.persian.calendar.PersianDate;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.activity.PersianCalendarActivity;
-import io.ipoli.android.quest.activities.AgendaActivity;
 import io.ipoli.android.quest.events.ScrollToTimeEvent;
 
 import static android.app.Activity.RESULT_OK;
@@ -62,7 +65,8 @@ import static android.app.Activity.RESULT_OK;
  * Created by Venelin Valkov <venelin@curiousily.com>
  * on 4/29/16.
  */
-public class CalendarFragment extends BaseFragment implements View.OnClickListener {
+public class CalendarFragment extends BaseFragment implements View.OnClickListener, TimePickerDialog.OnTimeSetListener,
+        DatePickerDialog.OnDateSetListener {
     public static final int SHOW_AGENDA_REQUEST_CODE = 100;
 
     public static final int MID_POSITION = 49;
@@ -90,6 +94,8 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 
     private LocalDate currentMidDate;
     private Utils utils;
+
+    private DatePickerDialog dpd;
 
     @Nullable
     @Override
@@ -121,7 +127,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         currentMidDate = LocalDate.now();
 //        toolbarTitle.setText(String.valueOf(date.getYear()));
         changeTitle(date);
-        Log.i("calendar fragment",String.valueOf(date));
+        Log.i("calendar fragment", String.valueOf(date));
 
         fabMenu.addFabClickListener(name -> eventBus.post(new FabMenuTappedEvent(name, EventSource.CALENDAR)));
 
@@ -140,9 +146,20 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         calendarPager.setAdapter(adapter);
         calendarPager.setCurrentItem(MID_POSITION);
 
+        //define date picker
+
+        com.ibm.icu.util.Calendar now = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
+
+        dpd = DatePickerDialog.newInstance(
+                CalendarFragment.this,
+                now.get(com.ibm.icu.util.Calendar.YEAR),
+                now.get(com.ibm.icu.util.Calendar.MONTH),
+                now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH)
+        );
+//        Log.i("calendar now after define ",""+dpd.getEndDate().get(2));
+        //end define date picker
         return view;
     }
-
 
 
     public Calendar makeCalendarFromDate(Date date) {
@@ -153,6 +170,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         calendar.setTime(date);
         return calendar;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -190,10 +208,11 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(getToolbarText(date)), Locale.getDefault());
         toolbarTitle.setText(simpleDateFormat.format(DateUtils.toStartOfDay(date)));
     }
+
     private void changeTitle(PersianDate date) {
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(getToolbarText(date)), Locale.getDefault());
-        String displayDate=String.valueOf(date.getYear()+"-"+date.getMonth()+"-"+utils.getWeekDayName(date));
-       Utils.getInstance(getContext()).setFont(toolbarTitle);
+        String displayDate = String.valueOf(date.getYear() + "-" + date.getMonth() + "-" + utils.getWeekDayName(date));
+        Utils.getInstance(getContext()).setFont(toolbarTitle);
         toolbarTitle.setText(displayDate);
     }
 
@@ -260,15 +279,106 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         HelpDialog.newInstance(R.layout.fragment_help_dialog_calendar, R.string.help_dialog_calendar_title, "calendar").show(getActivity().getSupportFragmentManager());
     }
 
+    //click on toolbar text and goes to persian calendar activity to choose specific  date
     @Override
     public void onClick(View v) {
+//        pickTime();
+//        pickDate();
+//todo change this to go persian calnedar activity
         LocalDate currentDate = currentMidDate.plusDays(calendarPager.getCurrentItem() - MID_POSITION);
         Intent i = new Intent(getContext(), PersianCalendarActivity.class);
         i.putExtra(Constants.CURRENT_SELECTED_DAY_EXTRA_KEY, DateUtils.toMillis(currentDate));
         startActivity(i);
+
+
+        //todo uncomment this
 //        startActivityForResult(i, SHOW_AGENDA_REQUEST_CODE);
 //        getActivity().overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
 //        eventBus.post(new ToolbarCalendarTapEvent());
+
+    }
+
+    private void pickDate() {
+
+        dpd.setThemeDark(false);
+        dpd.vibrate(true);
+        dpd.dismissOnPause(true);
+        dpd.showYearPickerFirst(false);
+        if (true) {
+            dpd.setAccentColor(Color.parseColor("#9C27B0"));
+        }
+        if (true) {
+            dpd.setTitle("DatePicker Title");
+        }
+        if (false) {
+            com.ibm.icu.util.Calendar[] dates = new com.ibm.icu.util.Calendar[13];
+            for (int i = -6; i <= 6; i++) {
+                com.ibm.icu.util.Calendar date = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
+                date.add(com.ibm.icu.util.Calendar.MONTH, i);
+                dates[i + 6] = date;
+            }
+            dpd.setSelectableDays(dates);
+        }
+        if (false) {
+            com.ibm.icu.util.Calendar[] dates = new com.ibm.icu.util.Calendar[13];
+            for (int i = -6; i <= 6; i++) {
+                com.ibm.icu.util.Calendar date = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
+                date.add(com.ibm.icu.util.Calendar.WEEK_OF_YEAR, i);
+                dates[i + 6] = date;
+            }
+            dpd.setHighlightedDays(dates);
+        }
+//        dpd.initialize();
+        dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+    }
+
+
+    private void pickTime() {
+        Calendar now = Calendar.getInstance();
+        TimePickerDialog tpd = TimePickerDialog.newInstance(
+                CalendarFragment.this,
+                now.get(Calendar.HOUR_OF_DAY),
+                now.get(Calendar.MINUTE),
+                true
+        );
+
+        tpd.setThemeDark(true);
+        tpd.vibrate(true);
+        tpd.dismissOnPause(true);
+        tpd.enableSeconds(true);
+        tpd.enableMinutes(true);
+        if (true) {
+            tpd.setAccentColor(Color.parseColor("#9C27B0"));
+        }
+        if (true) {
+            tpd.setTitle("TimePicker Title");
+        }
+        if (true) {
+            tpd.setTimeInterval(2, 5, 10);
+        }
+        tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                Log.d("TimePicker", "Dialog was cancelled");
+            }
+        });
+//        tpd.show(getFragmentManager(), "Timepickerdialog");
+//        tpd.show(getFragmentManager(),"");
+//        FragmentManager fm=getFragmentManager();
+        tpd.show(getActivity().getFragmentManager(), "Timepickerdialog");
+    }
+
+
+
+
+    @Override
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
+        String hourString = hourOfDay < 10 ? "0" + hourOfDay : "" + hourOfDay;
+        String minuteString = minute < 10 ? "0" + minute : "" + minute;
+        String secondString = second < 10 ? "0" + second : "" + second;
+        String time = "You picked the following time: " + hourString + "h" + minuteString + "m" + secondString + "s";
+//        timeTextView.setText(time);
+        Log.i("onTimeset ", time);
     }
 
     @Override
@@ -279,5 +389,17 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
             Long dateMillis = data.getLongExtra(Constants.CURRENT_SELECTED_DAY_EXTRA_KEY, DateUtils.toMillis(LocalDate.now()));
             changeCurrentDay(DateUtils.fromMillis(dateMillis));
         }
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
+        String date = "You picked the following date: " + dayOfMonth + "/" + (++monthOfYear) + "/" + year;
+       PersianDate pDate=new PersianDate(year,monthOfYear,dayOfMonth);
+        CivilDate civilDate=DateConverter.persianToCivil(pDate);
+
+//        dateTextView.setText(date);
+        Log.i("onDateset ", ""+civilDate.getYear()+civilDate.getMonth()+civilDate.getDayOfMonth());
+        Log.i("persian date ", "" + pDate.getYear() + pDate.getMonth() + pDate.getDayOfMonth());
     }
 }

@@ -1,20 +1,28 @@
 package io.ipoli.android.quest.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.ibm.icu.util.ULocale;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.temporal.TemporalAdjusters;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,6 +32,9 @@ import io.ipoli.android.R;
 import io.ipoli.android.app.App;
 import io.ipoli.android.app.BaseFragment;
 import io.ipoli.android.app.ui.dialogs.DatePickerFragment;
+import io.ipoli.android.persian.calendar.CivilDate;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
 import io.ipoli.android.quest.adapters.QuestOptionsAdapter;
 import io.ipoli.android.quest.data.Category;
 import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
@@ -33,7 +44,8 @@ import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
  * on 1/7/17.
  */
 
-public class AddQuestDateFragment extends BaseFragment {
+public class AddQuestDateFragment extends BaseFragment implements TimePickerDialog.OnTimeSetListener,
+        DatePickerDialog.OnDateSetListener {
 
     @BindView(R.id.new_quest_date_options)
     RecyclerView dateOptions;
@@ -42,6 +54,7 @@ public class AddQuestDateFragment extends BaseFragment {
     ImageView image;
 
     private Unbinder unbinder;
+    private DatePickerDialog dpd;
 
     @Nullable
     @Override
@@ -74,11 +87,16 @@ public class AddQuestDateFragment extends BaseFragment {
                 postEvent(new NewQuestDatePickedEvent(LocalDate.now().plusDays(1), LocalDate.now().plusDays(1)))));
 
         options.add(new Pair<>(getString(R.string.on), v -> {
-            DatePickerFragment fragment = DatePickerFragment.newInstance(LocalDate.now(), true, false,
-                    date -> {
-                        postEvent(new NewQuestDatePickedEvent(date, date));
-                    });
-            fragment.show(getFragmentManager());
+
+//            DatePickerFragment fragment = DatePickerFragment.newInstance(LocalDate.now(), true, false,
+//                    date -> {
+////                        postEvent(new NewQuestDatePickedEvent(date, date));
+//                        Log.i("on", "" + date.getYear() + " " + date.getMonth() + " " + date.getDayOfMonth() + "");
+//                        Log.i("instance of ", "" + date.getClass());
+//
+//                    });
+//            fragment.show(getFragmentManager());
+            pickDate();
         }));
 
         options.add(new Pair<>(getString(R.string.do_not_know), v -> {
@@ -123,5 +141,82 @@ public class AddQuestDateFragment extends BaseFragment {
     @Override
     protected boolean useOptionsMenu() {
         return false;
+    }
+
+
+    private void pickDate() {
+        com.ibm.icu.util.Calendar now = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
+        Log.i("calendar.now ",
+                "" + now.get(com.ibm.icu.util.Calendar.YEAR)
+                +""+ now.get(com.ibm.icu.util.Calendar.MONTH)+
+                ""+  now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH));
+
+//        dpd = DatePickerDialog.newInstance(
+//                AddQuestDateFragment.this,
+//                now.get(com.ibm.icu.util.Calendar.YEAR),
+//                now.get(com.ibm.icu.util.Calendar.MONTH),
+//                now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH)
+//        );
+        dpd = DatePickerDialog.newInstance(
+                AddQuestDateFragment.this,
+                1396,
+                2,
+                23
+        );
+
+        dpd.setThemeDark(false);
+        dpd.vibrate(true);
+        dpd.dismissOnPause(true);
+        dpd.showYearPickerFirst(false);
+        if (true) {
+            dpd.setAccentColor(Color.parseColor("#9C27B0"));
+        }
+        if (true) {
+            dpd.setTitle("DatePicker Title");
+        }
+        if (false) {
+            com.ibm.icu.util.Calendar[] dates = new com.ibm.icu.util.Calendar[13];
+            for (int i = -6; i <= 6; i++) {
+                com.ibm.icu.util.Calendar date = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
+                date.add(com.ibm.icu.util.Calendar.MONTH, i);
+                dates[i + 6] = date;
+            }
+            dpd.setSelectableDays(dates);
+        }
+        if (false) {
+            com.ibm.icu.util.Calendar[] dates = new com.ibm.icu.util.Calendar[13];
+            for (int i = -6; i <= 6; i++) {
+                com.ibm.icu.util.Calendar date = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
+                date.add(com.ibm.icu.util.Calendar.WEEK_OF_YEAR, i);
+                dates[i + 6] = date;
+            }
+            dpd.setHighlightedDays(dates);
+        }
+//        dpd.initialize();
+        dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+    }
+
+    @Override
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
+
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+//        String date = "You picked the following date: " + dayOfMonth + "/" + (++monthOfYear) + "/" + year;
+        PersianDate pDate = new PersianDate(year, ++monthOfYear, dayOfMonth);
+        //convert to civil date and then convert to local
+        CivilDate civilDate = DateConverter.persianToCivil(pDate);
+        LocalDate lDate = LocalDate.of(civilDate.getYear(), civilDate.getMonth(), civilDate.getDayOfMonth());
+
+        //post to next fragment
+        postEvent(new NewQuestDatePickedEvent(lDate, lDate));
+//        dateTextView.setText(date);
+//        Log.i("arguments ", "" + year + monthOfYear + dayOfMonth);
+//        Log.i("civil date ", "" + civilDate.getYear() + civilDate.getMonth() + civilDate.getDayOfMonth());
+//        Log.i("persian date ", "" + pDate.getYear() + pDate.getMonth() + pDate.getDayOfMonth());
+
+        Log.i("local date ", "" + lDate.getYear() + lDate.getMonth() + lDate.getDayOfMonth());
+
     }
 }

@@ -63,7 +63,7 @@ public class BaseActivity extends AppCompatActivity {
             Set<Integer> challengeDays = localStorage.readIntSet(Constants.KEY_DAILY_CHALLENGE_DAYS, Constants.DEFAULT_DAILY_CHALLENGE_DAYS);
             int currentDayOfWeek = LocalDate.now().getDayOfWeek().getValue();
             if (isCompletedForToday || !challengeDays.contains(currentDayOfWeek)) {
-                menu.findItem(R.id.action_pick_daily_challenge_quests).setVisible(false);
+//                menu.findItem(R.id.action_pick_daily_challenge_quests).setVisible(false);
             }
         }
         return super.onPrepareOptionsMenu(menu);
