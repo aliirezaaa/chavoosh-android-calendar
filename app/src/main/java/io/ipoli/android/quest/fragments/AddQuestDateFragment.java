@@ -146,23 +146,18 @@ public class AddQuestDateFragment extends BaseFragment implements TimePickerDial
 
     private void pickDate() {
         com.ibm.icu.util.Calendar now = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
-        Log.i("calendar.now ",
-                "" + now.get(com.ibm.icu.util.Calendar.YEAR)
-                +""+ now.get(com.ibm.icu.util.Calendar.MONTH)+
-                ""+  now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH));
+//        Log.i("calendar.now ",
+//                "" + now.get(com.ibm.icu.util.Calendar.YEAR)
+//                +""+ now.get(com.ibm.icu.util.Calendar.MONTH)+
+//                ""+  now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH));
 
-//        dpd = DatePickerDialog.newInstance(
-//                AddQuestDateFragment.this,
-//                now.get(com.ibm.icu.util.Calendar.YEAR),
-//                now.get(com.ibm.icu.util.Calendar.MONTH),
-//                now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH)
-//        );
         dpd = DatePickerDialog.newInstance(
                 AddQuestDateFragment.this,
-                1396,
-                2,
-                23
+                now.get(com.ibm.icu.util.Calendar.YEAR),
+                now.get(com.ibm.icu.util.Calendar.MONTH),
+                now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH)
         );
+
 
         dpd.setThemeDark(false);
         dpd.vibrate(true);

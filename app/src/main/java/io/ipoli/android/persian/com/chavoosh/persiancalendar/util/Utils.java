@@ -152,7 +152,7 @@ public class Utils {
     private String cachedCityKey = "";
     private CityEntity cachedCity;
     private Toolbar toolbar;
-
+    private PersianDate selectedPersianDate;
     private Utils(Context context) {
         this.context = context;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -861,6 +861,18 @@ public class Utils {
                 alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTime.getTimeInMillis(), pendingIntent);
             }
         }
+    }
+
+    public void setSelectedPersianDate(PersianDate selectedPersianDate) {
+        this.selectedPersianDate = selectedPersianDate;
+    }
+    public PersianDate getSelectedPersianDate(){
+        if(this.selectedPersianDate ==null){
+            return getToday();
+        }else {
+            return this.selectedPersianDate;
+        }
+
     }
 
     private static class SetExactAlarm {

@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -98,7 +99,7 @@ public class CalendarFragment extends Fragment
     private RelativeLayout midnightLayout;
 
     private int viewPagerPosition;
-    private  ScrollViewExt about_layout;
+    private ScrollViewExt about_layout;
 
 
     @Nullable
@@ -183,7 +184,7 @@ public class CalendarFragment extends Fragment
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        about_layout=(ScrollViewExt)view.findViewById(R.id.about_layout);
+        about_layout = (ScrollViewExt) view.findViewById(R.id.about_layout);
         about_layout.setScrollViewListener(new ScrollViewListener() {
             @Override
             public void onScrollChanged(ScrollViewExt scrollView, int x, int y, int oldx, int oldy) {
@@ -193,7 +194,7 @@ public class CalendarFragment extends Fragment
                 // if diff is zero, then the bottom has been reached
                 if (diff == 0) {
                     // do stuff
-                    Log.i("scroll","  reached");
+                    Log.i("scroll", "  reached");
                 }
             }
         });
@@ -236,6 +237,13 @@ public class CalendarFragment extends Fragment
         utils.setActivityTitleAndSubtitle(getActivity(), utils.getMonthName(today),
                 utils.formatNumber(today.getYear()));
 
+
+        View toolbar_view = inflater.inflate(R.layout.activity_cal_fa, container, false);
+
+//        ImageView submit_img=(ImageView)toolbar_view.findViewById(R.id.submit_img);
+//        submit_img.setOnClickListener(v -> {
+//            Log.i("selected date ",utils.dateToString(utils.getToday()));
+//        });
         return view;
     }
 
@@ -278,9 +286,10 @@ public class CalendarFragment extends Fragment
             today.setVisibility(View.VISIBLE);
             todayIcon.setVisibility(View.VISIBLE);
         }
-
+        Log.i("select day ", utils.dateToString(persianDate));
         setOwghat(civilDate);
         showEvent(persianDate);
+        utils.setSelectedPersianDate(persianDate);
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)

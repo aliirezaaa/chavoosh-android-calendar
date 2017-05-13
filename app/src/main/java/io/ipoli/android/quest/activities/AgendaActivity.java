@@ -78,6 +78,7 @@ public class AgendaActivity extends BaseActivity implements CalendarView.OnDateC
         appComponent().inject(this);
 
         long selectedDateMillis = getIntent().getLongExtra(Constants.CURRENT_SELECTED_DAY_EXTRA_KEY, 0);
+
         if (selectedDateMillis == 0) {
             finish();
             return;

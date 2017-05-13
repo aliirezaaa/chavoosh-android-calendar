@@ -44,8 +44,8 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
 
         offset = getArguments().getInt(Constants.OFFSET_ARGUMENT);
         List<DayEntity> days = utils.getDays(offset);
-       setBackgroundImage(view,offset);
-        Log.i("sweep",Integer.toString(offset));
+        setBackgroundImage(view, offset);
+        Log.i("sweep", Integer.toString(offset));
         AppCompatImageView prev = (AppCompatImageView) view.findViewById(R.id.prev);
         AppCompatImageView next = (AppCompatImageView) view.findViewById(R.id.next);
         prev.setOnClickListener(this);
@@ -92,8 +92,8 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setBackgroundImage(View view, int offset) {
-        Toolbar t=utils.getToolbar();
-        int[] images={R.drawable.url1,
+        Toolbar t = utils.getToolbar();
+        int[] images = {R.drawable.url1,
                 R.drawable.url2,
                 R.drawable.url3,
                 R.drawable.url4,
@@ -105,19 +105,19 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
                 R.drawable.url10,
                 R.drawable.url11,
                 R.drawable.url12};
-        int[] colors={R.color.color1,R.color.color2,R.color.color3,R.color.color4};
+        int[] colors = {R.color.color1, R.color.color2, R.color.color3, R.color.color4};
         int imgNum;
-        if(offset<0){
-            offset=offset*-1;
-            if(offset>=12){
-                imgNum=0;
-            }else {
-                imgNum=offset;
+        if (offset < 0) {
+            offset = offset * -1;
+            if (offset >= 12) {
+                imgNum = 0;
+            } else {
+                imgNum = offset;
             }
-        }else if (offset>=12){
-            imgNum=0;
-        }else {
-            imgNum=offset;
+        } else if (offset >= 12) {
+            imgNum = 0;
+        } else {
+            imgNum = offset;
         }
         view.setBackgroundResource(images[imgNum]);
 
@@ -177,6 +177,7 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
                 getActivity(),
                 utils.getMonthName(persianDate),
                 utils.formatNumber(persianDate.getYear()));
+
     }
 
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
@@ -20,9 +21,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import io.ipoli.android.R;
 import io.ipoli.android.app.activities.BaseActivity;
+import io.ipoli.android.app.utils.DateUtils;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
 
 //import io.ipoli.android.persian.com.chavoosh.persiancalendar.adapter.DrawerAdapter;
@@ -44,14 +50,23 @@ import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.Calen
  * @author ebraminio
  */
 public class PersianCalendarActivity extends BaseActivity {
+//    @BindView(R.id.submit_img)
+//    ImageView submit_img;
 
+    private static final int CALENDAR = 1;
+    private static final int CONVERTER = 2;
+    //    private UpdateUtils updateUtils;
+    private static final int COMPASS = 3;
+    //    private DrawerAdapter adapter;
+    private static final int PREFERENCE = 4;
+    private static final int ABOUT = 5;
+    private static final int EXIT = 6;
+    // Default selected fragment
+    private static final int DEFAULT = CALENDAR;
     private final String TAG = PersianCalendarActivity.class.getName();
+    public boolean dayIsPassed = false;
     private Utils utils;
-//    private UpdateUtils updateUtils;
-
     private DrawerLayout drawerLayout;
-//    private DrawerAdapter adapter;
-
     private Class<?>[] fragments = {
             null,
             CalendarFragment.class,
@@ -60,28 +75,21 @@ public class PersianCalendarActivity extends BaseActivity {
             ApplicationPreferenceFragment.class,
 //            AboutFragment.class
     };
-
-    private static final int CALENDAR = 1;
-    private static final int CONVERTER = 2;
-    private static final int COMPASS = 3;
-    private static final int PREFERENCE = 4;
-    private static final int ABOUT = 5;
-    private static final int EXIT = 6;
-
-    // Default selected fragment
-    private static final int DEFAULT = CALENDAR;
-
     private int menuPosition = 0; // it should be zero otherwise #selectItem won't be called
-
     private String lastLocale;
+
+    //    private Tracker mTracker;
     private String lastTheme;
-
-//    private Tracker mTracker;
-
+    private BroadcastReceiver dayPassedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            dayIsPassed = true;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        utils = Utils.getInstance(getApplicationContext());
+        utils = Utils.getInstance(getApplicationContext());
 //        utils.setTheme(this);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
@@ -109,7 +117,7 @@ public class PersianCalendarActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
 //        toolbar.setBackgroundColor(Color.CYAN);
         setSupportActionBar(toolbar);
-//        utils.setToolbar(toolbar);
+        utils.setToolbar(toolbar);
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -174,6 +182,24 @@ public class PersianCalendarActivity extends BaseActivity {
 
         LocalBroadcastManager.getInstance(this).registerReceiver(dayPassedReceiver,
                 new IntentFilter(Constants.LOCAL_INTENT_DAY_PASSED));
+
+
+        ImageButton submit_img = (ImageButton) findViewById(R.id.submit_img);
+        submit_img.setOnClickListener(v -> {
+            Log.i("selected date ", utils.dateToString(utils.getSelectedPersianDate()));
+            onClose();
+
+        });
+    }
+
+    @Override
+    public void finish() {
+//        Bundle bundle=new Bundle();
+
+        Intent data = new Intent();
+//        data.putExtra(io.ipoli.android.Constants.CURRENT_SELECTED_DAY_EXTRA_KEY, DateUtils.toMillis(selectedDate));
+        setResult(RESULT_OK, data);
+        super.finish();
     }
 
 //    private void cheshmakInit() {
@@ -195,9 +221,9 @@ public class PersianCalendarActivity extends BaseActivity {
 //
 //    }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private boolean isRTL() {
-        return getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    @Override
+    public void onBackPressed() {
+        onClose();
     }
 
 //    @Override
@@ -210,14 +236,15 @@ public class PersianCalendarActivity extends BaseActivity {
 //        }
 //    }
 
-    public boolean dayIsPassed = false;
+    private void onClose() {
+        finish();
+        overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_bottom);
+    }
 
-    private BroadcastReceiver dayPassedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            dayIsPassed = true;
-        }
-    };
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private boolean isRTL() {
+        return getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+    }
 
     @Override
     protected void onResume() {
@@ -234,16 +261,6 @@ public class PersianCalendarActivity extends BaseActivity {
         super.onDestroy();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawers();
-        } else if (menuPosition != DEFAULT) {
-            selectItem(DEFAULT);
-        } else {
-            finish();
-        }
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
