@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\debug\\drawable-land-v19\\mdtp_done_background_color.xml",
+        "source": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\drawable-land-v19\\mdtp_done_background_color.xml"
+    },
+    {
         "merged": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\debug\\drawable-land-v19\\mdtp_done_background_color.xml",
         "source": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\drawable-land-v19\\mdtp_done_background_color.xml"
     }

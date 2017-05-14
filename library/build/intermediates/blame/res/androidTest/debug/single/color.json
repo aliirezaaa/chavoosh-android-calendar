@@ -1,7 +1,19 @@
 [
     {
+        "merged": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\mdtp_date_picker_selector.xml",
+        "source": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\color\\mdtp_date_picker_selector.xml"
+    },
+    {
         "merged": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\mdtp_date_picker_year_selector.xml",
         "source": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\color\\mdtp_date_picker_year_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\mdtp_done_text_color_dark.xml",
+        "source": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\color\\mdtp_done_text_color_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\mdtp_done_text_color.xml",
+        "source": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\color\\mdtp_done_text_color.xml"
     },
     {
         "merged": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\mdtp_done_text_color.xml",
@@ -10,6 +22,10 @@
     {
         "merged": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\mdtp_date_picker_selector.xml",
         "source": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\color\\mdtp_date_picker_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\mdtp_date_picker_year_selector.xml",
+        "source": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\color\\mdtp_date_picker_year_selector.xml"
     },
     {
         "merged": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\mdtp_done_text_color_dark.xml",

@@ -4,6 +4,14 @@
         "source": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\layout-land\\mdtp_date_picker_dialog.xml"
     },
     {
+        "merged": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-land\\mdtp_date_picker_dialog.xml",
+        "source": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\layout-land\\mdtp_date_picker_dialog.xml"
+    },
+    {
+        "merged": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-land\\mdtp_time_picker_dialog.xml",
+        "source": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\layout-land\\mdtp_time_picker_dialog.xml"
+    },
+    {
         "merged": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout-land\\mdtp_time_picker_dialog.xml",
         "source": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\layout-land\\mdtp_time_picker_dialog.xml"
     }
