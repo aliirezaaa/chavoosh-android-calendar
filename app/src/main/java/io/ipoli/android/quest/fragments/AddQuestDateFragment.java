@@ -55,6 +55,7 @@ public class AddQuestDateFragment extends BaseFragment implements TimePickerDial
 
     private Unbinder unbinder;
     private DatePickerDialog dpd;
+    private boolean isSomeday;
 
     @Nullable
     @Override
@@ -75,9 +76,11 @@ public class AddQuestDateFragment extends BaseFragment implements TimePickerDial
                 postEvent(new NewQuestDatePickedEvent(LocalDate.now(), LocalDate.now().with(TemporalAdjusters.lastDayOfMonth())))));
 
         options.add(new Pair<>(getString(R.string.someday_by), v -> {
-            DatePickerFragment fragment = DatePickerFragment.newInstance(LocalDate.now(), true, false,
-                    date -> postEvent(new NewQuestDatePickedEvent(LocalDate.now(), date)));
-            fragment.show(getFragmentManager());
+//            DatePickerFragment fragment = DatePickerFragment.newInstance(LocalDate.now(), true, false,
+//                    date -> postEvent(new NewQuestDatePickedEvent(LocalDate.now(), date)));
+//            fragment.show(getFragmentManager());
+            isSomeday = true;
+            pickDate();
         }));
 
         options.add(new Pair<>(getString(R.string.today), v ->
@@ -96,6 +99,7 @@ public class AddQuestDateFragment extends BaseFragment implements TimePickerDial
 //
 //                    });
 //            fragment.show(getFragmentManager());
+            isSomeday = false;
             pickDate();
         }));
 
@@ -205,7 +209,13 @@ public class AddQuestDateFragment extends BaseFragment implements TimePickerDial
         LocalDate lDate = LocalDate.of(civilDate.getYear(), civilDate.getMonth(), civilDate.getDayOfMonth());
 
         //post to next fragment
-        postEvent(new NewQuestDatePickedEvent(lDate, lDate));
+        if (isSomeday == false) {
+            //if on... selected
+            postEvent(new NewQuestDatePickedEvent(lDate, lDate));
+        } else {
+            postEvent(new NewQuestDatePickedEvent(LocalDate.now(), lDate));
+        }
+
 //        dateTextView.setText(date);
 //        Log.i("arguments ", "" + year + monthOfYear + dayOfMonth);
 //        Log.i("civil date ", "" + civilDate.getYear() + civilDate.getMonth() + civilDate.getDayOfMonth());
