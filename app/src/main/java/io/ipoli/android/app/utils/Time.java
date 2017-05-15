@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
+
 public class Time {
 
     public static final int MINUTES_IN_A_DAY = 24 * 60;
@@ -111,6 +114,7 @@ public class Time {
 
     @Override
     public String toString() {
+//// TODO: 5/15/2017 changed to iran . default Locale.getDefault
         return String.format(Locale.getDefault(), "%02d:%02d", getHours(), getMinutes());
     }
 
@@ -127,6 +131,7 @@ public class Time {
         if (!use24HourFormat) {
             format = getMinutes() > 0 ? "h:mm a" : "h a";
         }
+
         return new SimpleDateFormat(format).format(c.getTime());
     }
 }

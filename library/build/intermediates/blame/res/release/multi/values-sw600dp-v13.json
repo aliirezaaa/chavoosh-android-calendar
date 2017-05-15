@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+        "outputFile": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-sw600dp-v13\\values-sw600dp-v13.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 102
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 46,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 156
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 47,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 221
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -68,7 +68,7 @@
                     "endOffset": 283
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -87,7 +87,7 @@
                     "endOffset": 348
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 35,
                         "startColumn": 4,
@@ -106,7 +106,7 @@
                     "endOffset": 418
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -125,7 +125,7 @@
                     "endOffset": 486
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -144,7 +144,7 @@
                     "endOffset": 538
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 40,
                         "startColumn": 4,
@@ -163,7 +163,7 @@
                     "endOffset": 599
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 45,
                         "startColumn": 4,
@@ -182,7 +182,7 @@
                     "endOffset": 650
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 50,
                         "startColumn": 4,
@@ -201,7 +201,7 @@
                     "endOffset": 702
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 49,
                         "startColumn": 4,
@@ -220,7 +220,7 @@
                     "endOffset": 760
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 51,
                         "startColumn": 4,
@@ -239,7 +239,7 @@
                     "endOffset": 823
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 52,
                         "startColumn": 4,
@@ -258,7 +258,7 @@
                     "endOffset": 885
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 41,
                         "startColumn": 4,
@@ -277,7 +277,7 @@
                     "endOffset": 938
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 39,
                         "startColumn": 4,
@@ -296,7 +296,7 @@
                     "endOffset": 1004
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -315,7 +315,7 @@
                     "endOffset": 1064
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -334,7 +334,7 @@
                     "endOffset": 1121
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 38,
                         "startColumn": 4,
@@ -353,7 +353,7 @@
                     "endOffset": 1184
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -372,7 +372,7 @@
                     "endOffset": 1235
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 53,
                         "startColumn": 4,
@@ -391,7 +391,7 @@
                     "endOffset": 1304
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -410,7 +410,7 @@
                     "endOffset": 1364
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 31,
                         "startColumn": 4,
@@ -429,7 +429,7 @@
                     "endOffset": 1425
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -448,7 +448,7 @@
                     "endOffset": 1485
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -467,7 +467,7 @@
                     "endOffset": 1539
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 48,
                         "startColumn": 4,
@@ -486,7 +486,7 @@
                     "endOffset": 1591
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 43,
                         "startColumn": 4,
@@ -505,7 +505,7 @@
                     "endOffset": 1653
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 44,
                         "startColumn": 4,
@@ -524,7 +524,7 @@
                     "endOffset": 1718
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 36,
                         "startColumn": 4,
@@ -543,7 +543,7 @@
                     "endOffset": 1774
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 54,
                         "startColumn": 4,
@@ -562,7 +562,7 @@
                     "endOffset": 1828
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 33,
                         "startColumn": 4,
@@ -581,7 +581,7 @@
                     "endOffset": 1885
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp\\dimens.xml",
                     "position": {
                         "startLine": 34,
                         "startColumn": 4,

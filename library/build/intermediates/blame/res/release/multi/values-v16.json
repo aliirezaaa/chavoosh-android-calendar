@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v16\\values-v16.xml",
+        "outputFile": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v16\\values-v16.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 148
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-v16\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-v16\\strings.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -31,7 +31,7 @@
                     "endOffset": 281
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-v16\\styles.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-v16\\styles.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -52,7 +52,7 @@
                     "endOffset": 400
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-v16\\styles.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-v16\\styles.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -73,7 +73,7 @@
                     "endOffset": 517
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-v16\\styles.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-v16\\styles.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,

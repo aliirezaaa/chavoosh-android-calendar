@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,9 +73,11 @@ public class CalendarDayView extends FrameLayout {
             initUI(context);
         }
     }
-
+    //// TODO: 5/15/2017 pre lollipop 
+//
     public CalendarDayView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+
+         super(context, attrs, defStyleAttr, defStyleRes);
         if (!isInEditMode()) {
             initUI(context);
         }
@@ -88,6 +91,7 @@ public class CalendarDayView extends FrameLayout {
     }
 
     private void initUI(Context context) {
+        Log.i("initUI ","in init");
         use24HourFormat = true;
 
         eventViewToCalendarEvent = new HashMap<>();
@@ -133,13 +137,13 @@ public class CalendarDayView extends FrameLayout {
             hourCellClickYPos = (int) event.getRawY();
             return false;
         });
-
-        hourCellsContainer.setOnLongClickListener(view -> {
-            if (hourCellListener != null) {
-                hourCellListener.onLongClickHourCell(Time.at(getHoursFor(hourCellClickYPos), getMinutesFor(hourCellClickYPos, 15)));
-            }
-            return false;
-        });
+        //// TODO: 5/15/2017 on long click listener  
+//        hourCellsContainer.setOnLongClickListener(view -> {
+//            if (hourCellListener != null) {
+//                hourCellListener.onLongClickHourCell(Time.at(getHoursFor(hourCellClickYPos), getMinutesFor(hourCellClickYPos, 15)));
+//            }
+//            return false;
+//        });
         return hourCellsContainer;
     }
 
@@ -173,9 +177,12 @@ public class CalendarDayView extends FrameLayout {
     @NonNull
     private RelativeLayout initTimeLineContainer(Context context, LayoutInflater inflater) {
         RelativeLayout timeRL = new RelativeLayout(context);
+        int a=ViewGroup.LayoutParams.MATCH_PARENT;
+
         timeRL.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         timeLine = inflater.inflate(R.layout.calendar_time_line, timeRL, false);
+//        timeLine=View.inflate(context,R.layout.calendar_time_line,timeRL);
 
         RelativeLayout.LayoutParams lPTime = (RelativeLayout.LayoutParams) timeLine.getLayoutParams();
         lPTime.topMargin = getCurrentTimeYPosition();

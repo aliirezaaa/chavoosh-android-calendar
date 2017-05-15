@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-land\\values-land.xml",
+        "outputFile": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-land\\values-land.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 115
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 185
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 237
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -68,7 +68,7 @@
                     "endOffset": 291
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -87,7 +87,7 @@
                     "endOffset": 342
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -106,7 +106,7 @@
                     "endOffset": 402
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -125,7 +125,7 @@
                     "endOffset": 463
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -144,7 +144,7 @@
                     "endOffset": 523
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -163,7 +163,7 @@
                     "endOffset": 580
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-land\\dimens.xml",
                     "position": {
                         "startLine": 33,
                         "startColumn": 4,

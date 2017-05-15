@@ -27,8 +27,8 @@ public class TutorialActivity extends AppIntro2 {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.getAppComponent(this).inject(this);
-
-        getWindow().setNavigationBarColor(Color.BLACK);
+//todo check android sdk >21
+//        getWindow().setNavigationBarColor(Color.BLACK);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 

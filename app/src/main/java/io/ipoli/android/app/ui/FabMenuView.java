@@ -116,8 +116,8 @@ public class FabMenuView extends RelativeLayout {
                 R.layout.layout_fab_menu, this);
         unbinder = ButterKnife.bind(this, view);
         fabClickListeners = new ArrayList<>();
-
-        setElevation(ViewUtils.dpToPx(5, getResources()));
+//// TODO: 5/15/2017  comment for pre lollipop 
+//        setElevation(ViewUtils.dpToPx(5, getResources()));
 
         fabOpenAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
         fabCloseAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);

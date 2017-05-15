@@ -18,6 +18,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -141,7 +142,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         changeLanguage("fa");
 //        changDirection();
         instance=this.getApplication();
@@ -152,13 +155,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             return;
         }
 
-        int schemaVersion = localStorage.readInt(Constants.KEY_SCHEMA_VERSION);
-        if (App.hasPlayer() && schemaVersion != Constants.SCHEMA_VERSION) {
+//        int schemaVersion = localStorage.readInt(Constants.KEY_SCHEMA_VERSION);
+//        if (App.hasPlayer() && schemaVersion != Constants.SCHEMA_VERSION) {
             // should migrate
-            startActivity(new Intent(this, MigrationActivity.class));
-            finish();
-            return;
-        }
+//            startActivity(new Intent(this, MigrationActivity.class));
+//            finish();
+//            return;
+//        }
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -292,41 +295,41 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void updatePlayerInDrawer(Player player) {
 
-        View header = navigationView.getHeaderView(0);
-        TextView level = (TextView) header.findViewById(R.id.player_level);
-        int playerLevel = player.getLevel();
-        String[] playerTitles = getResources().getStringArray(R.array.player_titles);
-        String title = playerTitles[Math.min(playerLevel / 10, playerTitles.length - 1)];
-        level.setText("Level " + playerLevel + ": " + title);
-
-        TextView coins = (TextView) header.findViewById(R.id.player_coins);
-        coins.setText(String.valueOf(player.getCoins()));
-        coins.setOnClickListener(view -> {
-            startActivity(new Intent(this, CoinStoreActivity.class));
-            eventBus.post(new AvatarCoinsTappedEvent());
-        });
-
-        ProgressBar experienceBar = (ProgressBar) header.findViewById(R.id.player_experience);
-        experienceBar.setMax(PROGRESS_BAR_MAX_VALUE);
-        experienceBar.setProgress(getCurrentProgress(player));
-
-        CircleImageView avatarPictureView = (CircleImageView) header.findViewById(R.id.player_picture);
-        avatarPictureView.setImageResource(ResourceUtils.extractDrawableResource(MainActivity.this, player.getPicture()));
-        avatarPictureView.setOnClickListener(v -> eventBus.post(new PickAvatarRequestEvent(EventSource.NAVIGATION_DRAWER)));
-
-        TextView currentXP = (TextView) header.findViewById(R.id.player_current_xp);
-        currentXP.setText(String.format(getString(R.string.nav_drawer_player_xp), player.getExperience()));
-        updatePetInDrawer(player.getPet());
-
-
-        Button signIn = (Button) header.findViewById(R.id.sign_in);
-        if (player.isAuthenticated()) {
-            signIn.setVisibility(View.GONE);
-            signIn.setOnClickListener(null);
-        } else {
-            signIn.setVisibility(View.VISIBLE);
-            signIn.setOnClickListener(v -> startActivity(new Intent(this, SignInActivity.class)));
-        }
+//        View header = navigationView.getHeaderView(0);
+//        TextView level = (TextView) header.findViewById(R.id.player_level);
+//        int playerLevel = player.getLevel();
+//        String[] playerTitles = getResources().getStringArray(R.array.player_titles);
+//        String title = playerTitles[Math.min(playerLevel / 10, playerTitles.length - 1)];
+//        level.setText("Level " + playerLevel + ": " + title);
+//
+//        TextView coins = (TextView) header.findViewById(R.id.player_coins);
+//        coins.setText(String.valueOf(player.getCoins()));
+//        coins.setOnClickListener(view -> {
+//            startActivity(new Intent(this, CoinStoreActivity.class));
+//            eventBus.post(new AvatarCoinsTappedEvent());
+//        });
+//
+//        ProgressBar experienceBar = (ProgressBar) header.findViewById(R.id.player_experience);
+//        experienceBar.setMax(PROGRESS_BAR_MAX_VALUE);
+//        experienceBar.setProgress(getCurrentProgress(player));
+//
+//        CircleImageView avatarPictureView = (CircleImageView) header.findViewById(R.id.player_picture);
+//        avatarPictureView.setImageResource(ResourceUtils.extractDrawableResource(MainActivity.this, player.getPicture()));
+//        avatarPictureView.setOnClickListener(v -> eventBus.post(new PickAvatarRequestEvent(EventSource.NAVIGATION_DRAWER)));
+//
+//        TextView currentXP = (TextView) header.findViewById(R.id.player_current_xp);
+//        currentXP.setText(String.format(getString(R.string.nav_drawer_player_xp), player.getExperience()));
+//        updatePetInDrawer(player.getPet());
+//
+//
+//        Button signIn = (Button) header.findViewById(R.id.sign_in);
+//        if (player.isAuthenticated()) {
+//            signIn.setVisibility(View.GONE);
+//            signIn.setOnClickListener(null);
+//        } else {
+//            signIn.setVisibility(View.VISIBLE);
+//            signIn.setOnClickListener(v -> startActivity(new Intent(this, SignInActivity.class)));
+//        }
     }
 
     private void updatePetInDrawer(Pet pet) {

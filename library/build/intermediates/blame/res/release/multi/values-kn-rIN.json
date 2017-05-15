@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-kn-rIN\\values-kn-rIN.xml",
+        "outputFile": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-kn-rIN\\values-kn-rIN.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 161
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 268
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 383
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -68,7 +68,7 @@
                     "endOffset": 466
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -87,7 +87,7 @@
                     "endOffset": 578
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -106,7 +106,7 @@
                     "endOffset": 704
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -125,7 +125,7 @@
                     "endOffset": 819
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -144,7 +144,7 @@
                     "endOffset": 925
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -163,7 +163,7 @@
                     "endOffset": 1022
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -182,7 +182,7 @@
                     "endOffset": 1122
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -201,7 +201,7 @@
                     "endOffset": 1217
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -220,7 +220,7 @@
                     "endOffset": 1316
                 },
                 "from": {
-                    "file": "C:\\Users\\Alireza\\AndroidStudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
+                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-kn-rIN\\strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
