@@ -794,6 +794,7 @@ public class EditQuestActivity extends BaseActivity implements
         appBar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         toolbar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         collapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(this, category.color500));
+        //// TODO: 5/18/2017 pre lollipop 
         getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
         getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
     }

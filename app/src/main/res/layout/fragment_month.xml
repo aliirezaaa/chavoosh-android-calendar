@@ -8,6 +8,17 @@
     android:orientation="vertical"
     >
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/month_bac_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </FrameLayout>
+
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/prev"
         android:layout_width="@dimen/icon_size"

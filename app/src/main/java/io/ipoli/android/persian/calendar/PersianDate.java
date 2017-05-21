@@ -12,7 +12,7 @@ public class PersianDate extends AbstractDate {
     private int month;
     private int day;
 
-    public PersianDate() {
+    public PersianDate(int year, int month, int day) {
         setYear(year);
         // Initialize day, so that we get no exceptions when setting month
         this.day = 1;

@@ -1,12 +1,15 @@
 package io.ipoli.android;
 
 import android.app.Application;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -14,6 +17,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -22,6 +26,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -91,6 +96,7 @@ import io.ipoli.android.quest.data.Quest;
 import io.ipoli.android.quest.events.DuplicateQuestRequestEvent;
 import io.ipoli.android.quest.events.EditQuestRequestEvent;
 import io.ipoli.android.quest.events.NewQuestEvent;
+import io.ipoli.android.quest.events.NewQuestTimePickedEvent;
 import io.ipoli.android.quest.events.QuestCompletedEvent;
 import io.ipoli.android.quest.events.ShareQuestEvent;
 import io.ipoli.android.quest.events.SnoozeQuestRequestEvent;
@@ -105,6 +111,8 @@ import io.ipoli.android.quest.ui.events.EditRepeatingQuestRequestEvent;
 import io.ipoli.android.reminder.data.Reminder;
 import io.ipoli.android.reward.fragments.RewardListFragment;
 import io.ipoli.android.shop.activities.CoinStoreActivity;
+import me.cheshmak.android.sdk.core.Cheshmak;
+import me.cheshmak.android.sdk.core.CheshmakConfig;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -145,7 +153,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         super.onCreate(savedInstanceState);
 
-        changeLanguage("fa");
+//        changeLanguage("fa");
+        cheshmakInit();
 //        changDirection();
         instance=this.getApplication();
         appComponent().inject(this);
@@ -189,8 +198,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
+           getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
     }
+    private void cheshmakInit() {
+        CheshmakConfig config = new CheshmakConfig();
+        config.setIsEnableAutoActivityReports(true);
+        config.setIsEnableExceptionReporting(true);
+        Cheshmak.with(getApplicationContext(), config);
 
+        Cheshmak.initTracker("G0qe5bjhhByjKq6K26y1RQ==");
+    }
     private void changeLanguage(String langouage) {
         Resources res = getResources();
 // Change locale settings in the app.
@@ -222,6 +241,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.home:
                 source = EventSource.CALENDAR;
                 startCalendar();
+                break;
+            case R.id.persian_home:
+                source = EventSource.PERSIAN_CALENDAR;
+                startPersianCalendar();
                 break;
 
             case R.id.overview:
@@ -355,6 +378,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void startCalendar() {
         changeCurrentFragment(new CalendarFragment());
     }
+    public void startPersianCalendar() {
+        Fragment f=new io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.CalendarFragment();
+        changeCurrentFragment( f );
+    }
 
     @Override
     public void onPause() {
@@ -364,7 +391,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void changeCurrentFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_container, fragment).commit();
+                .replace(R.id.content_container, fragment,fragment.getClass().getName()).commit();
         currentFragment = fragment;
         getSupportFragmentManager().executePendingTransactions();
     }
@@ -628,4 +655,5 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         return instance.getApplicationContext();
     }
+
 }

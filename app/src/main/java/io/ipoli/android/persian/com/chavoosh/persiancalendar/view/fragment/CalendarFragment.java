@@ -9,9 +9,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,7 +28,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import io.ipoli.android.MainActivity;
 import io.ipoli.android.R;
+import io.ipoli.android.app.BaseFragment;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
 
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.adapter.CalendarAdapter;
@@ -51,8 +58,9 @@ import io.ipoli.android.persian.com.github.praytimes.Clock;
 import io.ipoli.android.persian.com.github.praytimes.Coordinate;
 import io.ipoli.android.persian.com.github.praytimes.PrayTime;
 import io.ipoli.android.persian.com.github.praytimes.PrayTimesCalculator;
+import io.ipoli.android.persian.com.github.twaddington.TypefaceSpan;
 
-public class CalendarFragment extends Fragment
+public class CalendarFragment extends BaseFragment
         implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private ViewPager monthViewPager;
     private Utils utils;
@@ -179,10 +187,30 @@ public class CalendarFragment extends Fragment
         news_card_title = (TextView) view.findViewById(R.id.news_card_title);
         news_title = (TextView) view.findViewById(R.id.news_title);
         card_news = (CardView) view.findViewById(R.id.cardNews);
-        try {
-            showNews();
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+
+        //toolbar
+        Toolbar toolbar=(Toolbar)view.findViewById(R.id.toolbar);
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+//            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        ((MainActivity) getActivity()).actionBarDrawerToggle.syncState();
+
+        utils.setToolbar(toolbar);
+
+
+
+
+
+        if(utils.isNetworkConnected()){
+            try {
+                showNews();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         about_layout = (ScrollViewExt) view.findViewById(R.id.about_layout);
         about_layout.setScrollViewListener(new ScrollViewListener() {
@@ -445,6 +473,12 @@ public class CalendarFragment extends Fragment
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
 //        inflater.inflate(R.menu.action_button, menu);
+    }
+
+
+    @Override
+    protected boolean useOptionsMenu() {
+        return false;
     }
 
     @Override

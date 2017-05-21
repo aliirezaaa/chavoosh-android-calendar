@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,10 @@ import io.ipoli.android.app.utils.StringUtils;
 public class AddSubQuestView extends RelativeLayout implements View.OnClickListener {
     private List<OnSubQuestAddedListener> subQuestAddedListeners = new ArrayList<>();
     private List<OnAddSubQuestClosedListener> addSubQuestClosedListeners = new ArrayList<>();
+
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
 
     public interface OnSubQuestAddedListener {
         void onSubQuestAdded(String name);
@@ -88,10 +93,10 @@ public class AddSubQuestView extends RelativeLayout implements View.OnClickListe
         addButton = (TextView) view.findViewById(R.id.add_sub_quest_button);
         clearAddSubQuest = (ImageButton) view.findViewById(R.id.add_sub_quest_clear);
 
-        if(!showIcon) {
+        if (!showIcon) {
             view.findViewById(R.id.add_icon).setVisibility(INVISIBLE);
         }
-        if(closeIcon != null) {
+        if (closeIcon != null) {
             clearAddSubQuest.setImageDrawable(closeIcon);
         }
 
@@ -99,7 +104,7 @@ public class AddSubQuestView extends RelativeLayout implements View.OnClickListe
         editText.setOnEditorActionListener((v, actionId, event) -> onEditorAction(actionId));
         clearAddSubQuest.setOnClickListener(v -> {
             setInViewMode();
-            for(OnAddSubQuestClosedListener l : addSubQuestClosedListeners) {
+            for (OnAddSubQuestClosedListener l : addSubQuestClosedListeners) {
                 l.onAddSubQuestClosed();
             }
         });
@@ -151,7 +156,7 @@ public class AddSubQuestView extends RelativeLayout implements View.OnClickListe
 
     public void setInEditMode() {
         editText.postDelayed(() -> {
-            if(!editText.isFocused()) {
+            if (!editText.isFocused()) {
                 editText.requestFocus();
             }
         }, 100);

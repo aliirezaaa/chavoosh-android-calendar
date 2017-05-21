@@ -1,6 +1,7 @@
 package io.ipoli.android.challenge.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
@@ -9,6 +10,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 import com.squareup.otto.Subscribe;
@@ -96,8 +99,13 @@ public class PickChallengeActivity extends BaseActivity {
     private void setBackgroundColors(Category category) {
         rootContainer.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         appBar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+
+        }
+
     }
 
     @Override

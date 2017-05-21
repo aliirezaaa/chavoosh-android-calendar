@@ -1,5 +1,7 @@
 package io.ipoli.android.persian.calendar;
 
+import org.threeten.bp.LocalDate;
+
 /**
  * DateConverter is a utility class for converting between dates of different
  * calendars. This is carried out by various conversion methods provided by this
@@ -322,5 +324,10 @@ public final class DateConverter {
             else
                 return jd;
         }
+    }
+    public static LocalDate persianToLocalDate(PersianDate date){
+        CivilDate cDate = persianToCivil(date);
+        LocalDate lDate = LocalDate.of(cDate.getYear(), cDate.getMonth(), cDate.getDayOfMonth());
+        return lDate;
     }
 }

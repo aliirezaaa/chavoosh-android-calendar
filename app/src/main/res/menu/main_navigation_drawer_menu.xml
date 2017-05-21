@@ -5,10 +5,16 @@
         android:id="@+id/drawer_main_group"
         android:checkableBehavior="single">
         <item
+
             android:id="@+id/home"
             android:checked="true"
             android:icon="@drawable/ic_event_white_24dp"
-            android:title="@string/calendar" />
+            android:title="تقویم روزانه" />
+        <item
+            android:id="@+id/persian_home"
+            android:checked="true"
+            android:icon="@drawable/ic_event_white_24dp"
+            android:title="تقویم ماهیانه" />
 
         <item
             android:id="@+id/overview"
@@ -19,6 +25,7 @@
         <item
             android:id="@+id/inbox"
             android:checked="false"
+
             android:icon="@drawable/ic_inbox_white_24dp"
             android:title="@string/inbox" />
 

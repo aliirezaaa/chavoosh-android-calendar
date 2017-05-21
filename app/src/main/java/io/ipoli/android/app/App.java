@@ -357,11 +357,13 @@ public class App extends MultiDexApplication {
 
     @Subscribe
     public void onFinishSynCalendarActivity(FinishSyncCalendarActivityEvent e) {
-        startNewActivity(MainActivity.class);
-        Intent intent = new Intent(this, PickChallengeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(PickChallengeActivity.TITLE, getString(R.string.pick_challenge_to_start));
-        startActivity(intent);
+        return;
+        //// TODO: 5/21/2017 remove pick challenge  
+//        startNewActivity(MainActivity.class);
+//        Intent intent = new Intent(this, PickChallengeActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.putExtra(PickChallengeActivity.TITLE, getString(R.string.pick_challenge_to_start));
+//        startActivity(intent);
     }
 
     private void startNewActivity(Class clazz) {
@@ -670,7 +672,7 @@ public class App extends MultiDexApplication {
         quest.setDuration(Math.max(quest.getDuration(), Constants.QUEST_MIN_DURATION));
 
         if (quest.getEnd() != null) {
-            if (Objects.equals(quest.getEnd(), quest.getStart())) {
+            if (quest.getEnd().hashCode()==quest.getStart().hashCode()) {
                 quest.setScheduled(quest.getEnd());
             } else {
                 Date scheduledDate = questScheduler.schedule(quest);

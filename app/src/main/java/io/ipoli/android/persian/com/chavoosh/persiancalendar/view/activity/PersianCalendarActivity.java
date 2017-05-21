@@ -37,6 +37,8 @@ import io.ipoli.android.persian.com.chavoosh.persiancalendar.service.Application
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.ApplicationPreferenceFragment;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.CalendarFragment;
+import me.cheshmak.android.sdk.core.Cheshmak;
+import me.cheshmak.android.sdk.core.CheshmakConfig;
 //import com.google.android.gms.analytics.HitBuilders;
 //import com.google.android.gms.analytics.Tracker;
 
@@ -106,7 +108,7 @@ public class PersianCalendarActivity extends BaseActivity {
 //        updateUtils.update(true);
 
         //Start init cheshmak push notification
-//        cheshmakInit();
+
         //End init cheshmak push notification
 
 
@@ -126,7 +128,7 @@ public class PersianCalendarActivity extends BaseActivity {
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         } else {
-//            toolbar.setPadding(0, 0, 0, 0);
+            toolbar.setPadding(0, 0, 0, 0);
         }
 
 //        RecyclerView navigation = (RecyclerView) findViewById(R.id.navigation_view);
@@ -202,14 +204,7 @@ public class PersianCalendarActivity extends BaseActivity {
         super.finish();
     }
 
-//    private void cheshmakInit() {
-//        CheshmakConfig config = new CheshmakConfig();
-//        config.setIsEnableAutoActivityReports(true);
-//        config.setIsEnableExceptionReporting(true);
-//        Cheshmak.with(getApplicationContext(), config);
-//
-//        Cheshmak.initTracker("G0qe5bjhhByjKq6K26y1RQ==");
-//    }
+
 
 //    private void googleAnalyticsInit() {
 //        // Obtain the shared Tracker instance.

@@ -54,7 +54,7 @@
             android:layout_height="24dp"
             android:layout_gravity="center_vertical"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_star_accent_24dp" />
+            app:srcCompat="@drawable/ic_star_accent_24dp" />
 
 
         <ImageView
@@ -64,7 +64,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_repeating_quest_24dp_transparent" />
+            app:srcCompat="@drawable/ic_repeating_quest_24dp_transparent" />
 
 
         <ImageView
@@ -74,7 +74,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_sword_black_24dp" />
+            app:srcCompat="@drawable/ic_sword_black_24dp" />
 
         <com.lnikkila.extendedtouchview.ExtendedTouchView
             android:id="@+id/quest_more_menu_container"
@@ -91,7 +91,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_more_vert_black_24dp" />
+                app:srcCompat="@drawable/ic_more_vert_black_24dp" />
         </com.lnikkila.extendedtouchview.ExtendedTouchView>
 
 

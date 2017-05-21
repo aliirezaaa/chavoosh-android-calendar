@@ -2,6 +2,7 @@ package io.ipoli.android.quest.activities;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -262,8 +263,11 @@ public class QuestActivity extends BaseActivity implements Chronometer.OnChronom
     private void setBackgroundColors(Category category) {
         collapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(this, category.color500));
         collapsingToolbarLayout.setBackgroundColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+        }
+
     }
 
     @Subscribe

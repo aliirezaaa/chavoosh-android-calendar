@@ -15,6 +15,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.ViewTarget;
 
 import java.util.List;
 
@@ -24,6 +30,7 @@ import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.adapter.MonthAdapter;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.entity.DayEntity;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.CalendarFragment;
 
 
 public class MonthFragment extends Fragment implements View.OnClickListener {
@@ -119,8 +126,17 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
         } else {
             imgNum = offset;
         }
-        view.setBackgroundResource(images[imgNum]);
 
+//        view.setBackgroundResource(images[imgNum]);
+//glide
+        ImageView month_bac_img = (ImageView) view.findViewById(R.id.month_bac_img);
+
+        Glide.with(getContext()).load(images[imgNum])
+                .crossFade()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(month_bac_img);
 //        t.setBackgroundColor(getResources().getColor(colors[imgNum]));
     }
 

@@ -1,9 +1,11 @@
 package io.ipoli.android.app.ui.calendar;
 
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -75,6 +77,7 @@ public class CalendarDayView extends FrameLayout {
     }
     //// TODO: 5/15/2017 pre lollipop 
 //
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     public CalendarDayView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 
          super(context, attrs, defStyleAttr, defStyleRes);
@@ -138,12 +141,12 @@ public class CalendarDayView extends FrameLayout {
             return false;
         });
         //// TODO: 5/15/2017 on long click listener  
-//        hourCellsContainer.setOnLongClickListener(view -> {
-//            if (hourCellListener != null) {
-//                hourCellListener.onLongClickHourCell(Time.at(getHoursFor(hourCellClickYPos), getMinutesFor(hourCellClickYPos, 15)));
-//            }
-//            return false;
-//        });
+        hourCellsContainer.setOnLongClickListener(view -> {
+            if (hourCellListener != null) {
+                hourCellListener.onLongClickHourCell(Time.at(getHoursFor(hourCellClickYPos), getMinutesFor(hourCellClickYPos, 15)));
+            }
+            return false;
+        });
         return hourCellsContainer;
     }
 

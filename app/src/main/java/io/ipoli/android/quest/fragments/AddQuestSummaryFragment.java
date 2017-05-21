@@ -1,10 +1,13 @@
 package io.ipoli.android.quest.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.ibm.icu.util.LocaleData;
 import com.squareup.otto.Bus;
 
 import org.threeten.bp.DayOfWeek;
@@ -45,6 +49,10 @@ import io.ipoli.android.app.utils.KeyboardUtils;
 import io.ipoli.android.app.utils.StringUtils;
 import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.app.utils.TimePreference;
+import io.ipoli.android.persian.calendar.CivilDate;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.adapters.EditQuestSubQuestListAdapter;
 import io.ipoli.android.quest.data.Quest;
 import io.ipoli.android.quest.data.RepeatingQuest;
@@ -410,21 +418,38 @@ public class AddQuestSummaryFragment extends BaseFragment {
     private void showScheduledDate(Quest quest) {
         dateContainer.setVisibility(View.VISIBLE);
         recurrenceContainer.setVisibility(View.GONE);
-        if (Objects.equals(quest.getStart(), quest.getEnd())) {
-            scheduledDate.setText(DateFormatter.formatWithoutYear(quest.getEndDate()));
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Objects.equals(quest.getStart(), quest.getEnd())) {
+//                scheduledDate.setText(DateFormatter.formatWithoutYear(quest.getEndDate()));
+                scheduledDate.setText(getPersianDateFromQuest(quest));
+
+            }
+        } else if (quest.getStart().hashCode() == quest.getEnd()) {
+//            scheduledDate.setText(DateFormatter.formatWithoutYear(quest.getEndDate()));
+            scheduledDate.setText(getPersianDateFromQuest(quest));
+
         } else {
             LocalDate byDate = quest.getEndDate();
             LocalDate today = LocalDate.now();
-            if (byDate.equals(today.with(DayOfWeek.SUNDAY))) {
+            if (byDate.equals(today.with(DayOfWeek.FRIDAY))) {
                 scheduledDate.setText(R.string.by_end_of_week);
             } else if (byDate.equals(today.with(lastDayOfMonth()))) {
                 scheduledDate.setText(R.string.by_end_of_month);
             } else {
-                String dayNumberSuffix = DateUtils.getDayNumberSuffix(byDate.getDayOfMonth());
-                DateFormat dateFormat = new SimpleDateFormat(getString(R.string.agenda_daily_journey_format, dayNumberSuffix));
-                scheduledDate.setText(getString(R.string.add_quest_by_date, dateFormat.format(DateUtils.toStartOfDay(byDate))));
+//                String dayNumberSuffix = DateUtils.getDayNumberSuffix(byDate.getDayOfMonth());
+//                DateFormat dateFormat = new SimpleDateFormat(getString(R.string.agenda_daily_journey_format, dayNumberSuffix));
+//                scheduledDate.setText(getString(R.string.add_quest_by_date, dateFormat.format(DateUtils.toStartOfDay(byDate))));
+
+                scheduledDate.setText(getPersianDateFromQuest(quest));
+                Log.i("add quest summary",getPersianDateFromQuest(quest));
             }
         }
+    }
+    public String getPersianDateFromQuest(Quest quest){
+        CivilDate cDate=new CivilDate(quest.getEndDate().getYear(), quest.getEndDate().getMonthValue(), quest.getEndDate().getDayOfMonth());
+        PersianDate pDate = DateConverter.civilToPersian(cDate);
+
+        return Utils.getInstance(getContext()).dateToString(pDate);
     }
 
 }

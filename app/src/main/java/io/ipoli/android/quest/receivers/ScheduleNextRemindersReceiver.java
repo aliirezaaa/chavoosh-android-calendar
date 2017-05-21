@@ -43,7 +43,7 @@ public class ScheduleNextRemindersReceiver extends BroadcastReceiver {
             if (Build.VERSION.SDK_INT > 22) {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextReminderTime, pendingIntent);
             } else {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextReminderTime, pendingIntent);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, nextReminderTime, pendingIntent);
             }
             result.finish();
         });

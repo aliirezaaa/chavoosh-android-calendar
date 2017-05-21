@@ -338,7 +338,7 @@ public class DayViewFragment extends BaseFragment implements CalendarListener<Qu
             return;
         }
         Collections.sort(schedule.getUnscheduledQuests(), (q1, q2) ->
-                -Integer.compare(q1.getDuration(), q2.getDuration()));
+                -(q1.getDuration() - q2.getDuration()));
         List<UnscheduledQuestViewModel> unscheduledViewModels = new ArrayList<>();
         List<QuestCalendarViewModel> scheduledEvents = schedule.getCalendarEvents();
 
@@ -363,7 +363,7 @@ public class DayViewFragment extends BaseFragment implements CalendarListener<Qu
         setUnscheduledQuestsHeight();
         calendarDayView.onMinuteChanged();
     }
-
+    //choose time for quest
     private void proposeSlotForQuest(List<QuestCalendarViewModel> scheduledEvents, ProbabilisticTaskScheduler probabilisticTaskScheduler, List<QuestCalendarViewModel> proposedEvents, Quest q) {
         DiscreteDistribution posterior = posteriorEstimator.posteriorFor(q);
 
@@ -507,8 +507,8 @@ public class DayViewFragment extends BaseFragment implements CalendarListener<Qu
         } else {
             dateText = "on " + DateFormatter.formatWithoutYear(currentDate);
         }
-
-        eventBus.post(new StartQuickAddEvent(" at " + atTime.toString() + " " + dateText));
+//          remove quick add event
+//        eventBus.post(new StartQuickAddEvent(" at " + atTime.toString() + " " + dateText));
     }
 
     private class Schedule {

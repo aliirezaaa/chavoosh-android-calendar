@@ -40,7 +40,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_done_green_24dp" />
+            app:srcCompat="@drawable/ic_done_green_24dp" />
     </com.lnikkila.extendedtouchview.ExtendedTouchView>
 
     <com.lnikkila.extendedtouchview.ExtendedTouchView
@@ -60,7 +60,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_reject_red_24dp" />
+            app:srcCompat="@drawable/ic_reject_red_24dp" />
     </com.lnikkila.extendedtouchview.ExtendedTouchView>
 
 </RelativeLayout>

@@ -1,13 +1,18 @@
 package io.ipoli.android.quest.fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -94,6 +99,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
     private FragmentStatePagerAdapter adapter;
 
     private LocalDate currentMidDate;
+    private PersianDate persianCurrentMidDate;
     private Utils utils;
 
     private DatePickerDialog dpd;
@@ -106,7 +112,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 
          */
 
-
+        initLocalTimeBroadCast();
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         ButterKnife.bind(this, view);
@@ -208,7 +214,12 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 
     private void changeTitle(PersianDate date) {
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(getToolbarText(date)), Locale.getDefault());
-        toolbarTitle.setText(utils.shape(utils.dateToString(date)));
+//
+
+       toolbarTitle.setText(utils.shape(utils.dateToString(date)));
+
+
+
     }
 
     private void changeTitle(LocalDate date) {
@@ -219,7 +230,11 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 //        String displayDate = String.valueOf(date.getYear() + "-" + date.getMonth() + "-" + utils.getWeekDayName(date));
 //        Utils.getInstance(getContext()).setFontAndShape(toolbarTitle);
 //        Utils.getInstance(getContext().)
+
+
         toolbarTitle.setText(utils.shape(utils.dateToString(pDate)));
+
+//        toolbarTitle.setText(utils.shape(utils.dateToString(pDate)));
     }
 
 
@@ -241,16 +256,18 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         if (e.source == CalendarDayChangedEvent.Source.SWIPE) {
             return;
         }
-        changeCurrentDay(e.date, e.time);
+
+        changeCurrentDay(e.date, e.time, utils.getSelectedPersianDate());
     }
 
-    private void changeCurrentDay(LocalDate date) {
-        changeCurrentDay(date, null);
+    private void changeCurrentDay(LocalDate date, PersianDate pDate) {
+        changeCurrentDay(date, null, pDate);
     }
 
-    private void changeCurrentDay(LocalDate date, Time time) {
+    private void changeCurrentDay(LocalDate date, Time time, PersianDate pDate) {
+
         currentMidDate = date;
-        changeTitle(currentMidDate);
+        changeTitle(pDate);
         adapter.notifyDataSetChanged();
 
         calendarPager.setCurrentItem(MID_POSITION, false);
@@ -258,6 +275,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
             eventBus.post(new ScrollToTimeEvent(time));
         }
     }
+
 
     private FragmentStatePagerAdapter createAdapter() {
         return new FragmentStatePagerAdapter(getChildFragmentManager()) {
@@ -291,16 +309,19 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 //        pickTime();
 //        pickDate();
 //todo change this to go persian calnedar activity
-        LocalDate currentDate = currentMidDate.plusDays(calendarPager.getCurrentItem() - MID_POSITION);
-        Intent i = new Intent(getContext(), PersianCalendarActivity.class);
-        i.putExtra(Constants.CURRENT_SELECTED_DAY_EXTRA_KEY, DateUtils.toMillis(currentDate));
-//        startActivity(i);
+//        LocalDate currentDate = currentMidDate.plusDays(calendarPager.getCurrentItem() - MID_POSITION);
+//        Intent i = new Intent(getContext(), PersianCalendarActivity.class);
+//        i.putExtra(Constants.CURRENT_SELECTED_DAY_EXTRA_KEY, DateUtils.toMillis(currentDate));
+////        startActivity(i);
+//
+//
+//        //todo uncomment this
+//        startActivityForResult(i, SHOW_AGENDA_REQUEST_CODE);
+//        getActivity().overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
+//        eventBus.post(new ToolbarCalendarTapEvent());
 
 
-        //todo uncomment this
-        startActivityForResult(i, SHOW_AGENDA_REQUEST_CODE);
-        getActivity().overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
-        eventBus.post(new ToolbarCalendarTapEvent());
+        Utils.getInstance(getContext()).pickDate(CalendarFragment.this, "ON_DATE_SET_FOR_MAIN");
 
     }
 
@@ -391,7 +412,10 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         if (requestCode == SHOW_AGENDA_REQUEST_CODE && resultCode == RESULT_OK) {
 //            Long dateMillis = data.getLongExtra(Constants.CURRENT_SELECTED_DAY_EXTRA_KEY, DateUtils.toMillis(LocalDate.now()));
 //            changeCurrentDay(DateUtils.fromMillis(dateMillis));
-            changeTitle(utils.getSelectedPersianDate());
+            CivilDate cDate = DateConverter.persianToCivil(utils.getSelectedPersianDate());
+            LocalDate lDate = LocalDate.of(cDate.getYear(), cDate.getMonth(), cDate.getDayOfMonth());
+            changeCurrentDay(lDate, null, utils.getSelectedPersianDate());
+//            changeTitle(utils.getSelectedPersianDate());
         }
     }
 
@@ -406,4 +430,30 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         Log.i("onDateset ", "" + civilDate.getYear() + civilDate.getMonth() + civilDate.getDayOfMonth());
         Log.i("persian date ", "" + pDate.getYear() + pDate.getMonth() + pDate.getDayOfMonth());
     }
+
+
+    private void initLocalTimeBroadCast() {
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReciever,
+                new IntentFilter("ON_DATE_SET_FOR_MAIN"));
+    }
+
+    private BroadcastReceiver dateReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int year = intent.getIntExtra("year", 0);
+            int month = intent.getIntExtra("month", 0);
+            int day = intent.getIntExtra("day", 0);
+            Log.d("receiver", "Got message: " + year);
+            Log.d("receiver", "Got message: " + month);
+            Log.d("receiver", "Got message: " + day);
+//      \      Time tm=Time.at(hour,minute);
+//            postEvent(new NewQuestTimePickedEvent(tm));
+//            month++;
+
+            PersianDate pDate=new PersianDate(year, month, day);
+            changeCurrentDay(DateConverter.persianToLocalDate(pDate), null, pDate);
+
+        }
+    };
 }

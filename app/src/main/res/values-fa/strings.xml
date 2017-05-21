@@ -402,10 +402,10 @@
     <string name="invite_message">I\'ll tell you a secret. I use this app to really get things done! Here is your invite!</string>
     <string name="invite_call_to_action">Download Now</string>
     <string name="completed">Completed</string>
-    <string name="next">Next</string>
-    <string name="any_reasonable_time">Any reasonable time</string>
-    <string name="work_hours">Work hours</string>
-    <string name="personal_hours">Personal hours</string>
+    <string name="next">بعدی</string>
+    <string name="any_reasonable_time">هر زمان ممکن</string>
+    <string name="work_hours">ساعت های کاری</string>
+    <string name="personal_hours">ساعت های شخصی</string>
     <string name="morning">صبح</string>
     <string name="afternoon">بعدازظهر</string>
     <string name="evening">عصر</string>
@@ -427,9 +427,9 @@
     <string name="title_fragment_wizard_quest_priority">How important is it?</string>
     <string name="set_challenge">Set Challenge</string>
     <string name="add_reminder">افزودن یادآور</string>
-    <string name="by_end_of_week">By the end of the week</string>
-    <string name="by_end_of_month">By the end of the month</string>
-    <string name="note">Note</string>
+    <string name="by_end_of_week">آخر هفته</string>
+    <string name="by_end_of_month">آخر ماه</string>
+    <string name="note">یادداشت</string>
     <string name="at_any_reasonable_time">At any reasonable time</string>
     <string name="title_fragment_wizard_repeating_quest_name">New Repeating Quest</string>
     <string name="quest_priority_question">How important it is?</string>

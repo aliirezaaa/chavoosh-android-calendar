@@ -4,21 +4,29 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
+import android.app.Application;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.RawRes;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
@@ -34,6 +42,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.ibm.icu.util.ULocale;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,6 +70,8 @@ import java.util.concurrent.TimeUnit;
 
 
 import io.ipoli.android.R;
+import io.ipoli.android.app.BaseFragment;
+import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.persian.calendar.AbstractDate;
 import io.ipoli.android.persian.calendar.CivilDate;
 import io.ipoli.android.persian.calendar.DateConverter;
@@ -66,6 +80,7 @@ import io.ipoli.android.persian.calendar.IslamicDate;
 import io.ipoli.android.persian.calendar.PersianDate;
 
 import io.ipoli.android.persian.com.azizhuss.arabicreshaper.ArabicShaping;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.adapter.ShapedArrayAdapter;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.entity.CityEntity;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.entity.DayEntity;
@@ -79,6 +94,8 @@ import io.ipoli.android.persian.com.github.praytimes.Coordinate;
 import io.ipoli.android.persian.com.github.praytimes.PrayTime;
 import io.ipoli.android.persian.com.github.praytimes.PrayTimesCalculator;
 import io.ipoli.android.persian.com.github.twaddington.TypefaceSpan;
+import io.ipoli.android.quest.fragments.AddQuestDateFragment;
+import io.ipoli.android.quest.fragments.CalendarFragment;
 
 
 import static io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants.AM_IN_PERSIAN;
@@ -153,6 +170,7 @@ public class Utils {
     private CityEntity cachedCity;
     private Toolbar toolbar;
     private PersianDate selectedPersianDate;
+
     private Utils(Context context) {
         this.context = context;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -246,6 +264,8 @@ public class Utils {
         subtitleSpan.setSpan(new TypefaceSpan(typeface), 0, subtitleSpan.length(), 0);
         subtitleSpan.setSpan(new RelativeSizeSpan(0.8f), 0, subtitleSpan.length(), 0);
         supportActionBar.setSubtitle(subtitleSpan);
+
+        Log.i("subtitle changed", "change title");
     }
 
     public CalculationMethod getCalculationMethod() {
@@ -866,10 +886,11 @@ public class Utils {
     public void setSelectedPersianDate(PersianDate selectedPersianDate) {
         this.selectedPersianDate = selectedPersianDate;
     }
-    public PersianDate getSelectedPersianDate(){
-        if(this.selectedPersianDate ==null){
+
+    public PersianDate getSelectedPersianDate() {
+        if (this.selectedPersianDate == null) {
             return getToday();
-        }else {
+        } else {
             return this.selectedPersianDate;
         }
 
@@ -981,7 +1002,7 @@ public class Utils {
         List<DayEntity> days = new ArrayList<>();
         PersianDate persianDate = getToday();
         int month = persianDate.getMonth() - offset;
-        Log.i("month",String.valueOf(month));
+        Log.i("month", String.valueOf(month));
         month -= 1;
         int year = persianDate.getYear();
 
@@ -1100,14 +1121,130 @@ public class Utils {
 
         return startingYearOnYearSpinner;
     }
-    public Context getContext(){
+
+    public Context getContext() {
         return this.context;
     }
 
-    public void  setToolbar(Toolbar t) {
-        this.toolbar=t;
+    public void setToolbar(Toolbar t) {
+        this.toolbar = t;
     }
+
     public Toolbar getToolbar() {
         return this.toolbar;
+    }
+
+    public void pickTime(BaseFragment fragment, String tag) {
+
+        Calendar now = Calendar.getInstance();
+
+        TimePickerDialog tpd = TimePickerDialog.newInstance(
+                (view, hourOfDay, minute, second) -> {
+                    String hourString = hourOfDay < 10 ? "0" + hourOfDay : "" + hourOfDay;
+                    String minuteString = minute < 10 ? "0" + minute : "" + minute;
+                    String secondString = second < 10 ? "0" + second : "" + second;
+                    String time = "You picked the following time: " + hourString + "h" + minuteString + "m" + secondString + "s";
+//        timeTextView.setText(time);
+                    Log.i("on Time set ", time);
+//                    tm=Time.at(hourOfDay,minute);
+                    Intent time_intent = new Intent(tag);
+                    time_intent.putExtra("hour", hourOfDay);
+                    time_intent.putExtra("minute", minute);
+                    LocalBroadcastManager.getInstance(getContext()).sendBroadcast(time_intent);
+                },
+                now.get(Calendar.HOUR_OF_DAY),
+                now.get(Calendar.MINUTE),
+                true
+        );
+
+        tpd.setThemeDark(false);
+        tpd.vibrate(true);
+        tpd.dismissOnPause(true);
+        tpd.enableSeconds(false);
+        tpd.enableMinutes(true);
+        if (true) {
+            tpd.setAccentColor(Color.parseColor("#2672b0"));
+        }
+        if (true) {
+            tpd.setTitle("TimePicker Title");
+        }
+        if (false) {
+            tpd.setTimeInterval(2, 5, 10);
+
+        }
+        tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                Log.d("TimePicker", "Dialog was cancelled");
+            }
+        });
+//        tpd.show(getFragmentManager(), "Timepickerdialog");
+//        tpd.show(getFragmentManager(),"");
+//        FragmentManager fm=getFragmentManager();
+        tpd.show(fragment.getActivity().getFragmentManager(), "Timepickerdialog");
+
+    }
+
+    public void pickDate(BaseFragment fragment, String tag) {
+        DatePickerDialog dpd;
+        com.ibm.icu.util.Calendar now = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
+//        Log.i("calendar.now ",
+//                "" + now.get(com.ibm.icu.util.Calendar.YEAR)
+//                +""+ now.get(com.ibm.icu.util.Calendar.MONTH)+
+//                ""+  now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH));
+
+//        dpd = DatePickerDialog.newInstance(
+//                AddQuestDateFragment.this,
+//                now.get(com.ibm.icu.util.Calendar.YEAR),
+//                now.get(com.ibm.icu.util.Calendar.MONTH),
+//                now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH)
+//        );
+        dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
+                    Intent date_intent = new Intent(tag);
+                    date_intent.putExtra("year", year);
+                    date_intent.putExtra("month", ++monthOfYear);
+                    date_intent.putExtra("day", dayOfMonth);
+                    LocalBroadcastManager.getInstance(getContext()).sendBroadcast(date_intent);
+                },
+                now.get(com.ibm.icu.util.Calendar.YEAR),
+                now.get(com.ibm.icu.util.Calendar.MONTH),
+                now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH));
+
+        dpd.setThemeDark(false);
+        dpd.vibrate(true);
+        dpd.dismissOnPause(true);
+        dpd.showYearPickerFirst(false);
+        if (true) {
+            dpd.setAccentColor(Color.parseColor("#2196F3"));
+        }
+        if (true) {
+            dpd.setTitle("انتخاب تاریخ");
+        }
+        if (false) {
+            com.ibm.icu.util.Calendar[] dates = new com.ibm.icu.util.Calendar[13];
+            for (int i = -6; i <= 6; i++) {
+                com.ibm.icu.util.Calendar date = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
+                date.add(com.ibm.icu.util.Calendar.MONTH, i);
+                dates[i + 6] = date;
+            }
+            dpd.setSelectableDays(dates);
+        }
+        if (false) {
+            com.ibm.icu.util.Calendar[] dates = new com.ibm.icu.util.Calendar[13];
+            for (int i = -6; i <= 6; i++) {
+                com.ibm.icu.util.Calendar date = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
+                date.add(com.ibm.icu.util.Calendar.WEEK_OF_YEAR, i);
+                dates[i + 6] = date;
+            }
+            dpd.setHighlightedDays(dates);
+        }
+//        dpd.initialize();
+        dpd.show(fragment.getActivity().getFragmentManager(), "Datepickerdialog");
+    }
+
+    public boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

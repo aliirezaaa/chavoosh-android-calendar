@@ -52,6 +52,7 @@ public class PickChallengeAdapter extends PagerAdapter {
 
         challengeName.setText(pc.challenge.getName());
         challengeDescription.setText(pc.description);
+        //// TODO: 5/18/2017 pre lollipop problem 
         challengePicture.setImageDrawable(context.getDrawable(pc.picture));
         personalize.setOnClickListener(view1 -> eventBus.post(new PersonalizeChallengeEvent(position)));
 
