@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -383,8 +384,12 @@ public class ChallengeActivity extends BaseActivity {
         appBar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         toolbar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         collapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+        }
 
     }
 

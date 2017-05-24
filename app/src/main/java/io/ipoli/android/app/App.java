@@ -358,7 +358,7 @@ public class App extends MultiDexApplication {
     @Subscribe
     public void onFinishSynCalendarActivity(FinishSyncCalendarActivityEvent e) {
         return;
-        //// TODO: 5/21/2017 remove pick challenge  
+        //// TODO: 5/21/2017 remove pick challenge
 //        startNewActivity(MainActivity.class);
 //        Intent intent = new Intent(this, PickChallengeActivity.class);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

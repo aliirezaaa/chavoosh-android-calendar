@@ -1,5 +1,6 @@
 package io.ipoli.android.challenge.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -537,7 +538,9 @@ public class PersonalizeChallengeActivity extends BaseActivity {
     private void setBackgroundColors() {
         collapsingToolbar.setContentScrimColor(ContextCompat.getColor(this, category.color500));
         collapsingToolbar.setStatusBarScrimColor(ContextCompat.getColor(this, category.color700));
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
+        }
     }
 
     @OnClick(R.id.accept_challenge)

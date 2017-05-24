@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content_layout"
     android:layout_width="match_parent"
     android:layout_height="60dp"
@@ -52,7 +53,7 @@
         android:layout_toStartOf="@+id/challenge_quest_more_menu"
         android:layout_centerVertical="true"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_repeating_quest_24dp_transparent" />
+        app:srcCompat="@drawable/ic_repeating_quest_24dp_transparent" />
 
     <ImageButton
         android:id="@+id/challenge_quest_more_menu"
@@ -65,5 +66,5 @@
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_more_vert_black_24dp" />
+        app:srcCompat="@drawable/ic_more_vert_black_24dp" />
 </RelativeLayout>

@@ -1,5 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">iPoli</string>
+
+    <string name="app_name">تقویم فارسی</string>
+    <string name="widget_name">تقویم فارسی</string>
+    <string name="widget_mini_name">تقویم فارسی (کوچک)</string>
+    <string name="latitude">عرض جغرافیایی</string>
+    <string name="longitude">طول جغرافیایی</string>
+    <string name="settings">تنظیمات</string>
+    <string name="exit">خروج</string>
+    <string name="enable_persian_digits">نمایش عددها به فارسی</string>
+    <string name="persian_digits">عددهای فارسی</string>
+    <string name="showing_clock_on_widget">نمایش ساعت در ابزارک</string>
+    <string name="clock_on_widget">ساعت در ابزارک</string>
+    <string name="showing_clock_in_24"> نمایش ساعت به صورت ۲۴ تایی</string>
+    <string name="clock_in_24">۲۴ ساعته</string>
+    <string name="about">درباره</string>
+    <string name="gpl_logo">نشان پروانهٔ جامع همگانی گنو</string>
+    <string name="widget_text_colors">رنگ متن ابزارک</string>
+    <string name="clock">ساعت</string>
+    <string name="date">تاریخ</string>
+    <string name="date_converter">تبدیل تاریخ</string>
+    <string name="logo">نشان</string>
+    <string name="dari_months">ماه‌های دری</string>
+    <string name="enable_dari">فعال کردن ماه‌های دری</string>
+    <string name="widget_notification_dashclock">ابزارک، نوار آگاهی و دش‌کلاک</string>
+    <string name="general">عمومی</string>
+    <string name="widget_text_color">رنگ نوشته‌های ابزارک</string>
+    <string name="select_widgets_text_color">انتخاب رنگ دل‌خواه برای نوشته‌های ابزارک</string>
+    <string name="pray_times_calculation_setting">تنظیمات محاسبهٔ اوقات شرعی و قبله‌نما</string>
+    <string name="notify_date">فعال کردن آگاهی</string>
+    <string name="enable_notify">آگاهی همیشگی از تاریخ‌ها، اعمال غیرفعال‌سازی آن نیاز به خاموش و روشن کردن دستگاه دارد</string>
+    <string name="select_skin">انتخاب پوسته</string>
+    <string name="skin">پوسته</string>
+    <string name="pray_methods">شیوه‌های محاسبه</string>
+    <string name="pray_methods_calculation">شیوه‌های محاسبهٔ اوقات شرعی</string>
+    <string name="altitude">ارتفاع</string>
+    <string name="altitude_praytime">به متر (اختیاری)</string>
+    <string name="gps_location">دریافت مختصات از جی‌پی‌اس یا شبکه</string>
+    <string name="gps_location_help">اگر از این طریق ممکن باشد، به باقی تنظیمات این بخش نیاز نیست</string>
+    <string name="location">موقعیت</string>
+    <string name="location_help">اگر در فهرست نبود، مختصات را وارد کنید</string>
+    <string name="showing_iran_time">نمایش ابزارک‌ها، نوار آگاهی و برنامه به وقت ایران در همه‌جا</string>
+    <string name="iran_time">وقت ایران</string>
+    <string name="qibla_compass">قطب‌نما/قبله‌نما</string>
+    <string name="compass">قطب‌نما</string>
+    <string name="compass_not_found">حسگر قطب‌نما پیدا نشد</string>
+
+    <string name="month_names">نام ماه‌ها</string>
+    <string name="calendar_font">قلم تقویم</string>
+    <string name="application_language">زبان برنامه</string>
+    <string name="language">زبان</string>
+    <string name="calendar_language">زبان تقویم</string>
+    <string name="calendar_language_summary">زبانی که ماه‌ها و روزها به آن نمایش داده می‌شوند</string>
+    <string name="version">نگارش</string>
+    <string name="calendar_font_summary">تغییر قلم تقویم</string>
+    <string name="athan">اذان</string>
+    <string name="athan_alarm_summary">برای این نمازها اذان گفته شود</string>
+    <string name="athan_alarm">اذان‌ها</string>
+    <string name="athan_sound">صدای اذان</string>
+    <string name="match_system">تطبیق با سامانه</string>
+    <string name="athan_volume_summary">تنظیم حجم صدای اذان</string>
+    <string name="athan_volume">حجم صدا</string>
+    <string name="tap_to_stop_athan">برای توقف اذان ضربه بزنید</string>
+    <string name="playing_athan">در حال پخش اذان</string>
+    <string name="athan_disabled_summary">برای فعال کردن تنظیمات اذان، مکانی را از فهرست برگزیده، یا مشخصات موقعیتتان را وارد کنید</string>
+    <string name="athan_gap">فاصلهٔ بین اذان واقعی و اذان برنامه</string>
+    <string name="athan_gap_summary">چند دقیقه پیش از اذان، هشدار به صدا در آورده شود</string>
+    <string name="closeDrawer">بستن</string>
+    <string name="openDrawer">گشودن</string>
+    <string name="azan1">اذان صبح</string>
+    <string name="azan2">اذان ظهر</string>
+    <string name="azan3">عصر</string>
+    <string name="azan4">اذان مغرب</string>
+    <string name="azan5">عشاء</string>
+    <string name="aftab1">طلوع آفتاب</string>
+    <string name="aftab2">غروب آفتاب</string>
+    <string name="aftab3">نیمه‌شب شرعی</string>
+    <string name="owghat">اوقات شرعی</string>
+    <string name="events">رویداد‌ها</string>
+    <string name="today">امروز</string>
+    <string name="select_type_date">گزینش گونهٔ تاریخ</string>
+    <string name="year">سال</string>
+    <string name="mount">ماه</string>
+    <string name="day">روز</string>
+    <string name="select_year">گزینش سال</string>
+    <string name="select_mount">گزینش ماه</string>
+    <string name="select_day">گزینش روز</string>
+    <string name="date_exception">تاریخ وارد شده اشتباه است!</string>
+    <string name="in_city_time">به افق</string>
+    <string name="islamic_offset">تنظیم تقویم اسلامی</string>
+    <string name="islamic_offset_summary">بازگشت برای اصلاح تقویم</string>
+
+    <string-array name="calendar_type">
+        <item>هجری شمسی</item>
+        <item>هجری قمری</item>
+        <item>میلادی</item>
+    </string-array>
+
+    <string name="date_copied_clipboard">به حافظه رونوشت شد</string>
+    <string name="stop">توقف</string>
+    <string name="goto_date">برو به تاریخ</string>
+    <string name="select">انتخاب</string>
+    <string name="pleasewaitgps">کمی درنگ کنید… اگر پس از یک دقیقه نتیجه‌ای حاصل نشد احتمالاً باید گزینه‌های دیگر را بیازمایید</string>
+    <string name="holidaysIncompletenessWarning">مناسبت‌های این سال در تقویم کامل نیست.</string>
+    <string name="shouldBeUpdated">مناسبت‌های تقویم امسال کامل نیست، احتمالاً نیاز به به‌روزرسانی این برنامه، در صورت وجود، دارید.</string>
+
+
+    <!--ipoli strings-->
+
     <string name="title_fragment_inbox">Inbox</string>
     <string name="title_activity_pick_avatar">Pick avatar</string>
     <string name="title_edit_quest">Edit quest</string>
@@ -11,17 +119,17 @@
     <string name="challenge_complete">Challenge %s complete</string>
     <string name="quest_undone">Quest undone. -%1$d XP -%2$d coins.</string>
     <string name="quest_undone_to_inbox">Quest moved to Inbox. -%1$d XP -%2$d coins.</string>
-    <string name="today">Today</string>
+    <!--<string name="today">Today</string>-->
     <string name="add_quest_name_hint">Name (e.g. Read a book)</string>
-    <string name="start">Start</string>
-    <string name="edit">Edit</string>
-    <string name="stop">Stop</string>
+    <string name="start">شروع</string>
+    <string name="edit">ویرایش</string>
+    <!--<string name="stop">Stop</string>-->
     <string name="quest_item_full_duration">%1$d h %2$d m</string>
     <string name="quest_item_minutes_duration">%d min</string>
     <string name="quest_item_hours_duration">%d h</string>
-    <string name="tomorrow">Tomorrow</string>
-    <string name="next_7_days">Next 7 days</string>
-    <string name="cancel">Cancel</string>
+    <string name="tomorrow">فردا</string>
+    <string name="next_7_days">هفت روز آینده</string>
+    <string name="cancel">لغو</string>
     <string name="title_fragment_wizard_quest_name">New Quest</string>
     <string name="unknown_choice">Don\'t know</string>
     <string name="delete">Delete</string>
@@ -32,7 +140,7 @@
     <string name="dialog_delete_challenge_message">Would you like to remove all quests for the challenge as well?</string>
     <string name="inbox">Inbox</string>
     <string name="feedback">Improve iPoli</string>
-    <string name="contact_us">Contact Us</string>
+    <string name="contact_us">ارتباط با ما</string>
     <string name="yesterday_calendar_format">\'Yesterday - \'d MMM</string>
     <string name="today_calendar_format">\'Today - \'EEE, d MMM</string>
     <string name="tomorrow_calendar_format">\'Tomorrow - \'d MMM</string>
@@ -42,7 +150,7 @@
     <string name="quest_scheduled_for_today">Quest scheduled for today</string>
     <string name="quest_scheduled_for_tomorrow">Quest scheduled for tomorrow</string>
 
-    <string name="contact_us_email_chooser_title">Contact us</string>
+    <string name="contact_us_email_chooser_title">ارتباط با ما</string>
     <string name="repeating_quest_saved">Repeating Quest saved</string>
 
     <string-array name="growth_intervals">
@@ -53,7 +161,7 @@
 
     <string name="title_activity_main">iPoli</string>
 
-    <string name="save">SAVE</string>
+    <string name="save">ذخیره</string>
     <string name="tutorial_welcome_title">3 Simple Steps to Upgrade Your Life</string>
     <string name="tutorial_hero_desc">Your daily tasks and habits are now called quests. Earn life coins and experience by completing them!</string>
     <string name="tutorial_challenges_title">Keep Challenging Yourself</string>
@@ -70,9 +178,9 @@
     <string name="add">ADD</string>
     <string name="rate_dialog_initial_title">Hey Hero</string>
     <string name="rate_dialog_initial_message">Do you love iPoli?</string>
-    <string name="dialog_yes">Yes</string>
-    <string name="dialog_no">No</string>
-    <string name="dialog_ok">OK</string>
+    <string name="dialog_yes">بله</string>
+    <string name="dialog_no">خیر</string>
+    <string name="dialog_ok">باشه!</string>
     <string name="rate_dialog_never_ask_again">Never ask again</string>
     <string name="rate_dialog_rate_title">Me too!</string>
     <string name="rate_dialog_rate_message">Encourage us by rating iPoli on Google Play?</string>
@@ -87,8 +195,8 @@
     <string name="help_dialog_pick_daily_challenge_quests_title">Why to accept daily challenge?</string>
     <string name="help_dialog_inbox_title">What is my inbox for?</string>
     <string name="help_dialog_repeating_quests_title">What are my repeating quests?</string>
-    <string name="help_dialog_ok">OK</string>
-    <string name="help_dialog_more_help">More help</string>
+    <string name="help_dialog_ok">باشه!</string>
+    <string name="help_dialog_more_help">راهنمای بیشتر</string>
     <string name="help_wanted_email_subject">Help wanted</string>
     <string name="help_wanted_chooser_title">Ask us for help</string>
     <string name="help_dialog_calendar_text1">Calendar is the place where you can control your daily schedule.</string>
@@ -154,12 +262,14 @@
     <string name="reward_description_question">Why do you want this reward?</string>
     <string name="reward_price_question">How much does it cost?</string>
     <string name="reward_saved">Reward saved</string>
-    <string name="quest_note_question">Note</string>
+    <string name="quest_note_question">یادداشت</string>
     <string name="none">None</string>
     <string name="pick_note_title">Enter a note</string>
     <string name="empty_text_chanllenge">Add your challenges and conquer them!</string>
-    <string name="settings">Settings</string>
-    <string name="accept">Accept</string>
+    <!--<string name="settings">Settings</string>-->
+    <string name="accept">قبول</string>
+    <string name="my_events">کارهای شخصی</string>
+
     <string name="challenge_days_question">Challenge me on these days</string>
     <string name="no_challenge_days">No days selected</string>
     <string name="do_not_know">Don\'t know</string>
@@ -212,7 +322,7 @@
     <string name="help_dialog_repeating_quest_duration">How much time you\'ve spent on this quest</string>
     <string name="help_dialog_repeating_quest_next">When is the next quest</string>
     <string name="help_dialog_repeating_quest_streak">Streak counter. The higher your streak, the more XP and coins you will receive when completing the quest.</string>
-    <string name="action_search">Search</string>
+    <string name="action_search">جستجو</string>
     <string name="title_pick_challenge_quests_activity">Choose quests</string>
     <string name="unscheduled">Unscheduled</string>
     <string name="help_dialog_challenge_title">Track your challenge</string>
@@ -254,7 +364,7 @@
     <string name="help_dialog_pet_text1">This is your personal pet who will help you in your journey!</string>
     <string name="help_dialog_pet_text2">Keep him healthy by adding and completing quests and challenges. Healthier the pet, the bigger bonuses you get.</string>
     <string name="help_dialog_pet_shop">Go to the pet shop if you want to buy and replace this pet. You can have only one at a time.</string>
-    <string name="edit_menu">Edit</string>
+    <string name="edit_menu">ویرایش</string>
     <string name="brag">Brag</string>
 
     <string name="title_activity_pick_challenge">Pick a Challenge</string>
@@ -294,20 +404,20 @@
     <string name="invite_message">I\'ll tell you a secret. I use this app to really get things done! Here is your invite!</string>
     <string name="invite_call_to_action">Download Now</string>
     <string name="completed">Completed</string>
-    <string name="next">Next</string>
-    <string name="any_reasonable_time">Any reasonable time</string>
-    <string name="work_hours">Work hours</string>
-    <string name="personal_hours">Personal hours</string>
-    <string name="morning">Morning</string>
-    <string name="afternoon">Afternoon</string>
-    <string name="evening">Evening</string>
-    <string name="at_exactly">At exactly…</string>
-    <string name="on">On…</string>
+    <string name="next">بعدی</string>
+    <string name="any_reasonable_time">هر زمان ممکن</string>
+    <string name="work_hours">ساعت های کاری</string>
+    <string name="personal_hours">ساعت های شخصی</string>
+    <string name="morning">صبح</string>
+    <string name="afternoon">بعدازظهر</string>
+    <string name="evening">عصر</string>
+    <string name="at_exactly">دقیقا در زمان…</string>
+    <string name="on">…در تاریخ</string>
     <string name="someday_by">Someday by…</string>
-    <string name="by_the_end_of_month">By the end of the month</string>
-    <string name="by_the_end_of_week">By the end of the week</string>
-    <string name="important_urgent">Important \n Urgent</string>
-    <string name="important_not_urgent">Important \n Not Urgent</string>
+    <string name="by_the_end_of_month"> آخر ماه</string>
+    <string name="by_the_end_of_week">آخر هفته</string>
+    <string name="important_urgent">مهم \n ضروری</string>
+    <string name="important_not_urgent">مهم \n غیر ضروری</string>
     <string name="not_important_urgent">Not Important \n Urgent</string>
     <string name="not_important_not_urgent">Not Important \n Not Urgent</string>
     <string name="important_urgent_readable">Important &amp; Urgent</string>
@@ -318,19 +428,19 @@
     <string name="title_fragment_wizard_quest_time">At what time?</string>
     <string name="title_fragment_wizard_quest_priority">How important is it?</string>
     <string name="set_challenge">Set Challenge</string>
-    <string name="add_reminder">Add Reminder</string>
-    <string name="by_end_of_week">By the end of the week</string>
-    <string name="by_end_of_month">By the end of the month</string>
-    <string name="note">Note</string>
+    <string name="add_reminder">افزودن یادآور</string>
+    <string name="by_end_of_week">آخر هفته</string>
+    <string name="by_end_of_month">آخر ماه</string>
+    <string name="note">یادداشت</string>
     <string name="at_any_reasonable_time">At any reasonable time</string>
     <string name="title_fragment_wizard_repeating_quest_name">New Repeating Quest</string>
     <string name="quest_priority_question">How important it is?</string>
-    <string name="once_a_week">Once a week</string>
-    <string name="twice_a_week">Twice a week</string>
-    <string name="three_times_a_week">3 times a week</string>
-    <string name="five_times_a_week">5 times a week</string>
-    <string name="once_a_month">Once a month</string>
-    <string name="every_day">Every day</string>
+    <string name="once_a_week">یکبار در هفته</string>
+    <string name="twice_a_week">دوبار در هفته</string>
+    <string name="three_times_a_week">3 بار در هفته</string>
+    <string name="five_times_a_week">5 بار در هفته</string>
+    <string name="once_a_month">یکبار در ماه</string>
+    <string name="every_day">هر روز</string>
     <string name="more_options">More options…</string>
     <string name="set_times_a_day">Set times a day</string>
     <string name="title_fragment_wizard_challenge_name">New Challenge</string>
@@ -412,7 +522,7 @@
     <string name="friday_short">FRI</string>
     <string name="saturday_short">SAT</string>
     <string name="day_of_month">Day of month</string>
-    <string name="day">Day</string>
+    <!--<string name="day">Day</string>-->
     <string name="until">Until</string>
     <string name="start_time">Start time</string>
     <string name="end_time">End time</string>
@@ -426,116 +536,115 @@
     <string name="last_week">last week</string>
     <string name="this_week">this week</string>
     <string name="challenge_percentage_done">%d%% done</string>
+    <string name="on_date">در تاریخ</string>
+    <string name="at_time">در زمان</string>
+    <string name="for_while">به مدت</string>
+    <!--<string name="challenge_percentage_done">%d%% done</string>-->
 
     <!--persian strings-->
     <!--<string name="events">رویداد</string>-->
     <!--<string name="app_name">Persian Calendar</string>-->
-    <string name="widget_name">Persian Calendar</string>
-    <string name="widget_mini_name">Persian Calendar (mini)</string>
-    <string name="latitude">Latitude</string>
-    <string name="longitude">Longitude</string>
+    <!--<string name="widget_name">Persian Calendar</string>-->
+    <!--<string name="widget_mini_name">Persian Calendar (mini)</string>-->
+    <!--<string name="latitude">Latitude</string>-->
+    <!--<string name="longitude">Longitude</string>-->
     <!--<string name="settings">Settings</string>-->
-    <string name="exit">Exit</string>
-    <string name="enable_persian_digits">Enable Persian Digits</string>
-    <string name="persian_digits">Persian Digits</string>
-    <string name="showing_clock_on_widget">Show the clock on widget</string>
-    <string name="clock_on_widget">Clock on the Widget</string>
-    <string name="showing_clock_in_24">Show the clock in 24 hour</string>
-    <string name="clock_in_24">Clock in 24 hour</string>
-    <string name="about">About</string>
-    <string name="gpl_logo">GPL Logo</string>
-    <string name="widget_text_colors">Widget Text Colors</string>
-    <string name="clock">Clock</string>
-    <string name="date">Date</string>
-    <string name="date_converter">Date Converter</string>
-    <string name="logo">Logo</string>
-    <string name="dari_months">Dari Months</string>
-    <string name="enable_dari">Enable Dari Months</string>
-    <string name="widget_notification_dashclock">Widget, notification bar and DashClock</string>
-    <string name="general">General</string>
-    <string name="widget_text_color">Widget Text Color</string>
-    <string name="select_widgets_text_color">Select custom color for widgets texts</string>
-    <string name="pray_times_calculation_setting">Pray Times Calculation Setting</string>
-    <string name="notify_date">Enable Date Notification</string>
-    <string name="enable_notify">Persistent notification for all date types, needs device restart after turning it off</string>
-    <string name="select_skin">Select a skin</string>
-    <string name="skin">Skin</string>
-    <string name="pray_methods">Calculation methods</string>
-    <string name="pray_methods_calculation">Calculation methods for pray times and Qibla compass</string>
-    <string name="altitude">Altitude</string>
-    <string name="altitude_praytime">in meter (optional)</string>
-    <string name="gps_location">Get location from GPS or network</string>
-    <string name="gps_location_help">Other options are not needed if this is possible</string>
-    <string name="location">Location</string>
-    <string name="location_help">If none of them, specify it below</string>
-    <string name="showing_iran_time">Widgets and notifications in Iran TimeZone</string>
-    <string name="iran_time">Iran Time</string>
-    <string name="qibla_compass">Compass/Qibla</string>
-    <string name="compass">Compass</string>
-    <string name="compass_not_found">Compass sensor not found</string>
-
-    <string name="month_names">Month Names</string>
-    <string name="calendar_font">Calendar Font</string>
-    <string name="application_language">Application Language</string>
-    <string name="language">Language</string>
-    <string name="calendar_language">Calendar Language</string>
-    <string name="calendar_language_summary">The language to show the month and day names in</string>
-    <string name="version">Version</string>
-    <string name="calendar_font_summary">Change the font for the calendar</string>
-    <string name="athan">Athan</string>
-    <string name="athan_alarm_summary">Prayers to trigger the alarm for</string>
-    <string name="athan_alarm">Athan Alarm</string>
-    <string name="athan_sound">Athan Sound</string>
-    <string name="match_system">Match System</string>
-    <string name="athan_volume_summary">Set the volume for the alarm</string>
-    <string name="athan_volume">Athan Volume</string>
-    <string name="tap_to_stop_athan">Tap to stop</string>
-    <string name="playing_athan">Playing Athan</string>
-    <string name="athan_disabled_summary">To set the Athan alarm, choose a location or enter the coordinates above</string>
-    <string name="athan_gap">Athan Gap</string>
-    <string name="athan_gap_summary">How long ahead of the Athan should the alarm be triggered (in minutes)</string>
-    <string name="closeDrawer">Close</string>
-    <string name="openDrawer">Open</string>
-    <string name="azan1">Fajr</string>
-    <string name="azan2">Dhuhr</string>
-    <string name="azan3">Asr</string>
-    <string name="azan4">Maghrib</string>
-    <string name="azan5">Isha</string>
-    <string name="aftab1">Sunrise</string>
-    <string name="aftab2">Sunset</string>
-    <string name="aftab3">Midnight</string>
-    <string name="owghat">Pray times</string>
-    <string name="events">Events</string>
+    <!--<string name="exit">Exit</string>-->
+    <!--<string name="enable_persian_digits">Enable Persian Digits</string>-->
+    <!--<string name="persian_digits">Persian Digits</string>-->
+    <!--<string name="showing_clock_on_widget">Show the clock on widget</string>-->
+    <!--<string name="clock_on_widget">Clock on the Widget</string>-->
+    <!--<string name="showing_clock_in_24">Show the clock in 24 hour</string>-->
+    <!--<string name="clock_in_24">Clock in 24 hour</string>-->
+    <!--<string name="about">About</string>-->
+    <!--<string name="gpl_logo">GPL Logo</string>-->
+    <!--<string name="widget_text_colors">Widget Text Colors</string>-->
+    <!--<string name="clock">Clock</string>-->
+    <!--<string name="date">Date</string>-->
+    <!--<string name="date_converter">Date Converter</string>-->
+    <!--<string name="logo">Logo</string>-->
+    <!--<string name="dari_months">Dari Months</string>-->
+    <!--<string name="enable_dari">Enable Dari Months</string>-->
+    <!--<string name="widget_notification_dashclock">Widget, notification bar and DashClock</string>-->
+    <!--<string name="general">General</string>-->
+    <!--<string name="widget_text_color">Widget Text Color</string>-->
+    <!--<string name="select_widgets_text_color">Select custom color for widgets texts</string>-->
+    <!--<string name="pray_times_calculation_setting">Pray Times Calculation Setting</string>-->
+    <!--<string name="notify_date">Enable Date Notification</string>-->
+    <!--<string name="enable_notify">Persistent notification for all date types, needs device restart after turning it off</string>-->
+    <!--<string name="select_skin">Select a skin</string>-->
+    <!--<string name="skin">Skin</string>-->
+    <!--<string name="pray_methods">Calculation methods</string>-->
+    <!--<string name="pray_methods_calculation">Calculation methods for pray times and Qibla compass</string>-->
+    <!--<string name="altitude">Altitude</string>-->
+    <!--<string name="altitude_praytime">in meter (optional)</string>-->
+    <!--<string name="gps_location">Get location from GPS or network</string>-->
+    <!--<string name="gps_location_help">Other options are not needed if this is possible</string>-->
+    <!--<string name="location">Location</string>-->
+    <!--<string name="location_help">If none of them, specify it below</string>-->
+    <!--<string name="showing_iran_time">Widgets and notifications in Iran TimeZone</string>-->
+    <!--<string name="iran_time">Iran Time</string>-->
+    <!--<string name="qibla_compass">Compass/Qibla</string>-->
+    <!--<string name="compass">Compass</string>-->
+    <!--<string name="compass_not_found">Compass sensor not found</string>-->
+<!---->
+    <!--<string name="month_names">Month Names</string>-->
+    <!--<string name="calendar_font">Calendar Font</string>-->
+    <!--<string name="application_language">Application Language</string>-->
+    <!--<string name="language">Language</string>-->
+    <!--<string name="calendar_language">Calendar Language</string>-->
+    <!--<string name="calendar_language_summary">The language to show the month and day names in</string>-->
+    <!--<string name="version">Version</string>-->
+    <!--<string name="calendar_font_summary">Change the font for the calendar</string>-->
+    <!--<string name="athan">Athan</string>-->
+    <!--<string name="athan_alarm_summary">Prayers to trigger the alarm for</string>-->
+    <!--<string name="athan_alarm">Athan Alarm</string>-->
+    <!--<string name="athan_sound">Athan Sound</string>-->
+    <!--<string name="match_system">Match System</string>-->
+    <!--<string name="athan_volume_summary">Set the volume for the alarm</string>-->
+    <!--<string name="athan_volume">Athan Volume</string>-->
+    <!--<string name="tap_to_stop_athan">Tap to stop</string>-->
+    <!--<string name="playing_athan">Playing Athan</string>-->
+    <!--<string name="athan_disabled_summary">To set the Athan alarm, choose a location or enter the coordinates above</string>-->
+    <!--<string name="athan_gap">Athan Gap</string>-->
+    <!--<string name="athan_gap_summary">How long ahead of the Athan should the alarm be triggered (in minutes)</string>-->
+    <!--<string name="closeDrawer">Close</string>-->
+    <!--<string name="openDrawer">Open</string>-->
+    <!--<string name="azan1">Fajr</string>-->
+    <!--<string name="azan2">Dhuhr</string>-->
+    <!--<string name="azan3">Asr</string>-->
+    <!--<string name="azan4">Maghrib</string>-->
+    <!--<string name="azan5">Isha</string>-->
+    <!--<string name="aftab1">Sunrise</string>-->
+    <!--<string name="aftab2">Sunset</string>-->
+    <!--<string name="aftab3">Midnight</string>-->
+    <!--<string name="owghat">Pray times</string>-->
+    <!--<string name="events">Events</string>-->
     <!--<string name="today">Today</string>-->
-    <string name="select_type_date">Select date type</string>
-    <string name="year">Year</string>
-    <string name="mount">Month</string>
+    <!--<string name="select_type_date">Select date type</string>-->
+    <!--<string name="year">Year</string>-->
+    <!--<string name="mount">Month</string>-->
     <!--<string name="day">Day</string>-->
-    <string name="select_year">Select year</string>
-    <string name="select_mount">Select month</string>
-    <string name="select_day">Select day</string>
-    <string name="date_exception">The date you entered was not valid!</string>
-    <string name="in_city_time">in</string>
-    <string name="islamic_offset">Islamic offset</string>
-    <string name="islamic_offset_summary"></string>
+    <!--<string name="select_year">Select year</string>-->
+    <!--<string name="select_mount">Select month</string>-->
+    <!--<string name="select_day">Select day</string>-->
+    <!--<string name="date_exception">The date you entered was not valid!</string>-->
+    <!--<string name="in_city_time">in</string>-->
+    <!--<string name="islamic_offset">Islamic offset</string>-->
+    <!--<string name="islamic_offset_summary"></string>-->
 
-    <string-array name="calendar_type">
-        <item>Persian Calendar</item>
-        <item>Islamic Calendar</item>
-        <item>Gregorian</item>
-    </string-array>
+    <!--<string-array name="calendar_type">-->
+        <!--<item>Persian Calendar</item>-->
+        <!--<item>Islamic Calendar</item>-->
+        <!--<item>Gregorian</item>-->
+    <!--</string-array>-->
 
-    <string name="date_copied_clipboard">Copied to clipboard</string>
+    <!--<string name="date_copied_clipboard">Copied to clipboard</string>-->
     <!--<string name="stop">Stop</string>-->
-    <string name="goto_date">Go to date</string>
-    <string name="select">Select</string>
-    <string name="pleasewaitgps">Please wait… If nothing appeared after one minute you probably should try other options</string>
-    <string name="holidaysIncompletenessWarning">Holidays of the selected year may not be complete and reliable.</string>
-    <string name="shouldBeUpdated">Holidays of the selected year may not be complete and reliable. Consider an update for the app, if exists.</string>
-    <string name="on_date">on ...</string>
-    <string name="at_time">at ...</string>
-    <string name="for_while">for ...</string>
-    <!--<string name="shouldBeUpdated">Holidays of the selected year may not be complete and reliable. Consider an update for the app, if exists.</string>-->
+    <!--<string name="goto_date">Go to date</string>-->
+    <!--<string name="select">Select</string>-->
+    <!--<string name="pleasewaitgps">Please wait… If nothing appeared after one minute you probably should try other options</string>-->
+    <!--<string name="holidaysIncompletenessWarning">Holidays of the selected year may not be complete and reliable.</string>-->
     <!--<string name="shouldBeUpdated">Holidays of the selected year may not be complete and reliable. Consider an update for the app, if exists.</string>-->
 
 
@@ -555,4 +664,6 @@
         <item>Demigod</item>
         <item>Titan</item>
     </string-array>
+    <!--ipoli strings end-->
+
 </resources>

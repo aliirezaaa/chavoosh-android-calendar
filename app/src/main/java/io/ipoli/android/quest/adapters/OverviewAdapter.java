@@ -142,7 +142,7 @@ public class OverviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @NonNull
     private Comparator<QuestViewModel> createCompletedQuestsComparator() {
-        return Collections.reverseOrder((vm1, vm2) -> Integer.compare(vm1.getCompletedAtMinute(), vm2.getCompletedAtMinute()));
+        return Collections.reverseOrder((vm1, vm2) -> Integer.valueOf(vm1.getCompletedAtMinute()).compareTo(vm2.getCompletedAtMinute()));
     }
 
     @Override

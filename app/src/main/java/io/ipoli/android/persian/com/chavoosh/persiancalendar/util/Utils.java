@@ -724,7 +724,7 @@ public class Utils {
         }
     }
 
-    // called from CalendarFragment to make it once per calendar view
+    // called from PersianCalendarFragment to make it once per calendar view
     public void clearYearWarnFlag() {
         isYearWarnGivenOnce = false;
     }

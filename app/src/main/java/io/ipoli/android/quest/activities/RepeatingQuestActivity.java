@@ -3,6 +3,7 @@ package io.ipoli.android.quest.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -301,8 +302,11 @@ public class RepeatingQuestActivity extends BaseActivity {
         appBar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         toolbar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         collapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+
+        }
     }
 
     private List<String> getXValues(List<PeriodHistory> periodHistories) {

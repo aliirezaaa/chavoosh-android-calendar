@@ -6,17 +6,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,13 +21,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.otto.Bus;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.ipoli.android.MainActivity;
 import io.ipoli.android.R;
+import io.ipoli.android.app.App;
 import io.ipoli.android.app.BaseFragment;
+import io.ipoli.android.app.events.CalendarDayChangedEvent;
+import io.ipoli.android.app.ui.EmptyStateRecyclerView;
+import io.ipoli.android.app.utils.DateUtils;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
 
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.adapter.CalendarAdapter;
@@ -46,10 +50,15 @@ import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.ScrollViewList
 
 
 import org.json.JSONException;
+import org.threeten.bp.LocalDate;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import io.ipoli.android.persian.calendar.CivilDate;
 import io.ipoli.android.persian.calendar.DateConverter;
@@ -58,10 +67,16 @@ import io.ipoli.android.persian.com.github.praytimes.Clock;
 import io.ipoli.android.persian.com.github.praytimes.Coordinate;
 import io.ipoli.android.persian.com.github.praytimes.PrayTime;
 import io.ipoli.android.persian.com.github.praytimes.PrayTimesCalculator;
-import io.ipoli.android.persian.com.github.twaddington.TypefaceSpan;
+import io.ipoli.android.quest.adapters.AgendaAdapter;
+import io.ipoli.android.quest.data.Quest;
+import io.ipoli.android.quest.persistence.QuestPersistenceService;
+import io.ipoli.android.quest.viewmodels.AgendaViewModel;
 
-public class CalendarFragment extends BaseFragment
+
+public class PersianCalendarFragment extends BaseFragment
         implements View.OnClickListener, ViewPager.OnPageChangeListener {
+    @Inject
+    Bus eventBus;
     private ViewPager monthViewPager;
     private Utils utils;
 
@@ -105,25 +120,131 @@ public class CalendarFragment extends BaseFragment
     private RelativeLayout maghribLayout;
     private RelativeLayout ishaLayout;
     private RelativeLayout midnightLayout;
+    private LocalDate selectedDay;
 
     private int viewPagerPosition;
     private ScrollViewExt about_layout;
+    @Inject
+    QuestPersistenceService questPersistenceService;
 
+
+    @BindView(R.id.agenda_list_container)
+    ViewGroup questListContainer;
+
+    @BindView(R.id.agenda_list)
+    EmptyStateRecyclerView questList;
 
     @Nullable
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-
-        setHasOptionsMenu(true);
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_calendar_fa, container, false);
+//        eventBus = new Bus();
+        App.getAppComponent(getContext()).inject(this);
+//        Log.i("pcf", getContext().toString());
+        ButterKnife.bind(this, view);
+        setHasOptionsMenu(true);
+//        eventBus.register(this);
+
+
         utils = Utils.getInstance(getContext());
         utils.clearYearWarnFlag();
         viewPagerPosition = 0;
+        uiInit(view);
+        //toolbar
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+//            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        ((MainActivity) getActivity()).actionBarDrawerToggle.syncState();
 
+        utils.setToolbar(toolbar);
+
+        //personal events
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        questList.setLayoutManager(layoutManager);
+        questList.setHasFixedSize(true);
+
+//        questList.setEmptyView(questListContainer, R.string.empty_agenda_text, R.drawable.ic_calendar_blank_grey_24dp);
+
+
+        if (utils.isNetworkConnected()) {
+            try {
+                showNews();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        about_layout = (ScrollViewExt) view.findViewById(R.id.about_layout);
+        about_layout.setScrollViewListener(new ScrollViewListener() {
+            @Override
+            public void onScrollChanged(ScrollViewExt scrollView, int x, int y, int oldx, int oldy) {
+                View view = (View) scrollView.getChildAt(scrollView.getChildCount() - 1);
+                int diff = (view.getBottom() - (scrollView.getHeight() + scrollView.getScrollY()));
+
+                // if diff is zero, then the bottom has been reached
+                if (diff == 0) {
+                    // do stuff
+                    Log.i("scroll", "  reached");
+                }
+            }
+        });
+
+
+        //end init
+        owghat = (CardView) view.findViewById(R.id.owghat);
+        event = (CardView) view.findViewById(R.id.cardEvent);
+
+        monthViewPager = (ViewPager) view.findViewById(R.id.calendar_pager);
+
+        coordinate = utils.getCoordinate();
+        prayTimesCalculator = new PrayTimesCalculator(utils.getCalculationMethod());
+
+        monthViewPager.setAdapter(new CalendarAdapter(getChildFragmentManager()));
+        monthViewPager.setCurrentItem(Constants.MONTHS_LIMIT / 2);
+
+        monthViewPager.addOnPageChangeListener(this);
+
+        owghat.setOnClickListener(this);
+        today.setOnClickListener(this);
+        todayIcon.setOnClickListener(this);
+        gregorianDate.setOnClickListener(this);
+        islamicDate.setOnClickListener(this);
+        shamsiDate.setOnClickListener(this);
+
+        utils.setFontAndShape((TextView) view.findViewById(R.id.event_card_title));
+        utils.setFontAndShape((TextView) view.findViewById(R.id.today));
+        utils.setFontAndShape((TextView) view.findViewById(R.id.owghat_text));
+
+//        String cityName = utils.getCityName(false);
+//        if (!TextUtils.isEmpty(cityName)) {
+//            ((TextView) view.findViewById(R.id.owghat_text))
+//                    .append(" (" + utils.shape(cityName) + ")");
+//        }
+
+        // This will immediately be replaced by the same functionality on fragment but is here to
+        // make sure enough space is dedicated to actionbar's title and subtitle, kinda hack anyway
+        PersianDate today = utils.getToday();
+        utils.setActivityTitleAndSubtitle(getActivity(), utils.getMonthName(today),
+                utils.formatNumber(today.getYear()));
+
+
+//        View toolbar_view = inflater.inflate(R.layout.activity_cal_fa, container, false);
+
+//        ImageView submit_img=(ImageView)toolbar_view.findViewById(R.id.submit_img);
+//        submit_img.setOnClickListener(v -> {
+//            Log.i("selected date ",utils.dateToString(utils.getToday()));
+//        });
+        return view;
+    }
+
+    private void uiInit(View view) {
         fajrLayout = (RelativeLayout) view.findViewById(R.id.fajrLayout);
         sunriseLayout = (RelativeLayout) view.findViewById(R.id.sunriseLayout);
         dhuhrLayout = (RelativeLayout) view.findViewById(R.id.dhuhrLayout);
@@ -187,92 +308,26 @@ public class CalendarFragment extends BaseFragment
         news_card_title = (TextView) view.findViewById(R.id.news_card_title);
         news_title = (TextView) view.findViewById(R.id.news_title);
         card_news = (CardView) view.findViewById(R.id.cardNews);
+    }
 
-
-        //toolbar
-        Toolbar toolbar=(Toolbar)view.findViewById(R.id.toolbar);
-        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-        ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-//            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        ((MainActivity) getActivity()).actionBarDrawerToggle.syncState();
-
-        utils.setToolbar(toolbar);
-
-
-
-
-
-        if(utils.isNetworkConnected()){
-            try {
-                showNews();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        about_layout = (ScrollViewExt) view.findViewById(R.id.about_layout);
-        about_layout.setScrollViewListener(new ScrollViewListener() {
-            @Override
-            public void onScrollChanged(ScrollViewExt scrollView, int x, int y, int oldx, int oldy) {
-                View view = (View) scrollView.getChildAt(scrollView.getChildCount() - 1);
-                int diff = (view.getBottom() - (scrollView.getHeight() + scrollView.getScrollY()));
-
-                // if diff is zero, then the bottom has been reached
-                if (diff == 0) {
-                    // do stuff
-                    Log.i("scroll", "  reached");
-                }
-            }
-        });
-
-
-        //end init
-        owghat = (CardView) view.findViewById(R.id.owghat);
-        event = (CardView) view.findViewById(R.id.cardEvent);
-
-        monthViewPager = (ViewPager) view.findViewById(R.id.calendar_pager);
-
-        coordinate = utils.getCoordinate();
-        prayTimesCalculator = new PrayTimesCalculator(utils.getCalculationMethod());
-
-        monthViewPager.setAdapter(new CalendarAdapter(getChildFragmentManager()));
-        monthViewPager.setCurrentItem(Constants.MONTHS_LIMIT / 2);
-
-        monthViewPager.addOnPageChangeListener(this);
-
-        owghat.setOnClickListener(this);
-        today.setOnClickListener(this);
-        todayIcon.setOnClickListener(this);
-        gregorianDate.setOnClickListener(this);
-        islamicDate.setOnClickListener(this);
-        shamsiDate.setOnClickListener(this);
-
-        utils.setFontAndShape((TextView) view.findViewById(R.id.event_card_title));
-        utils.setFontAndShape((TextView) view.findViewById(R.id.today));
-        utils.setFontAndShape((TextView) view.findViewById(R.id.owghat_text));
-
-//        String cityName = utils.getCityName(false);
-//        if (!TextUtils.isEmpty(cityName)) {
-//            ((TextView) view.findViewById(R.id.owghat_text))
-//                    .append(" (" + utils.shape(cityName) + ")");
+    private void showQuestsForDate(LocalDate date) {
+        eventBus.post(new CalendarDayChangedEvent(date, CalendarDayChangedEvent.Source.AGENDA_CALENDAR));
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(getToolbarText(date)), Locale.getDefault());
+        Date startOfDayDate = DateUtils.toStartOfDay(date);
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setTitle(simpleDateFormat.format(startOfDayDate));
 //        }
-
-        // This will immediately be replaced by the same functionality on fragment but is here to
-        // make sure enough space is dedicated to actionbar's title and subtitle, kinda hack anyway
-        PersianDate today = utils.getToday();
-        utils.setActivityTitleAndSubtitle(getActivity(), utils.getMonthName(today),
-                utils.formatNumber(today.getYear()));
-
-
-        View toolbar_view = inflater.inflate(R.layout.activity_cal_fa, container, false);
-
-//        ImageView submit_img=(ImageView)toolbar_view.findViewById(R.id.submit_img);
-//        submit_img.setOnClickListener(v -> {
-//            Log.i("selected date ",utils.dateToString(utils.getToday()));
-//        });
-        return view;
+//        String dayNumberSuffix = DateUtils.getDayNumberSuffix(date.getDayOfMonth());
+//        DateFormat dateFormat = new SimpleDateFormat(getString(R.string.agenda_daily_journey_format, dayNumberSuffix));
+//        journeyText.setText(getString(R.string.agenda_daily_journey, dateFormat.format(startOfDayDate)));
+        questPersistenceService.findAllNonAllDayForDate(date, quests -> {
+            List<AgendaViewModel> vms = new ArrayList<>();
+            for (Quest quest : quests) {
+                vms.add(new AgendaViewModel(getContext(), quest, true));
+                Log.i("vms", quest.getName());
+            }
+            questList.setAdapter(new AgendaAdapter(getContext(), eventBus, vms));
+        });
     }
 
     private void showNews() throws JSONException {
@@ -317,6 +372,8 @@ public class CalendarFragment extends BaseFragment
         Log.i("select day ", utils.dateToString(persianDate));
         setOwghat(civilDate);
         showEvent(persianDate);
+        selectedDay=DateConverter.persianToLocalDate(persianDate);
+        showQuestsForDate(selectedDay);
         utils.setSelectedPersianDate(persianDate);
     }
 
@@ -498,4 +555,16 @@ public class CalendarFragment extends BaseFragment
         return viewPagerPosition;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        eventBus.register(this);
+        showQuestsForDate(selectedDay);
+    }
+
+    @Override
+    public void onPause() {
+        eventBus.unregister(this);
+        super.onPause();
+    }
 }

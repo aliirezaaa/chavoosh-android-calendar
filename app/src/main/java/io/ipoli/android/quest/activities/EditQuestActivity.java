@@ -2,6 +2,7 @@ package io.ipoli.android.quest.activities;
 
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -794,9 +795,11 @@ public class EditQuestActivity extends BaseActivity implements
         appBar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         toolbar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         collapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(this, category.color500));
-        //// TODO: 5/18/2017 pre lollipop 
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+        //// TODO: 5/18/2017 pre lollipop
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+        }
     }
 
     @Override

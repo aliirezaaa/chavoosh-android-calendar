@@ -2,6 +2,7 @@ package io.ipoli.android.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.squareup.otto.Bus;
@@ -34,6 +35,7 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.getAppComponent(getContext()).inject(this);
+//        Log.i("base fragment",getContext().toString());
         setHasOptionsMenu(useOptionsMenu());
     }
 

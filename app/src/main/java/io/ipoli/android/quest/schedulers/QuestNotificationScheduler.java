@@ -59,7 +59,7 @@ public class QuestNotificationScheduler {
         if (Build.VERSION.SDK_INT > 22) {
             alarm.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, scheduleTimeMillis, showDonePendingIntent);
         } else {
-            alarm.setExact(AlarmManager.RTC_WAKEUP, scheduleTimeMillis, showDonePendingIntent);
+            alarm.set(AlarmManager.RTC_WAKEUP, scheduleTimeMillis, showDonePendingIntent);
         }
     }
 

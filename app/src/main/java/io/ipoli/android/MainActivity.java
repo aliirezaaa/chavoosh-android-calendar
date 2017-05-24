@@ -1,10 +1,8 @@
 package io.ipoli.android;
 
 import android.app.Application;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
@@ -17,22 +15,16 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.squareup.otto.Bus;
@@ -55,10 +47,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.ipoli.android.app.App;
+import io.ipoli.android.app.BaseFragment;
 import io.ipoli.android.app.activities.BaseActivity;
-import io.ipoli.android.app.activities.MigrationActivity;
-import io.ipoli.android.app.activities.SignInActivity;
-import io.ipoli.android.app.events.AvatarCoinsTappedEvent;
 import io.ipoli.android.app.events.CalendarDayChangedEvent;
 import io.ipoli.android.app.events.ContactUsTapEvent;
 import io.ipoli.android.app.events.EventSource;
@@ -79,11 +69,11 @@ import io.ipoli.android.app.utils.LocalStorage;
 import io.ipoli.android.app.utils.ResourceUtils;
 import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.challenge.fragments.ChallengeListFragment;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.PersianCalendarFragment;
 import io.ipoli.android.pet.PetActivity;
 import io.ipoli.android.pet.data.Pet;
 import io.ipoli.android.player.ExperienceForLevelGenerator;
 import io.ipoli.android.player.Player;
-import io.ipoli.android.player.activities.LevelUpActivity;
 import io.ipoli.android.player.activities.PickAvatarPictureActivity;
 import io.ipoli.android.player.events.LevelDownEvent;
 import io.ipoli.android.player.events.PickAvatarRequestEvent;
@@ -96,7 +86,6 @@ import io.ipoli.android.quest.data.Quest;
 import io.ipoli.android.quest.events.DuplicateQuestRequestEvent;
 import io.ipoli.android.quest.events.EditQuestRequestEvent;
 import io.ipoli.android.quest.events.NewQuestEvent;
-import io.ipoli.android.quest.events.NewQuestTimePickedEvent;
 import io.ipoli.android.quest.events.QuestCompletedEvent;
 import io.ipoli.android.quest.events.ShareQuestEvent;
 import io.ipoli.android.quest.events.SnoozeQuestRequestEvent;
@@ -154,7 +143,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
 
 //        changeLanguage("fa");
-        cheshmakInit();
+//        cheshmakInit();
 //        changDirection();
         instance=this.getApplication();
         appComponent().inject(this);
@@ -181,7 +170,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         navigationView.setNavigationItemSelectedListener(this);
 
+
         startCalendar();
+//       startPersianCalendar();
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
             @Override
@@ -379,8 +370,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         changeCurrentFragment(new CalendarFragment());
     }
     public void startPersianCalendar() {
-        Fragment f=new io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.CalendarFragment();
-        changeCurrentFragment( f );
+
+        changeCurrentFragment(  new PersianCalendarFragment() );
     }
 
     @Override

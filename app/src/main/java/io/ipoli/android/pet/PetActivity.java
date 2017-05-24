@@ -1,6 +1,7 @@
 package io.ipoli.android.pet;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -90,8 +91,10 @@ public class PetActivity extends BaseActivity implements OnDataChangedListener<P
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, android.R.color.transparent));
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, android.R.color.transparent));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
+        }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         eventBus.post(new ScreenShownEvent(EventSource.PET));
     }
@@ -159,8 +162,19 @@ public class PetActivity extends BaseActivity implements OnDataChangedListener<P
         this.player = player;
         Pet pet = player.getPet();
         getSupportActionBar().setTitle(pet.getName());
-        picture.setImageDrawable(getDrawable(ResourceUtils.extractDrawableResource(this, pet.getPicture())));
-        pictureState.setImageDrawable(getDrawable(ResourceUtils.extractDrawableResource(this, pet.getPicture() + "_" + pet.getStateText())));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            picture.setImageDrawable(getDrawable(ResourceUtils.extractDrawableResource(this, pet.getPicture())));
+            pictureState.setImageDrawable(getDrawable(ResourceUtils.extractDrawableResource(this, pet.getPicture() + "_" + pet.getStateText())));
+
+        }else {
+
+            picture.setImageDrawable(getResources().getDrawable(ResourceUtils.extractDrawableResource(this, pet.getPicture())));
+            pictureState.setImageDrawable(getResources().getDrawable(ResourceUtils.extractDrawableResource(this, pet.getPicture() + "_" + pet.getStateText())));
+
+        }
+
+
         xpBonus.setText("XP: +" + pet.getExperienceBonusPercentage() + "%");
         coinsBonus.setText("Coins: +" + pet.getCoinsBonusPercentage() + "%");
 

@@ -1,6 +1,7 @@
 package io.ipoli.android.challenge.activities;
 
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -423,8 +424,13 @@ public class EditChallengeActivity extends BaseActivity implements DatePickerFra
         appBar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         toolbar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         collapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+        }
     }
 
     @Override

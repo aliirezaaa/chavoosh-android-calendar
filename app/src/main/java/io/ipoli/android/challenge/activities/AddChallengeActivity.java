@@ -1,5 +1,6 @@
 package io.ipoli.android.challenge.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -250,8 +251,10 @@ public class AddChallengeActivity extends BaseActivity implements ViewPager.OnPa
     private void colorLayout(Category category) {
         toolbar.setBackgroundResource(category.color500);
         findViewById(R.id.root_container).setBackgroundResource(category.color500);
-        getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
-        getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, category.color500));
+            getWindow().setStatusBarColor(ContextCompat.getColor(this, category.color700));
+        }
     }
 
     @Override

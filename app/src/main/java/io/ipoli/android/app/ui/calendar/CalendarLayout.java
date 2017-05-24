@@ -3,6 +3,7 @@ package io.ipoli.android.app.ui.calendar;
 import android.content.ClipData;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.DragEvent;
@@ -46,7 +47,7 @@ public class CalendarLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
         initUI();
     }
-
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     public CalendarLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initUI();

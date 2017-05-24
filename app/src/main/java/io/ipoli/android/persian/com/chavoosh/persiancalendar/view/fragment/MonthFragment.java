@@ -19,8 +19,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.bumptech.glide.request.target.ViewTarget;
 
 import java.util.List;
 
@@ -30,12 +28,11 @@ import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.adapter.MonthAdapter;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.entity.DayEntity;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
-import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.CalendarFragment;
 
 
 public class MonthFragment extends Fragment implements View.OnClickListener {
     private Utils utils;
-    private CalendarFragment calendarFragment;
+    private PersianCalendarFragment persianCalendarFragment;
     private PersianDate persianDate;
     private int offset;
     private MonthAdapter adapter;
@@ -83,12 +80,12 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
         adapter = new MonthAdapter(getContext(), this, days);
         recyclerView.setAdapter(adapter);
 
-        calendarFragment = (CalendarFragment) getActivity()
+        persianCalendarFragment = (PersianCalendarFragment) getActivity()
                 .getSupportFragmentManager()
-                .findFragmentByTag(CalendarFragment.class.getName());
+                .findFragmentByTag(PersianCalendarFragment.class.getName());
 
-        if (offset == 0 && calendarFragment.getViewPagerPosition() == offset) {
-            calendarFragment.selectDay(utils.getToday());
+        if (offset == 0 && persianCalendarFragment.getViewPagerPosition() == offset) {
+            persianCalendarFragment.selectDay(utils.getToday());
             updateTitle();
         }
 
@@ -167,11 +164,11 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
     }
 
     public void onClickItem(PersianDate day) {
-        calendarFragment.selectDay(day);
+        persianCalendarFragment.selectDay(day);
     }
 
     public void onLongClickItem(PersianDate day) {
-        calendarFragment.addEventOnCalendar(day);
+        persianCalendarFragment.addEventOnCalendar(day);
     }
 
     @Override
@@ -179,11 +176,11 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.next:
-                calendarFragment.changeMonth(1);
+                persianCalendarFragment.changeMonth(1);
                 break;
 
             case R.id.prev:
-                calendarFragment.changeMonth(-1);
+                persianCalendarFragment.changeMonth(-1);
                 break;
         }
     }

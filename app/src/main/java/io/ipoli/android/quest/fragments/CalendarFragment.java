@@ -117,7 +117,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 
         ButterKnife.bind(this, view);
         App.getAppComponent(getContext()).inject(this);
-
+        Log.i("cal get context",getContext().toString());
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {

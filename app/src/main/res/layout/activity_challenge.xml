@@ -108,7 +108,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/ic_context_learning_white_24dp" />
+                            app:srcCompat="@drawable/ic_context_learning_white_24dp" />
 
                         <TextView
                             android:id="@+id/challenge_category_name"
@@ -132,7 +132,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/ic_timer_white_24dp" />
+                            app:srcCompat="@drawable/ic_timer_white_24dp" />
 
                         <TextView
                             android:id="@+id/challenge_total_time_spent"
@@ -156,7 +156,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/ic_event_white_24dp" />
+                            app:srcCompat="@drawable/ic_event_white_24dp" />
 
                         <TextView
                             android:id="@+id/challenge_next_scheduled_date"
@@ -180,7 +180,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/ic_due_date_white_24dp" />
+                            app:srcCompat="@drawable/ic_due_date_white_24dp" />
 
                         <TextView
                             android:id="@+id/challenge_due_date"
@@ -264,6 +264,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add_white_24dp" />
+        app:srcCompat="@drawable/ic_add_white_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>

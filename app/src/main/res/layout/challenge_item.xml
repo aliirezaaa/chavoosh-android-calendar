@@ -64,7 +64,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_more_vert_black_24dp" />
+            app:srcCompat="@drawable/ic_more_vert_black_24dp" />
     </com.lnikkila.extendedtouchview.ExtendedTouchView>
 
 </RelativeLayout>

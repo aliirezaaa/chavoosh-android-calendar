@@ -1,6 +1,7 @@
 package io.ipoli.android.challenge.adapters;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,8 +53,12 @@ public class PickChallengeAdapter extends PagerAdapter {
 
         challengeName.setText(pc.challenge.getName());
         challengeDescription.setText(pc.description);
-        //// TODO: 5/18/2017 pre lollipop problem 
-        challengePicture.setImageDrawable(context.getDrawable(pc.picture));
+        //// TODO: 5/18/2017 pre lollipop problem
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            challengePicture.setImageDrawable(context.getDrawable(pc.picture));
+        }else {
+            challengePicture.setImageDrawable(context.getResources().getDrawable(pc.picture));
+        }
         personalize.setOnClickListener(view1 -> eventBus.post(new PersonalizeChallengeEvent(position)));
 
         container.addView(view);

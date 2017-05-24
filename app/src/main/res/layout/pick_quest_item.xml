@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true">
@@ -49,7 +50,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="16dp"
         android:layout_toStartOf="@+id/quest_check"
-        android:src="@drawable/ic_repeating_quest_24dp"
+        app:srcCompat="@drawable/ic_repeating_quest_24dp"
         android:visibility="gone" />
 
     <CheckBox

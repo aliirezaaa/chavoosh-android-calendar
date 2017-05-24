@@ -1,5 +1,6 @@
 package io.ipoli.android.app.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
@@ -95,7 +96,10 @@ public class QuickAddActivity extends BaseActivity implements TextWatcher, OnSug
 
         initSuggestions();
         questText.addTextChangedListener(this);
-        questText.setShowSoftInputOnFocus(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            questText.setShowSoftInputOnFocus(true);
+        }
+
         questText.requestFocus();
         questText.setText(additionalText);
         showKeyboard();

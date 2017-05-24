@@ -338,7 +338,7 @@ public class DayViewFragment extends BaseFragment implements CalendarListener<Qu
             return;
         }
         Collections.sort(schedule.getUnscheduledQuests(), (q1, q2) ->
-                -(q1.getDuration() - q2.getDuration()));
+                -(Integer.valueOf(q1.getDuration()).compareTo(Integer.valueOf(q2.getDuration()))));
         List<UnscheduledQuestViewModel> unscheduledViewModels = new ArrayList<>();
         List<QuestCalendarViewModel> scheduledEvents = schedule.getCalendarEvents();
 
@@ -363,6 +363,7 @@ public class DayViewFragment extends BaseFragment implements CalendarListener<Qu
         setUnscheduledQuestsHeight();
         calendarDayView.onMinuteChanged();
     }
+
     //choose time for quest
     private void proposeSlotForQuest(List<QuestCalendarViewModel> scheduledEvents, ProbabilisticTaskScheduler probabilisticTaskScheduler, List<QuestCalendarViewModel> proposedEvents, Quest q) {
         DiscreteDistribution posterior = posteriorEstimator.posteriorFor(q);

@@ -7,14 +7,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -22,23 +18,16 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import butterknife.BindView;
 import io.ipoli.android.R;
 import io.ipoli.android.app.activities.BaseActivity;
-import io.ipoli.android.app.utils.DateUtils;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
 
 //import io.ipoli.android.persian.com.chavoosh.persiancalendar.adapter.DrawerAdapter;
-import io.ipoli.android.persian.com.chavoosh.persiancalendar.service.ApplicationService;
 //import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.UpdateUtils;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.ApplicationPreferenceFragment;
-import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.CalendarFragment;
-import me.cheshmak.android.sdk.core.Cheshmak;
-import me.cheshmak.android.sdk.core.CheshmakConfig;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.PersianCalendarFragment;
 //import com.google.android.gms.analytics.HitBuilders;
 //import com.google.android.gms.analytics.Tracker;
 
@@ -71,7 +60,7 @@ public class PersianCalendarActivity extends BaseActivity {
     private DrawerLayout drawerLayout;
     private Class<?>[] fragments = {
             null,
-            CalendarFragment.class,
+            PersianCalendarFragment.class,
 //            ConverterFragment.class,
 //            CompassFragment.class,
             ApplicationPreferenceFragment.class,

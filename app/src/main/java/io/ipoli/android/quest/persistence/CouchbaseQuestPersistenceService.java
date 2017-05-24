@@ -209,7 +209,8 @@ public class CouchbaseQuestPersistenceService extends BaseCouchbasePersistenceSe
             if (q2End == null) {
                 return 1;
             }
-            return Long.compare(q1End, q2End);
+            return  Long.valueOf(q1End).compareTo(Long.valueOf(q2End));
+
         };
 
         LiveQuery.ChangeListener changeListener = event -> {
@@ -527,7 +528,7 @@ public class CouchbaseQuestPersistenceService extends BaseCouchbasePersistenceSe
     private QuerySort<Quest> createDefaultQuestSortQuery() {
         return (q1, q2) -> {
             if (q1.shouldBeDoneMultipleTimesPerDay() || q2.shouldBeDoneMultipleTimesPerDay()) {
-                return Integer.compare(q1.getTimesADay(), q2.getTimesADay());
+                return Integer.valueOf(q1.getTimesADay()).compareTo(Integer.valueOf(q2.getTimesADay())) ;
             }
             Integer q1Start = q1.getStartMinute();
             if (q1Start == null) {
@@ -537,7 +538,7 @@ public class CouchbaseQuestPersistenceService extends BaseCouchbasePersistenceSe
             if (q2Start == null) {
                 return 1;
             }
-            return Integer.compare(q1Start, q2Start);
+            return Integer.valueOf(q1Start).compareTo(q2Start);
         };
     }
 }

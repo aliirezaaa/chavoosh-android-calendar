@@ -45,6 +45,7 @@ import io.ipoli.android.challenge.fragments.AddChallengeResultsFragment;
 import io.ipoli.android.challenge.fragments.ChallengeListFragment;
 import io.ipoli.android.challenge.receivers.DailyChallengeReminderReceiver;
 import io.ipoli.android.challenge.receivers.ScheduleDailyChallengeReminderReceiver;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.PersianCalendarFragment;
 import io.ipoli.android.pet.PetActivity;
 import io.ipoli.android.player.activities.PickAvatarPictureActivity;
 import io.ipoli.android.player.fragments.GrowthFragment;
@@ -236,5 +237,7 @@ public interface AppComponent {
     void inject(SettingsActivity settingsActivity);
 
     void inject(CoinStoreActivity coinStoreActivity);
+
+    void inject(PersianCalendarFragment persianCalendarFragment);
 }
 
