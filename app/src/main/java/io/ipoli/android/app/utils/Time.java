@@ -1,5 +1,7 @@
 package io.ipoli.android.app.utils;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -128,10 +130,11 @@ public class Time {
         c.set(Calendar.HOUR_OF_DAY, getHours());
 
         String format = "HH:mm";
+//        String format = "HH";
         if (!use24HourFormat) {
             format = getMinutes() > 0 ? "h:mm a" : "h a";
         }
-
-        return new SimpleDateFormat(format).format(c.getTime());
+//        Log.i("in time ",  new SimpleDateFormat(format).format(c.getTime()).replace("AM","بعد") );
+        return new SimpleDateFormat(format).format(c.getTime()).replace("AM","ق ظ").replace("PM","ب ظ");
     }
 }

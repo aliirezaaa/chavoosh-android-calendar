@@ -197,11 +197,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
 
-        Menu m = navigationView.getMenu();
-        for (int i = 0; i < m.size(); i++) {
-            Log.i("munu", m.getItem(i).getTitle().toString());
-            Utils.getInstance(getContext()).applyFontToMenuItem(m.getItem(i));
-        }
+
     }
 
     private void cheshmakInit() {

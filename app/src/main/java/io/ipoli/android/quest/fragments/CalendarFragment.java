@@ -203,6 +203,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
+        adapter=createAdapter();
         eventBus.register(this);
     }
 
@@ -456,4 +457,14 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 
         }
     };
+
+
+    @Override
+    public void onDestroyView() {
+
+
+        Log.d("cf", "onDestroy");
+
+        super.onDestroyView();
+    }
 }

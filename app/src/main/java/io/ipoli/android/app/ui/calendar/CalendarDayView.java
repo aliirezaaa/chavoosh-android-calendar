@@ -140,7 +140,7 @@ public class CalendarDayView extends FrameLayout {
             hourCellClickYPos = (int) event.getRawY();
             return false;
         });
-        //// TODO: 5/15/2017 on long click listener  
+
         hourCellsContainer.setOnLongClickListener(view -> {
             if (hourCellListener != null) {
                 hourCellListener.onLongClickHourCell(Time.at(getHoursFor(hourCellClickYPos), getMinutesFor(hourCellClickYPos, 15)));
@@ -156,6 +156,7 @@ public class CalendarDayView extends FrameLayout {
         TextView tv = (TextView) hourCell.findViewById(R.id.time_label);
         hourViews.add(tv);
         if (hour > 0) {
+//            use24HourFormat=false;
             tv.setText(Time.atHours(hour).toString(use24HourFormat));
         }
         ViewGroup.LayoutParams hcp = hourCell.getLayoutParams();
