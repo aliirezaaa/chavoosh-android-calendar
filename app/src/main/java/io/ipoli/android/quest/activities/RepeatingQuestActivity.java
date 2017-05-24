@@ -1,5 +1,6 @@
 package io.ipoli.android.quest.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -53,6 +54,7 @@ import io.ipoli.android.quest.data.PeriodHistory;
 import io.ipoli.android.quest.data.Recurrence;
 import io.ipoli.android.quest.data.RepeatingQuest;
 import io.ipoli.android.quest.persistence.RepeatingQuestPersistenceService;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static io.ipoli.android.app.utils.DateUtils.getMonthShortName;
 
@@ -375,5 +377,9 @@ public class RepeatingQuestActivity extends BaseActivity {
             colors[i] = ContextCompat.getColor(this, category.color300);
         }
         return colors;
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

@@ -133,6 +133,7 @@ import io.ipoli.android.quest.schedulers.RepeatingQuestScheduler;
 import io.ipoli.android.quest.ui.events.UpdateRepeatingQuestEvent;
 import io.ipoli.android.quest.widgets.AgendaWidgetProvider;
 import okhttp3.Cookie;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by Venelin Valkov <venelin@curiousily.com>
@@ -312,6 +313,13 @@ public class App extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Yekan.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
 
         AndroidThreeTen.init(this);
         Amplitude.getInstance().initialize(getApplicationContext(), AnalyticsConstants.PROD_FLURRY_KEY).enableForegroundTracking(this);

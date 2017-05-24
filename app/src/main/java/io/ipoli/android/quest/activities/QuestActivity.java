@@ -1,5 +1,6 @@
 package io.ipoli.android.quest.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -63,6 +64,7 @@ import io.ipoli.android.quest.events.subquests.UpdateSubQuestNameEvent;
 import io.ipoli.android.quest.exceptions.QuestNotFoundException;
 import io.ipoli.android.quest.persistence.QuestPersistenceService;
 import io.ipoli.android.quest.schedulers.QuestNotificationScheduler;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by Venelin Valkov <venelin@curiousily.com>
@@ -429,5 +431,9 @@ public class QuestActivity extends BaseActivity implements Chronometer.OnChronom
         if (requestCode == EDIT_QUEST_REQUEST_CODE && resultCode == Constants.RESULT_REMOVED) {
             finish();
         }
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

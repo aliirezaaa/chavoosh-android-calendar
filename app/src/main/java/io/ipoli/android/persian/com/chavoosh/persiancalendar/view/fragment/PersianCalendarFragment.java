@@ -170,6 +170,7 @@ public class PersianCalendarFragment extends BaseFragment
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         questList.setLayoutManager(layoutManager);
         questList.setHasFixedSize(true);
+        selectedDay=DateConverter.persianToLocalDate(utils.getSelectedPersianDate());
 
 //        questList.setEmptyView(questListContainer, R.string.empty_agenda_text, R.drawable.ic_calendar_blank_grey_24dp);
 

@@ -22,6 +22,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -69,6 +71,7 @@ import io.ipoli.android.app.utils.LocalStorage;
 import io.ipoli.android.app.utils.ResourceUtils;
 import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.challenge.fragments.ChallengeListFragment;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.PersianCalendarFragment;
 import io.ipoli.android.pet.PetActivity;
 import io.ipoli.android.pet.data.Pet;
@@ -102,6 +105,7 @@ import io.ipoli.android.reward.fragments.RewardListFragment;
 import io.ipoli.android.shop.activities.CoinStoreActivity;
 import me.cheshmak.android.sdk.core.Cheshmak;
 import me.cheshmak.android.sdk.core.CheshmakConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -145,7 +149,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //        changeLanguage("fa");
 //        cheshmakInit();
 //        changDirection();
-        instance=this.getApplication();
+        instance = this.getApplication();
         appComponent().inject(this);
 
         if (!App.hasPlayer()) {
@@ -155,7 +159,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 //        int schemaVersion = localStorage.readInt(Constants.KEY_SCHEMA_VERSION);
 //        if (App.hasPlayer() && schemaVersion != Constants.SCHEMA_VERSION) {
-            // should migrate
+        // should migrate
 //            startActivity(new Intent(this, MigrationActivity.class));
 //            finish();
 //            return;
@@ -189,10 +193,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1){
-           getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
+
+        Menu m = navigationView.getMenu();
+        for (int i = 0; i < m.size(); i++) {
+            Log.i("munu", m.getItem(i).getTitle().toString());
+            Utils.getInstance(getContext()).applyFontToMenuItem(m.getItem(i));
         }
     }
+
     private void cheshmakInit() {
         CheshmakConfig config = new CheshmakConfig();
         config.setIsEnableAutoActivityReports(true);
@@ -201,6 +212,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         Cheshmak.initTracker("G0qe5bjhhByjKq6K26y1RQ==");
     }
+
     private void changeLanguage(String langouage) {
         Resources res = getResources();
 // Change locale settings in the app.
@@ -210,6 +222,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 // Use conf.locale = new Locale(...) if targeting lower versions
         res.updateConfiguration(conf, dm);
     }
+
     private void changDirection() {
         Configuration configuration = getResources().getConfiguration();
         configuration.setLayoutDirection(new Locale("fa"));
@@ -369,9 +382,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void startCalendar() {
         changeCurrentFragment(new CalendarFragment());
     }
+
     public void startPersianCalendar() {
 
-        changeCurrentFragment(  new PersianCalendarFragment() );
+        changeCurrentFragment(new PersianCalendarFragment());
     }
 
     @Override
@@ -382,7 +396,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void changeCurrentFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_container, fragment,fragment.getClass().getName()).commit();
+                .replace(R.id.content_container, fragment, fragment.getClass().getName()).commit();
         currentFragment = fragment;
         getSupportFragmentManager().executePendingTransactions();
     }
@@ -642,9 +656,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         changeCurrentFragment(new OverviewFragment());
     }
 
-    public static Context getContext(){
+    public static Context getContext() {
 
         return instance.getApplicationContext();
     }
 
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }
