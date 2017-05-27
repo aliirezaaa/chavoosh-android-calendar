@@ -5,7 +5,8 @@
     android:layout_height="48dp"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:layoutDirection="rtl">
 
     <CheckBox
         android:id="@+id/sub_quest_check"

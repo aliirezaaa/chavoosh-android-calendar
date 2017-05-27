@@ -38,7 +38,7 @@ public class DurationFormatter {
             return formatEmptyDuration();
         }
         if (duration <= Constants.QUEST_MIN_DURATION) {
-            return Constants.QUEST_MIN_DURATION + " minutes or less";
+            return Constants.QUEST_MIN_DURATION + " دقیقه یا کمتر";
         }
         long hours = TimeUnit.MINUTES.toHours(duration);
         long mins = duration - hours * 60;
@@ -46,7 +46,7 @@ public class DurationFormatter {
             return "";
         }
         if (hours > 0 && mins > 0) {
-            return hours + "h and " + mins + " min";
+            return hours + "ساعت و " + mins + " دقیقه";
         }
 
         if (hours > 0 && mins == 0) {
@@ -61,9 +61,9 @@ public class DurationFormatter {
             return "";
         }
         if (duration <= Constants.QUEST_MIN_DURATION) {
-            return Constants.QUEST_MIN_DURATION + " min or less";
+            return Constants.QUEST_MIN_DURATION + " دقیقه یا کمتر";
         }
-        return doFormatShort(duration, "and");
+        return doFormatShort(duration, "و");
     }
 
     public static String formatShort(int duration, String separator) {
@@ -74,7 +74,7 @@ public class DurationFormatter {
     }
 
     public static String formatShort(int duration) {
-        return formatShort(duration, "and");
+        return formatShort(duration, "و");
     }
 
     @NonNull
@@ -92,12 +92,12 @@ public class DurationFormatter {
             return hours == 1 ? "1 hour" : hours + " hours";
         }
 
-        return mins + " min";
+        return mins + " دقیقه";
     }
 
 
 
     private static String formatEmptyDuration() {
-        return "Don't know";
+        return "معلوم نیست";
     }
 }

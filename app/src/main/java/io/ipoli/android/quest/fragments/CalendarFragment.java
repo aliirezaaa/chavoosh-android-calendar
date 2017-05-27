@@ -117,7 +117,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 
         ButterKnife.bind(this, view);
         App.getAppComponent(getContext()).inject(this);
-        Log.i("cal get context",getContext().toString());
+
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
@@ -156,14 +156,14 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 
         //define date picker
 
-        com.ibm.icu.util.Calendar now = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
-
-        dpd = DatePickerDialog.newInstance(
-                CalendarFragment.this,
-                now.get(com.ibm.icu.util.Calendar.YEAR),
-                now.get(com.ibm.icu.util.Calendar.MONTH),
-                now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH)
-        );
+//        com.ibm.icu.util.Calendar now = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
+//
+//        dpd = DatePickerDialog.newInstance(
+//                CalendarFragment.this,
+//                now.get(com.ibm.icu.util.Calendar.YEAR),
+//                now.get(com.ibm.icu.util.Calendar.MONTH),
+//                now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH)
+//        );
 //        Log.i("calendar now after define ",""+dpd.getEndDate().get(2));
         //end define date picker
         return view;
@@ -202,8 +202,11 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onResume() {
+//        adapter=createAdapter();
+//        calendarPager.setAdapter(adapter);
+//        calendarPager.setCurrentItem(MID_POSITION);
         super.onResume();
-        adapter=createAdapter();
+
         eventBus.register(this);
     }
 
@@ -212,6 +215,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         eventBus.unregister(this);
         super.onPause();
     }
+
 
     private void changeTitle(PersianDate date) {
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(getToolbarText(date)), Locale.getDefault());
@@ -295,6 +299,15 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
             @Override
             public int getItemPosition(Object object) {
                 return POSITION_NONE;
+            }
+
+            @Override
+            public void finishUpdate(ViewGroup container) {
+                try{
+                    super.finishUpdate(container);
+                } catch (NullPointerException nullPointerException){
+                    System.out.println("Catch the NullPointerException in FragmentPagerAdapter.finishUpdate");
+                }
             }
         };
     }

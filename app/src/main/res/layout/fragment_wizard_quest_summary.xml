@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/add_quest_summary_name"
             android:layout_marginTop="32dp"
+            android:layoutDirection="rtl"
             android:orientation="vertical"
             android:paddingEnd="16dp"
             android:paddingStart="16dp">
@@ -197,6 +198,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/add_quest_summary_date_time"
             android:layout_marginTop="64dp"
+            android:layoutDirection="ltr"
             android:orientation="vertical"
             android:paddingEnd="16dp"
             android:paddingStart="16dp">

@@ -125,7 +125,7 @@ public class Time {
     }
 
     public String toString(boolean use24HourFormat) {
-        Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance(new Locale("en"));
         c.set(Calendar.MINUTE, getMinutes());
         c.set(Calendar.HOUR_OF_DAY, getHours());
 

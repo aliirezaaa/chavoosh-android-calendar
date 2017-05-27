@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:layoutDirection="rtl">
 
     <FrameLayout
         android:id="@+id/quest_category_container"
@@ -50,8 +51,8 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="16dp"
         android:layout_toStartOf="@+id/quest_check"
-        app:srcCompat="@drawable/ic_repeating_quest_24dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_repeating_quest_24dp" />
 
     <CheckBox
         android:id="@id/quest_check"

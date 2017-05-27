@@ -335,6 +335,7 @@ public class AddQuestSummaryFragment extends BaseFragment {
     }
 
     private void addSubQuest(String name) {
+        Log.i("name of sub summary",name);
         if (StringUtils.isEmpty(name)) {
             return;
         }
@@ -381,7 +382,7 @@ public class AddQuestSummaryFragment extends BaseFragment {
     }
 
     private void showDuration(int duration) {
-        durationText.setText("For " + DurationFormatter.formatReadable(duration));
+        durationText.setText("به مدت " + DurationFormatter.formatReadable(duration));
         durationText.setTag(duration);
     }
 
@@ -424,7 +425,7 @@ public class AddQuestSummaryFragment extends BaseFragment {
                 scheduledDate.setText(getPersianDateFromQuest(quest));
 
             }
-        } else if (quest.getStart().hashCode() == quest.getEnd()) {
+        } else if (quest.getStart().hashCode() == quest.getEnd().hashCode()) {
 //            scheduledDate.setText(DateFormatter.formatWithoutYear(quest.getEndDate()));
             scheduledDate.setText(getPersianDateFromQuest(quest));
 

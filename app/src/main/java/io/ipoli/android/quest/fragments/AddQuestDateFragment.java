@@ -1,8 +1,13 @@
 package io.ipoli.android.quest.fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +40,7 @@ import io.ipoli.android.app.ui.dialogs.DatePickerFragment;
 import io.ipoli.android.persian.calendar.CivilDate;
 import io.ipoli.android.persian.calendar.DateConverter;
 import io.ipoli.android.persian.calendar.PersianDate;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.adapters.QuestOptionsAdapter;
 import io.ipoli.android.quest.data.Category;
 import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
@@ -44,8 +50,7 @@ import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
  * on 1/7/17.
  */
 
-public class AddQuestDateFragment extends BaseFragment implements TimePickerDialog.OnTimeSetListener,
-        DatePickerDialog.OnDateSetListener {
+public class AddQuestDateFragment extends BaseFragment  {
 
     @BindView(R.id.new_quest_date_options)
     RecyclerView dateOptions;
@@ -66,21 +71,22 @@ public class AddQuestDateFragment extends BaseFragment implements TimePickerDial
 
         dateOptions.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         dateOptions.setHasFixedSize(true);
-
+        initLocalDateBroadCast();
         List<Pair<String, View.OnClickListener>> options = new ArrayList<>();
 
         options.add(new Pair<>(getString(R.string.by_the_end_of_week), v ->
-                postEvent(new NewQuestDatePickedEvent(LocalDate.now(), LocalDate.now().with(DayOfWeek.SUNDAY)))));
+                postEvent(new NewQuestDatePickedEvent(LocalDate.now(), LocalDate.now().with(DayOfWeek.FRIDAY)))
+        ));
 
         options.add(new Pair<>(getString(R.string.by_the_end_of_month), v ->
-                postEvent(new NewQuestDatePickedEvent(LocalDate.now(), LocalDate.now().with(TemporalAdjusters.lastDayOfMonth())))));
+                postEvent(new NewQuestDatePickedEvent(LocalDate.now(), Utils.getInstance(getContext()).getEndOfPersianMonth()))));
 
         options.add(new Pair<>(getString(R.string.someday_by), v -> {
 //            DatePickerFragment fragment = DatePickerFragment.newInstance(LocalDate.now(), true, false,
 //                    date -> postEvent(new NewQuestDatePickedEvent(LocalDate.now(), date)));
 //            fragment.show(getFragmentManager());
             isSomeday = true;
-            pickDate();
+            Utils.getInstance(getContext()).pickDate(AddQuestDateFragment.this, "ON_DATE_SET_FOR_QUEST");
         }));
 
         options.add(new Pair<>(getString(R.string.today), v ->
@@ -100,7 +106,8 @@ public class AddQuestDateFragment extends BaseFragment implements TimePickerDial
 //                    });
 //            fragment.show(getFragmentManager());
             isSomeday = false;
-            pickDate();
+            Utils.getInstance(getContext()).pickDate(AddQuestDateFragment.this, "ON_DATE_SET_FOR_QUEST");
+//            pickDate();
         }));
 
         options.add(new Pair<>(getString(R.string.do_not_know), v -> {
@@ -141,6 +148,33 @@ public class AddQuestDateFragment extends BaseFragment implements TimePickerDial
         unbinder.unbind();
         super.onDestroyView();
     }
+    private void initLocalDateBroadCast() {
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReciever,
+                new IntentFilter("ON_DATE_SET_FOR_QUEST"));
+    }
+    private BroadcastReceiver dateReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int year = intent.getIntExtra("year", 0);
+            int month = intent.getIntExtra("month", 0);
+            int day = intent.getIntExtra("day", 0);
+            Log.d("receiver", "Got message: " + year);
+            Log.d("receiver", "Got message: " + month);
+            Log.d("receiver", "Got message: " + day);
+
+            PersianDate pDate=new PersianDate(year, month, day);
+
+            //post to next fragment
+            if (isSomeday == false) {
+                //if on... selected
+                postEvent(new NewQuestDatePickedEvent(DateConverter.persianToLocalDate(pDate), DateConverter.persianToLocalDate(pDate)));
+            } else {
+                postEvent(new NewQuestDatePickedEvent(LocalDate.now(), DateConverter.persianToLocalDate(pDate)));
+            }
+
+        }
+    };
 
     @Override
     protected boolean useOptionsMenu() {
@@ -148,80 +182,6 @@ public class AddQuestDateFragment extends BaseFragment implements TimePickerDial
     }
 
 
-    private void pickDate() {
-        com.ibm.icu.util.Calendar now = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
-//        Log.i("calendar.now ",
-//                "" + now.get(com.ibm.icu.util.Calendar.YEAR)
-//                +""+ now.get(com.ibm.icu.util.Calendar.MONTH)+
-//                ""+  now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH));
-
-        dpd = DatePickerDialog.newInstance(
-                AddQuestDateFragment.this,
-                now.get(com.ibm.icu.util.Calendar.YEAR),
-                now.get(com.ibm.icu.util.Calendar.MONTH),
-                now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH)
-        );
 
 
-        dpd.setThemeDark(false);
-        dpd.vibrate(true);
-        dpd.dismissOnPause(true);
-        dpd.showYearPickerFirst(false);
-        if (true) {
-            dpd.setAccentColor(Color.parseColor("#9C27B0"));
-        }
-        if (true) {
-            dpd.setTitle("DatePicker Title");
-        }
-        if (false) {
-            com.ibm.icu.util.Calendar[] dates = new com.ibm.icu.util.Calendar[13];
-            for (int i = -6; i <= 6; i++) {
-                com.ibm.icu.util.Calendar date = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
-                date.add(com.ibm.icu.util.Calendar.MONTH, i);
-                dates[i + 6] = date;
-            }
-            dpd.setSelectableDays(dates);
-        }
-        if (false) {
-            com.ibm.icu.util.Calendar[] dates = new com.ibm.icu.util.Calendar[13];
-            for (int i = -6; i <= 6; i++) {
-                com.ibm.icu.util.Calendar date = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
-                date.add(com.ibm.icu.util.Calendar.WEEK_OF_YEAR, i);
-                dates[i + 6] = date;
-            }
-            dpd.setHighlightedDays(dates);
-        }
-//        dpd.initialize();
-        dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
-    }
-
-    @Override
-    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
-
-    }
-
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-//        String date = "You picked the following date: " + dayOfMonth + "/" + (++monthOfYear) + "/" + year;
-        PersianDate pDate = new PersianDate(year, ++monthOfYear, dayOfMonth);
-        //convert to civil date and then convert to local
-        CivilDate civilDate = DateConverter.persianToCivil(pDate);
-        LocalDate lDate = LocalDate.of(civilDate.getYear(), civilDate.getMonth(), civilDate.getDayOfMonth());
-
-        //post to next fragment
-        if (isSomeday == false) {
-            //if on... selected
-            postEvent(new NewQuestDatePickedEvent(lDate, lDate));
-        } else {
-            postEvent(new NewQuestDatePickedEvent(LocalDate.now(), lDate));
-        }
-
-//        dateTextView.setText(date);
-//        Log.i("arguments ", "" + year + monthOfYear + dayOfMonth);
-//        Log.i("civil date ", "" + civilDate.getYear() + civilDate.getMonth() + civilDate.getDayOfMonth());
-//        Log.i("persian date ", "" + pDate.getYear() + pDate.getMonth() + pDate.getDayOfMonth());
-
-        Log.i("local date ", "" + lDate.getYear() + lDate.getMonth() + lDate.getDayOfMonth());
-
-    }
 }

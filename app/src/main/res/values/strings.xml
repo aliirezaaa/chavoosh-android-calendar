@@ -169,7 +169,7 @@
     <string name="title_pick_initial_repeating_quests">Pick a few Habits to start with</string>
     <string name="title_pick_initial_quests">Pick a few Quests to start with</string>
     <string name="title_fragment_repeating_quests">Repeating Quests</string>
-    <string name="share">Share</string>
+    <string name="share">به اشتراک گذاری</string>
     <string name="facebook_app_id">1609232436065758</string>
     <string name="invite_friends">Invite Friends</string>
     <string name="cannot_edit_completed_quests">Completed quests cannot be edited</string>
@@ -188,8 +188,8 @@
     <string name="rate_dialog_feedback_send">Send</string>
     <string name="rate_dialog_feedback_no">No, thanks</string>
     <string name="rate_dialog_feedback_thanks">Thanks! +10 XP Just kidding ;)</string>
-    <string name="quest_saved">Quest saved</string>
-    <string name="help_explain_screen">Know this screen</string>
+    <string name="quest_saved">کار ذخیره شد</string>
+    <string name="help_explain_screen">این صفحه را بشناسیم</string>
     <string name="help_dialog_calendar_title">What is calendar all about?</string>
     <string name="help_dialog_overview_title">What is overview all about?</string>
     <string name="help_dialog_pick_daily_challenge_quests_title">Why to accept daily challenge?</string>
@@ -224,7 +224,7 @@
     <string name="challenges">چالش ها</string>
     <string name="growth">نمودار پیشرفت</string>
     <string name="rewards">Rewards</string>
-    <string name="title_fragment_challenges">Challenges</string>
+    <string name="title_fragment_challenges">چالش ها</string>
     <string name="title_fragment_rewards">Rewards</string>
     <string name="title_activity_add_reward">Add Reward</string>
     <string name="reward_name_hint">Name (e.g. Eat a chocolate)</string>
@@ -264,7 +264,7 @@
     <string name="reward_saved">Reward saved</string>
     <string name="quest_note_question">یادداشت</string>
     <string name="none">None</string>
-    <string name="pick_note_title">Enter a note</string>
+    <string name="pick_note_title">یک یادداشت وارد کنید</string>
     <string name="empty_text_chanllenge">Add your challenges and conquer them!</string>
     <!--<string name="settings">Settings</string>-->
     <string name="accept">قبول</string>
@@ -310,13 +310,13 @@
     <string name="recurrence_picker_title">Pick repeating pattern</string>
     <string name="pick_flexible_count_title">How often?</string>
     <string name="preferred_days">Preferred days</string>
-    <string name="add_sub_quest">Add Sub Quest</string>
+    <string name="add_sub_quest">زیر برنامه اضافه کنید</string>
     <string name="edit_quest_add_sub_quest">+ Add sub-quest</string>
     <string name="help_dialog_quest_title">Manage your quest</string>
     <string name="help_dialog_quest_text1">From this screen you can:</string>
     <string name="help_dialog_quest_track_time">Use the timer to track how you spend your time</string>
     <string name="help_dialog_quest_sub_quests">Create and manage checklist for your quest</string>
-    <string name="history">History</string>
+    <string name="history">تاریخ</string>
     <string name="help_dialog_repeating_quest_title">Track your progress</string>
     <string name="help_dialog_repeating_quest_text1">Check how you are doing with your repeating quest</string>
     <string name="help_dialog_repeating_quest_duration">How much time you\'ve spent on this quest</string>
@@ -338,7 +338,7 @@
     <string name="name_validation">Please, add name</string>
 
     <string name="calendar">Calendar</string>
-    <string name="overview">Journey Ahead</string>
+    <string name="overview">کارهای پیش رو</string>
     <string name="do_today">Do today</string>
     <string name="snooze_for_tomorrow">Snooze for tomorrow</string>
     <string name="quest_duplicated">Quest duplicated</string>
@@ -527,10 +527,10 @@
     <string name="start_time">Start time</string>
     <string name="end_time">End time</string>
     <string name="fab_quick_add">Quick Add</string>
-    <string name="fab_reward">Reward</string>
-    <string name="fab_challenge">Challenge</string>
-    <string name="fab_repeating_quest">Repeating Quest</string>
-    <string name="fab_quest">Quest</string>
+    <string name="fab_reward">جایزه</string>
+    <string name="fab_challenge">چالش</string>
+    <string name="fab_repeating_quest">برنامه دوره ای</string>
+    <string name="fab_quest">برنامه</string>
     <string name="repeating_quest_completed_this_month">%d completed this month</string>
     <string name="this_month">this month</string>
     <string name="last_week">last week</string>

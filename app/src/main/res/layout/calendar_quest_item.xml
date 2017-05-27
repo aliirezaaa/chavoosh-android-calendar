@@ -7,8 +7,8 @@
     <TextView
         android:id="@+id/quest_current_time_indicator"
         android:layout_width="72dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textColor="?attr/colorAccent" />
 
     <RelativeLayout
@@ -52,8 +52,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:maxLines="3"
                     android:ellipsize="end"
+                    android:gravity="end"
+                    android:maxLines="3"
                     android:textColor="@color/md_dark_text_87"
                     android:textSize="16sp" />
 

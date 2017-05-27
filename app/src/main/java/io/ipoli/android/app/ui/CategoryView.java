@@ -148,7 +148,31 @@ public class CategoryView extends LinearLayout {
     }
 
     private void setCategoryName() {
-        categoryName.setText(StringUtils.capitalize(category.name()));
+//        categoryName.setText(StringUtils.capitalize(category.name()));
+        String name = "";
+        switch (category) {
+            case LEARNING:
+                name = "آموزش";
+                break;
+
+            case WELLNESS:
+                name = "سلامتی";
+                break;
+
+            case PERSONAL:
+                name = "شخصی";
+                break;
+            case WORK:
+                name = "کاری";
+                break;
+            case FUN:
+                name = "تفریح";
+                break;
+            case CHORES:
+                name = "روزمره";
+                break;
+        }
+        categoryName.setText(name);
     }
 
 

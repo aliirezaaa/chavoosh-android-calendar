@@ -52,6 +52,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.threeten.bp.LocalDate;
 
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
@@ -71,8 +72,10 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 
+import io.ipoli.android.MainActivity;
 import io.ipoli.android.R;
 import io.ipoli.android.app.BaseFragment;
+import io.ipoli.android.app.activities.BaseActivity;
 import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.persian.calendar.AbstractDate;
 import io.ipoli.android.persian.calendar.CivilDate;
@@ -1190,23 +1193,15 @@ public class Utils {
     public void pickDate(BaseFragment fragment, String tag) {
         DatePickerDialog dpd;
         com.ibm.icu.util.Calendar now = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
-//        Log.i("calendar.now ",
-//                "" + now.get(com.ibm.icu.util.Calendar.YEAR)
-//                +""+ now.get(com.ibm.icu.util.Calendar.MONTH)+
-//                ""+  now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH));
 
-//        dpd = DatePickerDialog.newInstance(
-//                AddQuestDateFragment.this,
-//                now.get(com.ibm.icu.util.Calendar.YEAR),
-//                now.get(com.ibm.icu.util.Calendar.MONTH),
-//                now.get(com.ibm.icu.util.Calendar.DAY_OF_MONTH)
-//        );
         dpd = DatePickerDialog.newInstance((view, year, monthOfYear, dayOfMonth) -> {
                     Intent date_intent = new Intent(tag);
                     date_intent.putExtra("year", year);
                     date_intent.putExtra("month", ++monthOfYear);
                     date_intent.putExtra("day", dayOfMonth);
+
                     LocalBroadcastManager.getInstance(getContext()).sendBroadcast(date_intent);
+                    Locale.setDefault(new Locale("en"));
                 },
                 now.get(com.ibm.icu.util.Calendar.YEAR),
                 now.get(com.ibm.icu.util.Calendar.MONTH),
@@ -1226,6 +1221,8 @@ public class Utils {
             com.ibm.icu.util.Calendar[] dates = new com.ibm.icu.util.Calendar[13];
             for (int i = -6; i <= 6; i++) {
                 com.ibm.icu.util.Calendar date = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
+
+
                 date.add(com.ibm.icu.util.Calendar.MONTH, i);
                 dates[i + 6] = date;
             }
@@ -1241,6 +1238,7 @@ public class Utils {
             dpd.setHighlightedDays(dates);
         }
 //        dpd.initialize();
+
         dpd.show(fragment.getActivity().getFragmentManager(), "Datepickerdialog");
     }
 
@@ -1250,13 +1248,31 @@ public class Utils {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    public LocalDate getEndOfPersianMonth() {
+        int endOfMonth = 0;
+        if (getToday().getMonth() > 6) {
+            if (getToday().getMonth() == 12) {
+                //esfand
+                endOfMonth = 29;
+            } else {
+                //7-11
+                endOfMonth = 30;
+            }
+        } else {
+            //1-6
+            endOfMonth = 31;
 
-    public void applyFontToMenuItem(MenuItem mi) {
-        Typeface font = Typeface.createFromAsset(context.getAssets(), "fonts/Yekan.ttf");
-        SpannableString mNewTitle = new SpannableString(mi.getTitle());
+        }
+        Log.i("end of month",""+endOfMonth);
+        PersianDate p = new PersianDate(getToday().getYear(), getToday().getMonth(), endOfMonth);
 
-//        mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-//       mNewTitle.setSpan();
-        mi.setTitle(mNewTitle);
+        return DateConverter.persianToLocalDate(p);
     }
+
+    public void changLayoutDirection(Activity activity){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                activity.getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
+    }
+
 }

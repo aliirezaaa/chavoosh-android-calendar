@@ -61,6 +61,7 @@ import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.challenge.data.Challenge;
 import io.ipoli.android.challenge.persistence.ChallengePersistenceService;
 import io.ipoli.android.note.data.Note;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.adapters.EditQuestSubQuestListAdapter;
 import io.ipoli.android.quest.data.Category;
 import io.ipoli.android.quest.data.Recurrence;
@@ -223,6 +224,8 @@ public class EditQuestActivity extends BaseActivity implements
         } else if (getIntent() != null && !TextUtils.isEmpty(getIntent().getStringExtra(Constants.REPEATING_QUEST_ID_EXTRA_KEY))) {
             onEditRepeatingQuest();
         }
+
+//        Utils.getInstance(getApplicationContext()).changLayoutDirection(this);
     }
 
     private void initSubQuestsUI() {

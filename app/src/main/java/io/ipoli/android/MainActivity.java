@@ -193,9 +193,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        }
+        Utils.getInstance(getContext()).changLayoutDirection(this);
 
 
     }
@@ -656,7 +654,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         return instance.getApplicationContext();
     }
-
 
 
     @Override
