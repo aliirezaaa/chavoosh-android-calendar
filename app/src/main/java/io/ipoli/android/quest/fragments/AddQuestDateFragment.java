@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -17,17 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.ibm.icu.util.ULocale;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.temporal.TemporalAdjusters;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,8 +30,6 @@ import butterknife.Unbinder;
 import io.ipoli.android.R;
 import io.ipoli.android.app.App;
 import io.ipoli.android.app.BaseFragment;
-import io.ipoli.android.app.ui.dialogs.DatePickerFragment;
-import io.ipoli.android.persian.calendar.CivilDate;
 import io.ipoli.android.persian.calendar.DateConverter;
 import io.ipoli.android.persian.calendar.PersianDate;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
@@ -149,10 +141,10 @@ public class AddQuestDateFragment extends BaseFragment  {
         super.onDestroyView();
     }
     private void initLocalDateBroadCast() {
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReciever,
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReceiver,
                 new IntentFilter("ON_DATE_SET_FOR_QUEST"));
     }
-    private BroadcastReceiver dateReciever = new BroadcastReceiver() {
+    private BroadcastReceiver dateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent

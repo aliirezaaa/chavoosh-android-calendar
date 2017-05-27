@@ -1,6 +1,10 @@
 package io.ipoli.android.quest.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +14,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +22,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,6 +67,8 @@ import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.challenge.data.Challenge;
 import io.ipoli.android.challenge.persistence.ChallengePersistenceService;
 import io.ipoli.android.note.data.Note;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.adapters.EditQuestSubQuestListAdapter;
 import io.ipoli.android.quest.data.Category;
@@ -70,6 +78,8 @@ import io.ipoli.android.quest.events.CancelDeleteQuestEvent;
 import io.ipoli.android.quest.events.ChallengePickedEvent;
 import io.ipoli.android.quest.events.DeleteQuestRequestEvent;
 import io.ipoli.android.quest.events.DeleteRepeatingQuestRequestEvent;
+import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
+import io.ipoli.android.quest.events.NewQuestTimePickedEvent;
 import io.ipoli.android.quest.events.QuestDatePickedEvent;
 import io.ipoli.android.quest.events.QuestDurationPickedEvent;
 import io.ipoli.android.quest.events.QuestNodePickedEvent;
@@ -80,6 +90,7 @@ import io.ipoli.android.quest.events.UndoDeleteRepeatingQuestEvent;
 import io.ipoli.android.quest.events.UpdateQuestEvent;
 import io.ipoli.android.quest.events.subquests.AddSubQuestTappedEvent;
 import io.ipoli.android.quest.events.subquests.NewSubQuestEvent;
+import io.ipoli.android.quest.fragments.AddQuestDateFragment;
 import io.ipoli.android.quest.persistence.QuestPersistenceService;
 import io.ipoli.android.quest.persistence.RepeatingQuestPersistenceService;
 import io.ipoli.android.quest.ui.dialogs.ChallengePickerFragment;
@@ -94,6 +105,7 @@ import io.ipoli.android.reminder.ReminderMinutesParser;
 import io.ipoli.android.reminder.TimeOffsetType;
 import io.ipoli.android.reminder.data.Reminder;
 
+import static io.ipoli.android.MainActivity.getContext;
 import static io.ipoli.android.app.events.EventSource.EDIT_QUEST;
 
 /**
@@ -224,6 +236,7 @@ public class EditQuestActivity extends BaseActivity implements
         } else if (getIntent() != null && !TextUtils.isEmpty(getIntent().getStringExtra(Constants.REPEATING_QUEST_ID_EXTRA_KEY))) {
             onEditRepeatingQuest();
         }
+        initLocalBroadCasts();
 
 //        Utils.getInstance(getApplicationContext()).changLayoutDirection(this);
     }
@@ -544,18 +557,64 @@ public class EditQuestActivity extends BaseActivity implements
 
     @OnClick(R.id.quest_end_date_container)
     public void onEndDateClick(View view) {
-        DatePickerFragment f = DatePickerFragment.newInstance((LocalDate) endDateText.getTag(), this);
-        f.show(this.getSupportFragmentManager());
+//        DatePickerFragment f = DatePickerFragment.newInstance((LocalDate) endDateText.getTag(), this);
+//        f.show(this.getSupportFragmentManager());
+        Utils.getInstance(getContext()).pickDate(EditQuestActivity.this, "ON_DATE_SET_FOR_EDIT");
+    }
+
+    private BroadcastReceiver dateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int year = intent.getIntExtra("year", 0);
+            int month = intent.getIntExtra("month", 0);
+            int day = intent.getIntExtra("day", 0);
+            Log.d("receiver", "Got message: " + year);
+            Log.d("receiver", "Got message: " + month);
+            Log.d("receiver", "Got message: " + day);
+
+            PersianDate pDate = new PersianDate(year, month, day);
+
+            //post to next fragment
+            if (pDate != null) {
+                setFrequencyText(null);
+            }
+            populateEndDate(DateConverter.persianToLocalDate(pDate));
+            eventBus.post(new QuestDatePickedEvent(editMode.name().toLowerCase()));
+
+        }
+    };
+    private BroadcastReceiver timeReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int hour = intent.getIntExtra("hour",0);
+            int minute = intent.getIntExtra("minute",0);
+//            Log.d("receiver", "Got message: " + hour);
+//            Log.d("receiver", "Got message: " + hour);
+            Time tm=Time.at(hour,minute);
+            populateStartTime(tm == null ? null : tm.toMinuteOfDay());
+            eventBus.post(new QuestStartTimePickedEvent(editMode.name().toLowerCase()));
+        }
+    };
+
+    private void initLocalBroadCasts() {
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReceiver,
+                new IntentFilter("ON_DATE_SET_FOR_EDIT"));
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(timeReciever,
+                new IntentFilter("ON_TIME_SET_FOR_EDIT"));
+
     }
 
     @OnClick(R.id.quest_start_time_container)
     public void onStartTimeClick(View view) {
-        Time time = Time.now();
-        if (startTimeText.getTag() != null) {
-            time = Time.of((int) startTimeText.getTag());
-        }
-        TimePickerFragment f = TimePickerFragment.newInstance(time, this);
-        f.show(this.getSupportFragmentManager());
+//        Time time = Time.now();
+//        if (startTimeText.getTag() != null) {
+//            time = Time.of((int) startTimeText.getTag());
+//        }
+//        TimePickerFragment f = TimePickerFragment.newInstance(time, this);
+//        f.show(this.getSupportFragmentManager());
+        Utils.getInstance(getContext()).pickTime(EditQuestActivity.this, "ON_TIME_SET_FOR_EDIT");
     }
 
     @OnClick(R.id.quest_duration_container)
@@ -681,8 +740,13 @@ public class EditQuestActivity extends BaseActivity implements
     private void populateEndDate(LocalDate date) {
         if (date != null) {
             setFrequencyText(null);
+            endDateText.setText(Utils.getInstance(getContext()).dateToString(DateConverter.localToPersianDate(date)));
+        }else {
+            endDateText.setText("معلوم نیست");
         }
-        endDateText.setText(DateFormatter.format(date));
+//        endDateText.setText(DateFormatter.format(date));
+
+
         endDateText.setTag(date);
     }
 
@@ -808,6 +872,8 @@ public class EditQuestActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         categoryView.removeCategoryChangedListener(this);
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(dateReceiver);
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(timeReciever);
         super.onDestroy();
     }
 }

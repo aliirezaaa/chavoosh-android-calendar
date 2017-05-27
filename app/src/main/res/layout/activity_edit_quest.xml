@@ -78,6 +78,7 @@
         android:id="@+id/quest_info_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -468,8 +469,8 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/ic_clear_black_24dp"
-                    android:visibility="invisible" />
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/ic_clear_black_24dp" />
 
             </RelativeLayout>
 

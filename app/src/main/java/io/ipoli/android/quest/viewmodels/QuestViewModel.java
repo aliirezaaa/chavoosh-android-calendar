@@ -67,9 +67,9 @@ public class QuestViewModel {
             Time endTime = Time.plusMinutes(startTime, duration);
             return startTime.toString(use24HourFormat) + " - " + endTime.toString(use24HourFormat);
         } else if (duration > 0) {
-            return "for " + DurationFormatter.format(context, duration);
+            return "به مدت " + DurationFormatter.format(context, duration);
         } else if (startTime != null) {
-            return "at " + startTime.toString(use24HourFormat);
+            return "در  " + startTime.toString(use24HourFormat);
         }
         return "";
     }

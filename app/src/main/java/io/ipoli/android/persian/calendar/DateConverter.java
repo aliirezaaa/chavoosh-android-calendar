@@ -330,4 +330,9 @@ public final class DateConverter {
         LocalDate lDate = LocalDate.of(cDate.getYear(), cDate.getMonth(), cDate.getDayOfMonth());
         return lDate;
     }
+    public static PersianDate localToPersianDate(LocalDate date){
+        CivilDate cDate = new CivilDate(date.getYear(),date.getMonthValue(),date.getDayOfMonth());
+        PersianDate pDate = DateConverter.civilToPersian(cDate);
+        return pDate;
+    }
 }

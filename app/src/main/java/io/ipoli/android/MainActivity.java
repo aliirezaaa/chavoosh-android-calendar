@@ -1,8 +1,10 @@
 package io.ipoli.android;
 
 import android.app.Application;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
@@ -15,6 +17,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -71,6 +74,8 @@ import io.ipoli.android.app.utils.LocalStorage;
 import io.ipoli.android.app.utils.ResourceUtils;
 import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.challenge.fragments.ChallengeListFragment;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.PersianCalendarFragment;
 import io.ipoli.android.pet.PetActivity;
@@ -88,12 +93,15 @@ import io.ipoli.android.quest.commands.StopQuestCommand;
 import io.ipoli.android.quest.data.Quest;
 import io.ipoli.android.quest.events.DuplicateQuestRequestEvent;
 import io.ipoli.android.quest.events.EditQuestRequestEvent;
+import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
 import io.ipoli.android.quest.events.NewQuestEvent;
+import io.ipoli.android.quest.events.NewQuestTimePickedEvent;
 import io.ipoli.android.quest.events.QuestCompletedEvent;
 import io.ipoli.android.quest.events.ShareQuestEvent;
 import io.ipoli.android.quest.events.SnoozeQuestRequestEvent;
 import io.ipoli.android.quest.events.StartQuestRequestEvent;
 import io.ipoli.android.quest.events.StopQuestRequestEvent;
+import io.ipoli.android.quest.fragments.AddQuestDateFragment;
 import io.ipoli.android.quest.fragments.CalendarFragment;
 import io.ipoli.android.quest.fragments.InboxFragment;
 import io.ipoli.android.quest.fragments.OverviewFragment;
@@ -112,6 +120,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public static final int PICK_PLAYER_PICTURE_REQUEST_CODE = 101;
     public static final int INVITE_FRIEND_REQUEST_CODE = 102;
     private static final int PROGRESS_BAR_MAX_VALUE = 100;
+
+    private boolean dShowAction;
+    DuplicateQuestRequestEvent dEvent;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
@@ -140,6 +151,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public ActionBarDrawerToggle actionBarDrawerToggle;
     private MenuItem navigationItemSelected;
     private static Application instance;
+    private Quest snoozeQuest;
+    private boolean snoozeAction;
+    private Quest tSnoozeQuest;
+    private boolean tShowAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,7 +209,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         Utils.getInstance(getContext()).changLayoutDirection(this);
-
+        initLocalDateBroadCast();
 
     }
 
@@ -462,9 +477,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onDuplicateQuestRequest(DuplicateQuestRequestEvent e) {
         boolean showAction = e.source != EventSource.OVERVIEW;
         if (e.date == null) {
-            DatePickerFragment fragment = DatePickerFragment.newInstance(LocalDate.now(), true,
-                    date -> duplicateQuest(e.quest, date, showAction));
-            fragment.show(getSupportFragmentManager());
+            dShowAction=e.source != EventSource.OVERVIEW;
+            dEvent=e;
+//            DatePickerFragment fragment = DatePickerFragment.newInstance(LocalDate.now(), true,
+//                    date ->
+//                            duplicateQuest(e.quest, date, showAction));
+//            fragment.show(getSupportFragmentManager());
+            Utils.getInstance(getContext()).pickDate(MainActivity.this, "ON_DATE_SET_FOR_DUPLICATE");
+
         } else {
             duplicateQuest(e.quest, e.date, showAction);
         }
@@ -537,18 +557,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void pickTimeAndSnoozeQuest(Quest quest, boolean showAction) {
-        Time time = quest.hasStartTime() ? Time.of(quest.getStartMinute()) : null;
-        TimePickerFragment.newInstance(false, time, newTime -> {
-            quest.setStartMinute(newTime.toMinuteOfDay());
-            saveSnoozedQuest(quest, false, showAction);
-        }).show(getSupportFragmentManager());
+        tSnoozeQuest=quest;
+        tShowAction=showAction;
+//        Time time = quest.hasStartTime() ? Time.of(quest.getStartMinute()) : null;
+//        TimePickerFragment.newInstance(false, time, newTime -> {
+//            quest.setStartMinute(newTime.toMinuteOfDay());
+//            saveSnoozedQuest(quest, false, showAction);
+//        }).show(getSupportFragmentManager());
+        Utils.getInstance(getContext()).pickTime(MainActivity.this, "ON_DATE_SET_FOR_SNOOZE_TIME");
     }
 
     private void pickDateAndSnoozeQuest(Quest quest, boolean showAction) {
-        DatePickerFragment.newInstance(LocalDate.now(), true, date -> {
-            quest.setScheduledDate(date);
-            saveSnoozedQuest(quest, true, showAction);
-        }).show(getSupportFragmentManager());
+        snoozeQuest=quest;
+        snoozeAction=showAction;
+//        DatePickerFragment.newInstance(LocalDate.now(), true, date -> {
+//            quest.setScheduledDate(date);
+//            saveSnoozedQuest(quest, true, showAction);
+//        }).show(getSupportFragmentManager());
+        Utils.getInstance(getContext()).pickDate(MainActivity.this, "ON_DATE_SET_FOR_SNOOZE");
     }
 
     private void saveSnoozedQuest(Quest quest, boolean isDateChanged, boolean showAction) {
@@ -660,4 +686,53 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
+    private void initLocalDateBroadCast() {
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReceiver,
+                new IntentFilter("ON_DATE_SET_FOR_DUPLICATE"));
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(snoozeDateReceiver,
+                new IntentFilter("ON_DATE_SET_FOR_SNOOZE"));
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(snoozeTimeReceiver,
+                new IntentFilter("ON_DATE_SET_FOR_SNOOZE_TIME"));
+    }
+
+    private BroadcastReceiver dateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int year = intent.getIntExtra("year", 0);
+            int month = intent.getIntExtra("month", 0);
+            int day = intent.getIntExtra("day", 0);
+            PersianDate pDate = new PersianDate(year, month, day);
+            duplicateQuest(dEvent.quest, DateConverter.persianToLocalDate(pDate), dShowAction);
+        }
+    };
+    private BroadcastReceiver snoozeDateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int year = intent.getIntExtra("year", 0);
+            int month = intent.getIntExtra("month", 0);
+            int day = intent.getIntExtra("day", 0);
+
+            PersianDate pDate = new PersianDate(year, month, day);
+            snoozeQuest.setScheduledDate(DateConverter.persianToLocalDate(pDate));
+            saveSnoozedQuest(snoozeQuest, true, snoozeAction);
+        }
+    };
+    private BroadcastReceiver snoozeTimeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int hour = intent.getIntExtra("hour",0);
+            int minute = intent.getIntExtra("minute",0);
+//            Log.d("receiver", "Got message: " + hour);
+//            Log.d("receiver", "Got message: " + hour);
+            Time tm=Time.at(hour,minute);
+
+            tSnoozeQuest.setStartMinute(tm.toMinuteOfDay());
+            saveSnoozedQuest(tSnoozeQuest, false, tShowAction);
+
+        }
+    };
 }

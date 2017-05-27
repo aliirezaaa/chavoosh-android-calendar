@@ -1139,7 +1139,7 @@ public class Utils {
         return this.toolbar;
     }
 
-    public void pickTime(BaseFragment fragment, String tag) {
+    public void pickTime(Object activity, String tag) {
 
         Calendar now = Calendar.getInstance();
 
@@ -1171,7 +1171,7 @@ public class Utils {
             tpd.setAccentColor(Color.parseColor("#2672b0"));
         }
         if (true) {
-            tpd.setTitle("TimePicker Title");
+            tpd.setTitle("انتخاب زمان");
         }
         if (false) {
             tpd.setTimeInterval(2, 5, 10);
@@ -1183,14 +1183,17 @@ public class Utils {
                 Log.d("TimePicker", "Dialog was cancelled");
             }
         });
-//        tpd.show(getFragmentManager(), "Timepickerdialog");
-//        tpd.show(getFragmentManager(),"");
-//        FragmentManager fm=getFragmentManager();
-        tpd.show(fragment.getActivity().getFragmentManager(), "Timepickerdialog");
+        if(activity instanceof BaseActivity){
+
+            tpd.show(((BaseActivity) activity).getFragmentManager(), "Timepickerdialog");
+        }else if (activity instanceof BaseFragment){
+            tpd.show(((BaseFragment) activity).getActivity().getFragmentManager(), "Timepickerdialog");
+        }
+//        tpd.show(fragment.getActivity().getFragmentManager(), "Timepickerdialog");
 
     }
 
-    public void pickDate(BaseFragment fragment, String tag) {
+    public void pickDate(Object activity, String tag) {
         DatePickerDialog dpd;
         com.ibm.icu.util.Calendar now = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
 
@@ -1238,8 +1241,14 @@ public class Utils {
             dpd.setHighlightedDays(dates);
         }
 //        dpd.initialize();
+        if(activity instanceof BaseActivity){
 
-        dpd.show(fragment.getActivity().getFragmentManager(), "Datepickerdialog");
+            dpd.show(((BaseActivity) activity).getFragmentManager(), "Datepickerdialog");
+        }else if (activity instanceof BaseFragment){
+            dpd.show(((BaseFragment) activity).getActivity().getFragmentManager(), "Datepickerdialog");
+        }
+
+
     }
 
     public boolean isNetworkConnected() {

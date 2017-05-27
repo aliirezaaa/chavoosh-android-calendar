@@ -335,7 +335,7 @@ public class AddQuestSummaryFragment extends BaseFragment {
     }
 
     private void addSubQuest(String name) {
-        Log.i("name of sub summary",name);
+        Log.i("name of sub summary", name);
         if (StringUtils.isEmpty(name)) {
             return;
         }
@@ -399,7 +399,7 @@ public class AddQuestSummaryFragment extends BaseFragment {
 
     private void showStartTime(Time questStartTime, TimePreference startTimePreference) {
         if (questStartTime != null) {
-            startTime.setText("At " + questStartTime.toString(use24HourFormat));
+            startTime.setText("در " + questStartTime.toString(use24HourFormat));
         } else {
             switch (startTimePreference) {
                 case PERSONAL_HOURS:
@@ -419,18 +419,24 @@ public class AddQuestSummaryFragment extends BaseFragment {
     private void showScheduledDate(Quest quest) {
         dateContainer.setVisibility(View.VISIBLE);
         recurrenceContainer.setVisibility(View.GONE);
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (Objects.equals(quest.getStart(), quest.getEnd())) {
-//                scheduledDate.setText(DateFormatter.formatWithoutYear(quest.getEndDate()));
-                scheduledDate.setText(getPersianDateFromQuest(quest));
-
-            }
-        } else if (quest.getStart().hashCode() == quest.getEnd().hashCode()) {
-//            scheduledDate.setText(DateFormatter.formatWithoutYear(quest.getEndDate()));
-            scheduledDate.setText(getPersianDateFromQuest(quest));
+//        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            if (Objects.equals(quest.getStart(), quest.getEnd())) {
+////                scheduledDate.setText(DateFormatter.formatWithoutYear(quest.getEndDate()));
+//                scheduledDate.setText(getPersianDateFromQuest(quest));
+//
+//            }
+//        } else
+        if(quest.getStart()==null ||quest.getEnd()==null){
+            scheduledDate.setText("مشخص نیست");
+            return;
+        }
+        if (quest.getStart().hashCode() == quest.getEnd().hashCode()) {
+            scheduledDate.setText(DateFormatter.formatWithoutYear(quest.getEndDate()));
+//            scheduledDate.setText(getPersianDateFromQuest(quest));
 
         } else {
             LocalDate byDate = quest.getEndDate();
+            Log.i("byDate", byDate.toString());
             LocalDate today = LocalDate.now();
             if (byDate.equals(today.with(DayOfWeek.FRIDAY))) {
                 scheduledDate.setText(R.string.by_end_of_week);
@@ -442,14 +448,14 @@ public class AddQuestSummaryFragment extends BaseFragment {
 //                scheduledDate.setText(getString(R.string.add_quest_by_date, dateFormat.format(DateUtils.toStartOfDay(byDate))));
 
                 scheduledDate.setText(getPersianDateFromQuest(quest));
-                Log.i("add quest summary",getPersianDateFromQuest(quest));
+                Log.i("add quest summary", getPersianDateFromQuest(quest));
             }
         }
     }
-    public String getPersianDateFromQuest(Quest quest){
-        CivilDate cDate=new CivilDate(quest.getEndDate().getYear(), quest.getEndDate().getMonthValue(), quest.getEndDate().getDayOfMonth());
-        PersianDate pDate = DateConverter.civilToPersian(cDate);
 
+    public String getPersianDateFromQuest(Quest quest) {
+        CivilDate cDate = new CivilDate(quest.getEndDate().getYear(), quest.getEndDate().getMonthValue(), quest.getEndDate().getDayOfMonth());
+        PersianDate pDate = DateConverter.civilToPersian(cDate);
         return Utils.getInstance(getContext()).dateToString(pDate);
     }
 

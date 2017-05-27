@@ -43,9 +43,9 @@ public class AgendaViewModel {
             Time endTime = Time.plusMinutes(startTime, duration);
             return startTime.toString(use24HourFormat) + "\n" + endTime.toString(use24HourFormat);
         } else if (duration > 0) {
-            return "for\n" + DurationFormatter.format(context, duration);
+            return "به مدت\n" + DurationFormatter.format(context, duration);
         } else if (startTime != null) {
-            return "at\n" + startTime.toString(use24HourFormat);
+            return "در \n" + startTime.toString(use24HourFormat);
         }
         return "";
     }
