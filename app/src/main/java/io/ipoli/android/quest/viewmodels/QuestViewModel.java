@@ -8,9 +8,13 @@ import org.threeten.bp.LocalDate;
 
 import java.util.Locale;
 
+import io.ipoli.android.MainActivity;
 import io.ipoli.android.app.ui.formatters.DateFormatter;
 import io.ipoli.android.app.ui.formatters.DurationFormatter;
 import io.ipoli.android.app.utils.Time;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.data.Category;
 import io.ipoli.android.quest.data.Quest;
 
@@ -49,7 +53,10 @@ public class QuestViewModel {
     }
 
     public String getDueDateText(LocalDate currentDate) {
-        return DateFormatter.formatWithoutYear(quest.getScheduledDate(), currentDate);
+
+//        return DateFormatter.formatWithoutYear(quest.getScheduledDate(), currentDate);
+        PersianDate p=DateConverter.localToPersianDate(currentDate);
+        return p.getDayOfMonth()+" "+Utils.getInstance(MainActivity.getContext()).getMonthName(p);
     }
 
     private Category getQuestCategory() {

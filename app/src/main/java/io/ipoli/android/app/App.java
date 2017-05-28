@@ -407,32 +407,32 @@ public class App extends MultiDexApplication {
         Intent addIntent = new Intent(this, QuickAddActivity.class);
         addIntent.putExtra(Constants.QUICK_ADD_ADDITIONAL_TEXT, " " + getString(R.string.today).toLowerCase());
         //// TODO: 5/15/2017 set notification , uncommnet this
-//
-//        NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-//                .setContentTitle(title)
-//                .setContentText(text)
-//                .setContentIntent(contentIntent)
-//                .setShowWhen(showWhen)
-//                .setWhen(when)
-//                .setContentInfo(contentInfo)
-//                //// TODO: 5/15/2017 smallicon
-//                .setSmallIcon(R.drawable.day1)
-//                .setOnlyAlertOnce(true)
-//                .setOngoing(true)
-//                .addAction(R.drawable.ic_add_white_24dp, getString(R.string.add), PendingIntent.getActivity(this, 0, addIntent, PendingIntent.FLAG_UPDATE_CURRENT))
-//                .setPriority(NotificationCompat.PRIORITY_MAX)
-//                .setColor(ContextCompat.getColor(this, iconColor))
-//                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-//        if (quest != null) {
-//            if (quest.isStarted()) {
-//                builder.addAction(R.drawable.ic_stop_black_24dp, getString(R.string.stop).toUpperCase(), getStopPendingIntent(quest.getId()));
-//            } else {
-//                builder.addAction(R.drawable.ic_play_arrow_black_24dp, getString(R.string.start).toUpperCase(), getStartPendingIntent(quest.getId()));
-//            }
-//            builder.addAction(R.drawable.ic_done_24dp, getString(R.string.done).toUpperCase(), getDonePendingIntent(quest.getId()));
-//        }
-//        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-//        notificationManagerCompat.notify(Constants.ONGOING_NOTIFICATION_ID, builder.build());
+
+        NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setContentIntent(contentIntent)
+                .setShowWhen(showWhen)
+                .setWhen(when)
+                .setContentInfo(contentInfo)
+                //// TODO: 5/15/2017 smallicon
+                .setSmallIcon(R.drawable.puzzle)
+                .setOnlyAlertOnce(true)
+                .setOngoing(true)
+                .addAction(R.drawable.puzzle, getString(R.string.add), PendingIntent.getActivity(this, 0, addIntent, PendingIntent.FLAG_UPDATE_CURRENT))
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setColor(ContextCompat.getColor(this, iconColor))
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        if (quest != null) {
+            if (quest.isStarted()) {
+                builder.addAction(R.drawable.puzzle, getString(R.string.stop).toUpperCase(), getStopPendingIntent(quest.getId()));
+            } else {
+                builder.addAction(R.drawable.puzzle, getString(R.string.start).toUpperCase(), getStartPendingIntent(quest.getId()));
+            }
+            builder.addAction(R.drawable.puzzle, getString(R.string.done).toUpperCase(), getDonePendingIntent(quest.getId()));
+        }
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(Constants.ONGOING_NOTIFICATION_ID, builder.build());
     }
 
     private PendingIntent getStartPendingIntent(String questId) {

@@ -230,7 +230,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
     private void changeTitle(LocalDate date) {
         CivilDate cDate = new CivilDate(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
 
-        PersianDate pDate = DateConverter.civilToPersian(cDate);
+        PersianDate pDate = DateConverter.localToPersianDate(date);
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(getToolbarText(date)), Locale.getDefault());
 //        String displayDate = String.valueOf(date.getYear() + "-" + date.getMonth() + "-" + utils.getWeekDayName(date));
 //        Utils.getInstance(getContext()).setFontAndShape(toolbarTitle);

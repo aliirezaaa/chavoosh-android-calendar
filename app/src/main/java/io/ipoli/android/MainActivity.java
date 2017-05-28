@@ -290,10 +290,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //                changeCurrentFragment(new RewardListFragment());
 //                break;
 
-            case R.id.store:
-                source = EventSource.STORE;
-                startActivity(new Intent(this, CoinStoreActivity.class));
-                break;
+//            case R.id.store:
+//                source = EventSource.STORE;
+//                startActivity(new Intent(this, CoinStoreActivity.class));
+//                break;
 
             case R.id.invite_friends:
                 inviteFriends();
