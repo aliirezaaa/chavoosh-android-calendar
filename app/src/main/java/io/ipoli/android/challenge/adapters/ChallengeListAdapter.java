@@ -15,10 +15,13 @@ import android.widget.Toast;
 
 import com.squareup.otto.Bus;
 
+import org.threeten.bp.LocalDate;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.ipoli.android.MainActivity;
 import io.ipoli.android.R;
 import io.ipoli.android.app.events.EventSource;
 import io.ipoli.android.app.events.ItemActionsShownEvent;
@@ -29,6 +32,9 @@ import io.ipoli.android.challenge.ui.events.CancelDeleteChallengeEvent;
 import io.ipoli.android.challenge.ui.events.CompleteChallengeRequestEvent;
 import io.ipoli.android.challenge.ui.events.DeleteChallengeRequestEvent;
 import io.ipoli.android.challenge.ui.events.EditChallengeRequestEvent;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.data.Category;
 
 /**
@@ -64,8 +70,9 @@ public class ChallengeListAdapter extends RecyclerView.Adapter<ChallengeListAdap
         holder.contextIndicatorImage.setImageResource(category.colorfulImage);
 
         holder.name.setText(challenge.getName());
-        holder.endDate.setText(DateFormatter.format(challenge.getEndDate()));
-
+//        holder.endDate.setText(DateFormatter.format(challenge.getEndDate()));
+        PersianDate t= DateConverter.localToPersianDate(challenge.getEndDate());
+        holder.endDate.setText(Utils.getInstance(MainActivity.getContext()).dateToString(t));
         holder.moreMenu.setOnClickListener(v -> {
             eventBus.post(new ItemActionsShownEvent(EventSource.CHALLENGES));
             PopupMenu popupMenu = new PopupMenu(context, v);

@@ -80,7 +80,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
                 holder.dueIn.setTextColor(ContextCompat.getColor(context, R.color.md_dark_text_54));
             }
         } else {
-            holder.dueIn.setText("No due date");
+            holder.dueIn.setText("بدون تاریخ");
             holder.dueIn.setTextColor(ContextCompat.getColor(context, R.color.md_dark_text_54));
         }
 

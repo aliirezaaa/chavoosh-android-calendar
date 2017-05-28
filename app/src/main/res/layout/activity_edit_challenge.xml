@@ -16,12 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        android:layoutDirection="rtl"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_collapsing_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layoutDirection="rtl"
             android:minHeight="?attr/actionBarSize"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -34,6 +36,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="24dp"
+                android:gravity="right"
+                android:layoutDirection="rtl"
                 android:paddingTop="?attr/actionBarSize"
                 app:hintTextAppearance="@style/TextAppearance.iPoli.EditText">
 
@@ -41,9 +45,11 @@
                     android:id="@+id/challenge_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="right"
                     android:hint="@string/add_challenge_name_hint"
                     android:imeOptions="actionDone"
                     android:inputType="textMultiLine"
+                    android:layoutDirection="rtl"
                     android:maxLines="2" />
 
             </android.support.design.widget.TextInputLayout>
@@ -52,6 +58,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layoutDirection="ltr"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -75,6 +82,7 @@
         android:id="@+id/challenge_info_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout

@@ -162,6 +162,7 @@ public class AddQuestDateFragment extends BaseFragment  {
                 //if on... selected
                 postEvent(new NewQuestDatePickedEvent(DateConverter.persianToLocalDate(pDate), DateConverter.persianToLocalDate(pDate)));
             } else {
+                Log.i("is some day"," true");
                 postEvent(new NewQuestDatePickedEvent(LocalDate.now(), DateConverter.persianToLocalDate(pDate)));
             }
 

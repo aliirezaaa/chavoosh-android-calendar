@@ -53,8 +53,8 @@ public class FabMenuView extends RelativeLayout {
     @BindView(R.id.fab_add_challenge)
     FloatingActionButton challenge;
 
-    @BindView(R.id.fab_add_reward)
-    FloatingActionButton reward;
+//    @BindView(R.id.fab_add_reward)
+//    FloatingActionButton reward;
 
 //    @BindView(R.id.fab_quick_add_quest)
 //    FloatingActionButton quickAddQuest;
@@ -68,8 +68,8 @@ public class FabMenuView extends RelativeLayout {
     @BindView(R.id.fab_challenge_label)
     TextView challengeLabel;
 
-    @BindView(R.id.fab_reward_label)
-    TextView rewardLabel;
+//    @BindView(R.id.fab_reward_label)
+//    TextView rewardLabel;
 
 //    @BindView(R.id.fab_quick_add_label)
 //    TextView quickAddLabel;
@@ -127,8 +127,8 @@ public class FabMenuView extends RelativeLayout {
         if(onlyQuests) {
             challenge.setVisibility(GONE);
             challengeLabel.setVisibility(GONE);
-            reward.setVisibility(GONE);
-            rewardLabel.setVisibility(GONE);
+//            reward.setVisibility(GONE);
+//            rewardLabel.setVisibility(GONE);
         }
 
     }
@@ -150,10 +150,10 @@ public class FabMenuView extends RelativeLayout {
         onFabClicked(new Intent(getContext(), AddChallengeActivity.class), FabName.CHALLENGE);
     }
 
-    @OnClick({R.id.fab_add_reward, R.id.fab_reward_label})
-    public void onAddRewardClick(View view) {
-        onFabClicked(new Intent(getContext(), EditRewardActivity.class), FabName.REWARD);
-    }
+//    @OnClick({R.id.fab_add_reward, R.id.fab_reward_label})
+//    public void onAddRewardClick(View view) {
+//        onFabClicked(new Intent(getContext(), EditRewardActivity.class), FabName.REWARD);
+//    }
 
 //    @OnClick({R.id.fab_quick_add_quest, R.id.fab_quick_add_label})
 //    public void onQuickAddQuestClick(View view) {
@@ -229,8 +229,8 @@ public class FabMenuView extends RelativeLayout {
         if(!onlyQuests) {
             challenge.startAnimation(fabOpenAnimation);
             challengeLabel.startAnimation(fabOpenAnimation);
-            reward.startAnimation(fabOpenAnimation);
-            rewardLabel.startAnimation(fabOpenAnimation);
+//            reward.startAnimation(fabOpenAnimation);
+//            rewardLabel.startAnimation(fabOpenAnimation);
         }
 //        quickAddQuest.startAnimation(fabOpenAnimation);
 //        quickAddLabel.startAnimation(fabOpenAnimation);
@@ -275,8 +275,8 @@ public class FabMenuView extends RelativeLayout {
 //        quickAddLabel.startAnimation(fabCloseAnimation);
 //        quickAddQuest.startAnimation(fabCloseAnimation);
         if(!onlyQuests) {
-            rewardLabel.startAnimation(fabCloseAnimation);
-            reward.startAnimation(fabCloseAnimation);
+//            rewardLabel.startAnimation(fabCloseAnimation);
+//            reward.startAnimation(fabCloseAnimation);
             challengeLabel.startAnimation(fabCloseAnimation);
             challenge.startAnimation(fabCloseAnimation);
         }

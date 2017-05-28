@@ -285,10 +285,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 changeCurrentFragment(new GrowthFragment());
                 break;
 
-            case R.id.rewards:
-                source = EventSource.REWARDS;
-                changeCurrentFragment(new RewardListFragment());
-                break;
+//            case R.id.rewards:
+//                source = EventSource.REWARDS;
+//                changeCurrentFragment(new RewardListFragment());
+//                break;
 
             case R.id.store:
                 source = EventSource.STORE;
@@ -415,7 +415,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Quest q = e.quest;
         long experience = q.getExperience();
         long coins = q.getCoins();
-
+//// TODO: 5/28/2017 translate
         Snackbar snackbar = Snackbar
                 .make(contentContainer,
                         getString(R.string.quest_complete_with_bounty, experience, coins),
@@ -427,10 +427,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         snackbar.show();
 
-        if (shouldShowRateDialog()) {
-            isRateDialogShown = true;
-            new RateDialog().show(getSupportFragmentManager());
-        }
+//        if (shouldShowRateDialog()) {
+//            isRateDialogShown = true;
+//            new RateDialog().show(getSupportFragmentManager());
+//        }
     }
 
     private boolean shouldShowRateDialog() {
@@ -714,7 +714,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             int year = intent.getIntExtra("year", 0);
             int month = intent.getIntExtra("month", 0);
             int day = intent.getIntExtra("day", 0);
-
             PersianDate pDate = new PersianDate(year, month, day);
             snoozeQuest.setScheduledDate(DateConverter.persianToLocalDate(pDate));
             saveSnoozedQuest(snoozeQuest, true, snoozeAction);
@@ -726,8 +725,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             // Get extra data included in the Intent
             int hour = intent.getIntExtra("hour",0);
             int minute = intent.getIntExtra("minute",0);
-//            Log.d("receiver", "Got message: " + hour);
-//            Log.d("receiver", "Got message: " + hour);
+//
             Time tm=Time.at(hour,minute);
 
             tSnoozeQuest.setStartMinute(tm.toMinuteOfDay());
@@ -735,4 +733,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         }
     };
+    @Override
+    public void onDestroy(){
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(dateReceiver);
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(snoozeDateReceiver);
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(snoozeTimeReceiver);
+        super.onDestroy();
+
+    }
 }

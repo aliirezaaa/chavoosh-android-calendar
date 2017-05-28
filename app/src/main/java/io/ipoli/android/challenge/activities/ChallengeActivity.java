@@ -1,6 +1,7 @@
 package io.ipoli.android.challenge.activities;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -56,10 +57,14 @@ import io.ipoli.android.challenge.adapters.ChallengeQuestListAdapter;
 import io.ipoli.android.challenge.data.Challenge;
 import io.ipoli.android.challenge.persistence.ChallengePersistenceService;
 import io.ipoli.android.challenge.viewmodels.ChallengeQuestViewModel;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.data.Category;
 import io.ipoli.android.quest.data.PeriodHistory;
 import io.ipoli.android.quest.data.Quest;
 import io.ipoli.android.quest.data.RepeatingQuest;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static io.ipoli.android.app.utils.DateUtils.getMonthShortName;
 
@@ -130,6 +135,7 @@ public class ChallengeActivity extends BaseActivity {
 
     private String challengeId;
     private Challenge challenge;
+    Utils utils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +154,7 @@ public class ChallengeActivity extends BaseActivity {
             ab.setDisplayHomeAsUpEnabled(true);
             ab.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
         }
+        utils=Utils.getInstance(getApplicationContext());
         collapsingToolbarLayout.setTitleEnabled(false);
         history.setNoDataText("");
         getWindow().setBackgroundDrawable(null);
@@ -287,9 +294,19 @@ public class ChallengeActivity extends BaseActivity {
                 challenge.getNextScheduledDate(LocalDate.now()),
                 getString(R.string.unscheduled)
         );
-        nextScheduledDate.setText(nextScheduledDateText);
+        if(nextScheduledDateText=="Today"){
+            nextScheduledDate.setText("امروز");
+        }else if (nextScheduledDateText=="Tomorrow"){
+            nextScheduledDate.setText("فردا");
+        }else {
+            PersianDate p=DateConverter.localToPersianDate(challenge.getNextScheduledDate(LocalDate.now()));
+            nextScheduledDate.setText(Utils.getInstance(getApplicationContext()).dateToString(p));
+        }
+//        nextScheduledDate.setText(nextScheduledDateText);
 
-        dueDate.setText(DateFormatter.formatWithoutYear(challenge.getEndDate()));
+//        dueDate.setText(DateFormatter.formatWithoutYear(challenge.getEndDate()));
+        PersianDate p= DateConverter.localToPersianDate(challenge.getEndDate());
+        dueDate.setText(p.getMonth()+" "+Utils.getInstance(getApplicationContext()).getMonthName(p) );
 
         int timeSpent = challenge.getTotalTimeSpent();
         totalTimeSpent.setText(timeSpent > 0 ? DurationFormatter.formatShort(timeSpent, "") : "0");
@@ -317,10 +334,11 @@ public class ChallengeActivity extends BaseActivity {
         xLabels.setPosition(XAxis.XAxisPosition.BOTTOM);
         xLabels.setTextColor(ContextCompat.getColor(this, R.color.md_dark_text_54));
         xLabels.setLabelsToSkip(0);
-        xLabels.setTextSize(13f);
+        xLabels.setTextSize(10f);
         xLabels.setDrawAxisLine(false);
         xLabels.setDrawGridLines(false);
         xLabels.setYOffset(5);
+
         history.getLegend().setEnabled(false);
 
         List<PeriodHistory> periodHistories = challenge.getPeriodHistories(LocalDate.now());
@@ -372,14 +390,22 @@ public class ChallengeActivity extends BaseActivity {
         return getWeekRangeText(DateUtils.fromMillis(weekStart), DateUtils.fromMillis(weekEnd));
     }
 
+//    private String getWeekRangeText(LocalDate weekStart, LocalDate weekEnd) {
+//        if (weekStart.getMonth().equals(weekEnd.getMonth())) {
+//            return weekStart.getDayOfMonth() + " - " + weekEnd.getDayOfMonth() + " " + getMonthShortName(weekEnd);
+//        } else {
+//            return weekStart.getDayOfMonth() + " " + getMonthShortName(weekStart) + " - " + weekEnd.getDayOfMonth() + " " + getMonthShortName(weekEnd);
+//        }
+//    }
     private String getWeekRangeText(LocalDate weekStart, LocalDate weekEnd) {
-        if (weekStart.getMonth().equals(weekEnd.getMonth())) {
-            return weekStart.getDayOfMonth() + " - " + weekEnd.getDayOfMonth() + " " + getMonthShortName(weekEnd);
+        PersianDate start=DateConverter.localToPersianDate(weekStart);
+        PersianDate end=DateConverter.localToPersianDate(weekEnd);
+        if (start.getMonth()==end.getMonth()) {
+            return start.getDayOfMonth() + " - " + end.getDayOfMonth() + " " + utils.getMonthName(end);
         } else {
-            return weekStart.getDayOfMonth() + " " + getMonthShortName(weekStart) + " - " + weekEnd.getDayOfMonth() + " " + getMonthShortName(weekEnd);
+            return start.getDayOfMonth() + " " + utils.getMonthName(start) + " - " + end.getDayOfMonth() + " " + utils.getMonthName(end);
         }
     }
-
     private void setBackgroundColors(Category category) {
         appBar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
         toolbar.setBackgroundColor(ContextCompat.getColor(this, category.color500));
@@ -398,5 +424,10 @@ public class ChallengeActivity extends BaseActivity {
         Intent intent = new Intent(this, PickChallengeQuestsActivity.class);
         intent.putExtra(Constants.CHALLENGE_ID_EXTRA_KEY, challengeId);
         startActivity(intent);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

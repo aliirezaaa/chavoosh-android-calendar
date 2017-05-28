@@ -1,12 +1,17 @@
 package io.ipoli.android.challenge.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -52,7 +57,12 @@ import io.ipoli.android.challenge.ui.dialogs.MultiTextPickerFragment;
 import io.ipoli.android.challenge.ui.events.CancelDeleteChallengeEvent;
 import io.ipoli.android.challenge.ui.events.DeleteChallengeRequestEvent;
 import io.ipoli.android.challenge.ui.events.UpdateChallengeEvent;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.data.Category;
+
+import static io.ipoli.android.MainActivity.getContext;
 
 public class EditChallengeActivity extends BaseActivity implements DatePickerFragment.OnDatePickedListener,
         DifficultyPickerFragment.OnDifficultyPickedListener,
@@ -343,8 +353,9 @@ public class EditChallengeActivity extends BaseActivity implements DatePickerFra
 
     @OnClick(R.id.challenge_end_date_container)
     public void onEndDateClicked(View view) {
-        DatePickerFragment f = DatePickerFragment.newInstance((LocalDate) endDateText.getTag(), true, false, this);
-        f.show(this.getSupportFragmentManager());
+//        DatePickerFragment f = DatePickerFragment.newInstance((LocalDate) endDateText.getTag(), true, false, this);
+//        f.show(this.getSupportFragmentManager());
+        Utils.getInstance(getContext()).pickDate(EditChallengeActivity.this, "ON_DATE_SET_FOR_EDIT_CHALLENGE");
     }
 
     @OnClick(R.id.challenge_difficulty_container)
@@ -359,7 +370,7 @@ public class EditChallengeActivity extends BaseActivity implements DatePickerFra
     }
 
     private void populateEndDate(LocalDate date) {
-        endDateText.setText(DateFormatter.format(date));
+        endDateText.setText(Utils.getInstance(getContext()).dateToString(DateConverter.localToPersianDate(date)));
         endDateText.setTag(date);
     }
 
@@ -438,4 +449,20 @@ public class EditChallengeActivity extends BaseActivity implements DatePickerFra
         categoryView.removeCategoryChangedListener(this);
         super.onDestroy();
     }
+    private void initLocalDateBroadCast() {
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReceiver,
+                new IntentFilter("ON_DATE_SET_FOR_EDIT_CHALLENGE"));
+    }
+    private BroadcastReceiver dateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int year = intent.getIntExtra("year", 0);
+            int month = intent.getIntExtra("month", 0);
+            int day = intent.getIntExtra("day", 0);
+            PersianDate pDate = new PersianDate(year, month, day);
+            populateEndDate(DateConverter.persianToLocalDate(pDate));
+//            duplicateQuest(dEvent.quest, DateConverter.persianToLocalDate(pDate), dShowAction);
+        }
+    };
 }

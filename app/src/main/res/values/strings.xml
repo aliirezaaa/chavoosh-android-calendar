@@ -535,7 +535,7 @@
     <string name="this_month">this month</string>
     <string name="last_week">last week</string>
     <string name="this_week">this week</string>
-    <string name="challenge_percentage_done">%d%% done</string>
+    <string name="challenge_percentage_done">%d%% انجام شده</string>
     <string name="on_date">در تاریخ</string>
     <string name="at_time">در زمان</string>
     <string name="for_while">به مدت</string>

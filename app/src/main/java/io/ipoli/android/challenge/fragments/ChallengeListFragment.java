@@ -107,7 +107,7 @@ public class ChallengeListFragment extends BaseFragment implements OnDataChanged
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.challenge_list_menu, menu);
+//        inflater.inflate(R.menu.challenge_list_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

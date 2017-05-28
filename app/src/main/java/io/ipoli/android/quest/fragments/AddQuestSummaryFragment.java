@@ -8,6 +8,7 @@ import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.Range;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -430,17 +431,20 @@ public class AddQuestSummaryFragment extends BaseFragment {
             scheduledDate.setText("مشخص نیست");
             return;
         }
-        if (quest.getStart().hashCode() == quest.getEnd().hashCode()) {
-            scheduledDate.setText(DateFormatter.formatWithoutYear(quest.getEndDate()));
-//            scheduledDate.setText(getPersianDateFromQuest(quest));
+        if (quest.getStart().equals(quest.getEnd())) {
+//            scheduledDate.setText(DateFormatter.formatWithoutYear(quest.getEndDate()));
+            scheduledDate.setText(getPersianDateFromQuest(quest));
 
         } else {
             LocalDate byDate = quest.getEndDate();
             Log.i("byDate", byDate.toString());
             LocalDate today = LocalDate.now();
+//            Range<Integer> endOfMonth=Range.create(20,31);
+            int endOfMonth=byDate.getDayOfMonth();
             if (byDate.equals(today.with(DayOfWeek.FRIDAY))) {
                 scheduledDate.setText(R.string.by_end_of_week);
-            } else if (byDate.equals(today.with(lastDayOfMonth()))) {
+
+            } else if (endOfMonth>20 &&endOfMonth<32) {
                 scheduledDate.setText(R.string.by_end_of_month);
             } else {
 //                String dayNumberSuffix = DateUtils.getDayNumberSuffix(byDate.getDayOfMonth());

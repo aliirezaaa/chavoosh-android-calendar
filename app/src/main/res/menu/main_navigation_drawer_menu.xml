@@ -47,11 +47,7 @@
             android:icon="@drawable/ic_growth_white_24dp"
             android:title="@string/growth" />
 
-        <item
-            android:id="@+id/rewards"
-            android:checked="false"
-            android:icon="@drawable/ic_gift_white_24dp"
-            android:title="@string/rewards" />
+
     </group>
 
     <group
