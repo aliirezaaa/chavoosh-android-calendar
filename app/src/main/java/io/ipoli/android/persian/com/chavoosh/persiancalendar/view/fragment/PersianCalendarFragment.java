@@ -223,11 +223,11 @@ public class PersianCalendarFragment extends BaseFragment
         utils.setFontAndShape((TextView) view.findViewById(R.id.today));
         utils.setFontAndShape((TextView) view.findViewById(R.id.owghat_text));
 
-//        String cityName = utils.getCityName(false);
-//        if (!TextUtils.isEmpty(cityName)) {
-//            ((TextView) view.findViewById(R.id.owghat_text))
-//                    .append(" (" + utils.shape(cityName) + ")");
-//        }
+        String cityName = utils.getCityName(false);
+        if (!TextUtils.isEmpty(cityName)) {
+            ((TextView) view.findViewById(R.id.owghat_text))
+                    .append(" (" + utils.shape(cityName) + ")");
+        }
 
         // This will immediately be replaced by the same functionality on fragment but is here to
         // make sure enough space is dedicated to actionbar's title and subtitle, kinda hack anyway

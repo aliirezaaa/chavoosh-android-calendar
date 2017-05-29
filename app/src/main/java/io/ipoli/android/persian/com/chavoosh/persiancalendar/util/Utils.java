@@ -30,6 +30,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
+import android.support.v7.preference.PreferenceViewHolder;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -235,17 +236,17 @@ public class Utils {
         textView.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
     }
 
-//    public void setFontAndShape(PreferenceViewHolder holder) {
-//        // See android.support.v7.preference.Preference#onBindViewHolder
-//        TextView titleView = (TextView) holder.findViewById(android.R.id.title);
-//        if (titleView != null) {
-//            setFontAndShape(titleView);
-//        }
-//        TextView summaryView = (TextView) holder.findViewById(android.R.id.summary);
-//        if (summaryView != null) {
-//            setFontAndShape(summaryView);
-//        }
-//    }
+    public void setFontAndShape(PreferenceViewHolder holder) {
+        // See android.support.v7.preference.Preference#onBindViewHolder
+        TextView titleView = (TextView) holder.findViewById(android.R.id.title);
+        if (titleView != null) {
+            setFontAndShape(titleView);
+        }
+        TextView summaryView = (TextView) holder.findViewById(android.R.id.summary);
+        if (summaryView != null) {
+            setFontAndShape(summaryView);
+        }
+    }
 
     public void setActivityTitleAndSubtitle(Activity activity, String title, String subtitle) {
         if (title == null || subtitle == null) {
@@ -654,29 +655,29 @@ public class Utils {
         return cachedCity = null;
     }
 
-//    public String formatCoordinate(Coordinate coordinate, String separator) {
-//        return String.format(Locale.getDefault(), "%s: %.4f%s%s: %.4f",
-//                context.getString(R.string.latitude), coordinate.getLatitude(), separator,
-//                context.getString(R.string.longitude), coordinate.getLongitude());
-//    }
+    public String formatCoordinate(Coordinate coordinate, String separator) {
+        return String.format(Locale.getDefault(), "%s: %.4f%s%s: %.4f",
+                context.getString(R.string.latitude), coordinate.getLatitude(), separator,
+                context.getString(R.string.longitude), coordinate.getLongitude());
+    }
 
-//    public String getCityName(boolean fallbackToCoord) {
-//        CityEntity cityEntity = getCityFromPreference();
-//        if (cityEntity != null)
-//            return getAppLanguage().equals("en") ? cityEntity.getEn() : cityEntity.getFa();
-//
-//        String geocodedCityName = prefs.getString(PREF_GEOCODED_CITYNAME, "");
-//        if (!TextUtils.isEmpty(geocodedCityName))
-//            return geocodedCityName;
-//
-//        if (fallbackToCoord) {
-//            Coordinate coordinate = getCoordinate();
-//            if (coordinate != null)
-//                return formatCoordinate(coordinate, PERSIAN_COMMA + " ");
-//        }
-//
-//        return "";
-//    }
+    public String getCityName(boolean fallbackToCoord) {
+        CityEntity cityEntity = getCityFromPreference();
+        if (cityEntity != null)
+            return getAppLanguage().equals("en") ? cityEntity.getEn() : cityEntity.getFa();
+
+        String geocodedCityName = prefs.getString(PREF_GEOCODED_CITYNAME, "");
+        if (!TextUtils.isEmpty(geocodedCityName))
+            return geocodedCityName;
+
+        if (fallbackToCoord) {
+            Coordinate coordinate = getCoordinate();
+            if (coordinate != null)
+                return formatCoordinate(coordinate, PERSIAN_COMMA + " ");
+        }
+
+        return "";
+    }
 
     private void loadEvents() {
         List<EventEntity> events = new ArrayList<>();

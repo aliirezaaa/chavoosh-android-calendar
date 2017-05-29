@@ -55,7 +55,7 @@ public class QuestViewModel {
     public String getDueDateText(LocalDate currentDate) {
 
 //        return DateFormatter.formatWithoutYear(quest.getScheduledDate(), currentDate);
-        PersianDate p=DateConverter.localToPersianDate(currentDate);
+        PersianDate p=DateConverter.localToPersianDate(quest.getScheduledDate());
         return p.getDayOfMonth()+" "+Utils.getInstance(MainActivity.getContext()).getMonthName(p);
     }
 

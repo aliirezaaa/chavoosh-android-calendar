@@ -409,6 +409,7 @@ public class AddQuestSummaryFragment extends BaseFragment {
                 case MORNING:
                 case AFTERNOON:
                     startTime.setText(StringUtils.capitalizeAndReplaceUnderscore(startTimePreference.name()));
+//                    startTime.setText(StringUtils.getPersianTranslate(startTimePreference));
                     break;
                 default:
                     startTime.setText(R.string.at_any_reasonable_time);

@@ -9,9 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import io.ipoli.android.MainActivity;
 import io.ipoli.android.app.ui.formatters.DurationFormatter;
 import io.ipoli.android.app.utils.DateUtils;
 import io.ipoli.android.app.utils.Time;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.data.Category;
 import io.ipoli.android.quest.data.PeriodHistory;
 import io.ipoli.android.quest.data.Recurrence;
@@ -68,14 +72,15 @@ public class RepeatingQuestViewModel {
     public String getNextText() {
         String nextText = "";
         if (nextDate == null) {
-            nextText += "Unscheduled";
+            nextText += "بدون برنامه";
         } else {
             if (DateUtils.isTodayUTC(nextDate)) {
-                nextText = "Today";
+                nextText = "امروز";
             } else if (DateUtils.isTomorrowUTC(nextDate)) {
-                nextText = "Tomorrow";
+                nextText = "فردا";
             } else {
-                nextText = new SimpleDateFormat("dd MMM", Locale.getDefault()).format(DateUtils.toStartOfDay(nextDate));
+//                nextText = new SimpleDateFormat("dd MMM", Locale.getDefault()).format(DateUtils.toStartOfDay(nextDate));
+                nextText =getDueDateText(nextDate);
             }
         }
 
@@ -87,13 +92,18 @@ public class RepeatingQuestViewModel {
             Time endTime = Time.plusMinutes(startTime, duration);
             nextText += startTime + " - " + endTime;
         } else if (duration > 0) {
-            nextText += "for " + DurationFormatter.formatReadable(duration);
+            nextText += "برای " + DurationFormatter.formatReadable(duration);
         } else if (startTime != null) {
             nextText += startTime;
         }
-        return "Next: " + nextText;
+        return "بعدی: " + nextText;
     }
+    public String getDueDateText(LocalDate currentDate) {
 
+//        return DateFormatter.formatWithoutYear(quest.getScheduledDate(), currentDate);
+        PersianDate p= DateConverter.localToPersianDate(currentDate);
+        return p.getDayOfMonth()+" "+ Utils.getInstance(MainActivity.getContext()).getMonthName(p);
+    }
     public long getScheduledCount() {
         return scheduledCount;
     }
@@ -103,15 +113,15 @@ public class RepeatingQuestViewModel {
         int remainingCount = getRemainingScheduledCount();
 
         if (remainingCount <= 0) {
-            return "Done";
+            return "انجام شده";
         }
 
         Recurrence recurrence = repeatingQuest.getRecurrence();
         if (recurrence.getRecurrenceType() == Recurrence.RepeatType.MONTHLY) {
-            return remainingCount + " more this month";
+            return remainingCount + " بار دیگر در این ماه";
         }
 
-        return remainingCount + " more this week";
+        return remainingCount + "  بار دیگر در این هفته";
 
     }
 

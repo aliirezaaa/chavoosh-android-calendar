@@ -21,6 +21,10 @@ import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.preferences.At
 //import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.preferences.GPSLocationPreference;
 //import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.preferences.LocationPreference;
 //import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.preferences.LocationPreferenceDialog;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.preferences.GPSLocationDialog;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.preferences.GPSLocationPreference;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.preferences.LocationPreference;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.preferences.LocationPreferenceDialog;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.preferences.PrayerSelectDialog;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.preferences.PrayerSelectPreference;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.preferences.ShapedListDialog;
@@ -44,7 +48,7 @@ public class ApplicationPreferenceFragment extends PreferenceFragmentCompat {
         addPreferencesFromResource(R.xml.preferences);
 
         categoryAthan = findPreference(Constants.PREF_KEY_ATHAN);
-//        updateAthanPreferencesState();
+        updateAthanPreferencesState();
 //
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(preferenceUpdateReceiver,
                 new IntentFilter(Constants.LOCAL_INTENT_UPDATE_PREFERENCE));
@@ -53,7 +57,7 @@ public class ApplicationPreferenceFragment extends PreferenceFragmentCompat {
     private BroadcastReceiver preferenceUpdateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            updateAthanPreferencesState();
+            updateAthanPreferencesState();
         }
     };
 
@@ -63,15 +67,15 @@ public class ApplicationPreferenceFragment extends PreferenceFragmentCompat {
         super.onDestroyView();
     }
 
-//    public void updateAthanPreferencesState() {
-//        boolean locationEmpty = utils.getCoordinate() == null;
-//        categoryAthan.setEnabled(!locationEmpty);
-//        if (locationEmpty) {
-//            categoryAthan.setSummary(R.string.athan_disabled_summary);
-//        } else {
-//            categoryAthan.setSummary("");
-//        }
-//    }
+    public void updateAthanPreferencesState() {
+        boolean locationEmpty = utils.getCoordinate() == null;
+        categoryAthan.setEnabled(!locationEmpty);
+        if (locationEmpty) {
+            categoryAthan.setSummary(R.string.athan_disabled_summary);
+        } else {
+            categoryAthan.setSummary("");
+        }
+    }
 
     @Override
     public void onDisplayPreferenceDialog(Preference preference) {
@@ -80,12 +84,12 @@ public class ApplicationPreferenceFragment extends PreferenceFragmentCompat {
             fragment = new PrayerSelectDialog();
         } else if (preference instanceof AthanVolumePreference) {
             fragment = new AthanVolumeDialog();
-//        } else if (preference instanceof LocationPreference) {
-//            fragment = new LocationPreferenceDialog();
+        } else if (preference instanceof LocationPreference) {
+            fragment = new LocationPreferenceDialog();
         } else if (preference instanceof AthanNumericPreference) {
             fragment = new AthanNumericDialog();
-//        } else if (preference instanceof GPSLocationPreference) {
-//            fragment = new GPSLocationDialog();
+        } else if (preference instanceof GPSLocationPreference) {
+            fragment = new GPSLocationDialog();
         } else if (preference instanceof ShapedListPreference) {
             fragment = new ShapedListDialog();
         } else {

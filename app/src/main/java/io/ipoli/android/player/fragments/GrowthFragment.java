@@ -322,7 +322,7 @@ public class GrowthFragment extends BaseFragment implements AdapterView.OnItemSe
         ArrayList<String> xVals = new ArrayList<String>();
         List<Integer> colors = new ArrayList<>();
         for (Category usedCategory : usedCategories) {
-            xVals.add(StringUtils.capitalize(usedCategory.name()));
+            xVals.add(StringUtils.capitalizeAndReplaceUnderscore(usedCategory.name()));
             colors.add(getColor(usedCategory.color500));
         }
 
@@ -347,7 +347,8 @@ public class GrowthFragment extends BaseFragment implements AdapterView.OnItemSe
         PieDataSet dataSet = new PieDataSet(yVals1, "");
         dataSet.setSliceSpace(3f);
         dataSet.setValueFormatter((value, entry, dataSetIndex, viewPortHandler) ->
-                String.format("%.1fh (%d%%)", value / 60.0f, (int) ((value / totalTimeSpent) * 100))
+//                String.format("%.1fساعت (%d%%)", value / 60.0f, (int) ((value / totalTimeSpent) * 100))
+                String.format("(%d%%)", (int) ((value / totalTimeSpent) * 100))
         );
 
         dataSet.setSelectionShift(5f);
@@ -358,9 +359,9 @@ public class GrowthFragment extends BaseFragment implements AdapterView.OnItemSe
         data.setValueTextColor(getColor(R.color.md_white));
         timeSpentChart.setData(data);
 
-        timeSpentChart.setCenterText(getString(R.string.chart_time_spent_center_text, totalXP, totalCoins));
-        timeSpentChart.setCenterTextColor(getColor(R.color.md_dark_text_87));
-        timeSpentChart.setCenterTextSize(12f);
+//        timeSpentChart.setCenterText(getString(R.string.chart_time_spent_center_text, totalXP, totalCoins));
+//        timeSpentChart.setCenterTextColor(getColor(R.color.md_dark_text_87));
+//        timeSpentChart.setCenterTextSize(12f);
     }
 
     private int getDurationForCompletedQuest(Quest q) {

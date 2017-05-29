@@ -13,22 +13,17 @@
 //import android.view.View;
 //import android.widget.RemoteViews;
 //
-//import com.chavoosh.persiancalendar.Constants;
-//import com.chavoosh.persiancalendar.R;
-//import com.chavoosh.persiancalendar.Widget1x1;
-//import com.chavoosh.persiancalendar.Widget2x2;
-//import com.chavoosh.persiancalendar.Widget4x1;
-//import com.chavoosh.persiancalendar.service.ApplicationService;
-//import com.chavoosh.persiancalendar.view.activity.MainActivity;
-//import com.github.praytimes.Clock;
-//import com.google.android.apps.dashclock.api.ExtensionData;
-//
 //import java.util.Calendar;
 //import java.util.Date;
 //
-//import calendar.CivilDate;
-//import calendar.DateConverter;
-//import calendar.PersianDate;
+//import io.ipoli.android.MainActivity;
+//import io.ipoli.android.R;
+//import io.ipoli.android.persian.calendar.CivilDate;
+//import io.ipoli.android.persian.calendar.DateConverter;
+//import io.ipoli.android.persian.calendar.PersianDate;
+//import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
+//import io.ipoli.android.persian.com.chavoosh.persiancalendar.service.ApplicationService;
+//
 //
 //public class UpdateUtils {
 //    private static final int NOTIFICATION_ID = 1001;

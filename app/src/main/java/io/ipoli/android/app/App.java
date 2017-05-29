@@ -13,6 +13,7 @@ import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
+import android.text.format.DateFormat;
 import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
@@ -40,6 +41,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import io.ipoli.android.app.activities.SignInAsGustActivity;
 import io.ipoli.android.app.locals.AnalyticsConstants;
 import io.ipoli.android.BuildConfig;
 import io.ipoli.android.Constants;
@@ -70,6 +72,7 @@ import io.ipoli.android.app.services.AnalyticsService;
 import io.ipoli.android.app.settings.events.DailyChallengeStartTimeChangedEvent;
 import io.ipoli.android.app.settings.events.OngoingNotificationChangeEvent;
 import io.ipoli.android.app.tutorial.TutorialActivity;
+import io.ipoli.android.app.ui.dialogs.LoadingDialog;
 import io.ipoli.android.app.ui.formatters.DurationFormatter;
 import io.ipoli.android.app.utils.DateUtils;
 import io.ipoli.android.app.utils.IntentUtils;
@@ -100,6 +103,7 @@ import io.ipoli.android.player.Player;
 import io.ipoli.android.player.activities.LevelUpActivity;
 import io.ipoli.android.player.events.LevelDownEvent;
 import io.ipoli.android.player.events.LevelUpEvent;
+import io.ipoli.android.player.events.PlayerSignedInEvent;
 import io.ipoli.android.player.events.PlayerUpdatedEvent;
 import io.ipoli.android.player.events.StartReplicationEvent;
 import io.ipoli.android.player.persistence.PlayerPersistenceService;
@@ -189,6 +193,7 @@ public class App extends MultiDexApplication {
 
     @Inject
     UrlProvider urlProvider;
+    private LoadingDialog dialog;
 
     private void listenForChanges() {
         questPersistenceService.removeAllListeners();
@@ -334,11 +339,19 @@ public class App extends MultiDexApplication {
             return;
         }
         if (!hasPlayer()) {
-            if (localStorage.readBool(Constants.KEY_SHOULD_SHOW_TUTORIAL, true)) {
-                localStorage.saveBool(Constants.KEY_SHOULD_SHOW_TUTORIAL, false);
+            /* change it for now
+            exchange false and true
+             */
+            if (localStorage.readBool(Constants.KEY_SHOULD_SHOW_TUTORIAL, false)) {
+                localStorage.saveBool(Constants.KEY_SHOULD_SHOW_TUTORIAL, true);
                 startNewActivity(TutorialActivity.class);
             } else {
-                startNewActivity(SignInActivity.class);
+                /*remove sign in for now
+                * its require to add google account api for register users
+                * now all users as gust*/
+
+                startNewActivity(SignInAsGustActivity.class);
+
             }
             return;
         }
@@ -346,6 +359,8 @@ public class App extends MultiDexApplication {
         initReplication();
         initAppStart();
     }
+
+
 
     @Subscribe
     public void onFinishTutorialActivity(FinishTutorialActivityEvent e) {
@@ -365,9 +380,9 @@ public class App extends MultiDexApplication {
 
     @Subscribe
     public void onFinishSynCalendarActivity(FinishSyncCalendarActivityEvent e) {
-        return;
+
         //// TODO: 5/21/2017 remove pick challenge
-//        startNewActivity(MainActivity.class);
+        startNewActivity(MainActivity.class);
 //        Intent intent = new Intent(this, PickChallengeActivity.class);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //        intent.putExtra(PickChallengeActivity.TITLE, getString(R.string.pick_challenge_to_start));
