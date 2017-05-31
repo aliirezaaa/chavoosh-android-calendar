@@ -15,7 +15,7 @@ android {
     defaultConfig {
         applicationId "com.chavoosh.persiancalendar"
         multiDexEnabled true
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 162
         versionName "1.11.6"

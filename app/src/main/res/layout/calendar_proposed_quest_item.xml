@@ -19,7 +19,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="16dp"
         android:layout_toStartOf="@+id/quest_suggestion_next_container"
-        android:gravity="start"
+        android:gravity="right"
         android:textColor="@color/md_dark_text_87"
         android:textSize="18sp" />
 

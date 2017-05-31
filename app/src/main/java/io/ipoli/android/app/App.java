@@ -95,6 +95,8 @@ import io.ipoli.android.challenge.receivers.ScheduleDailyChallengeReminderReceiv
 import io.ipoli.android.challenge.ui.events.CompleteChallengeRequestEvent;
 import io.ipoli.android.challenge.ui.events.DeleteChallengeRequestEvent;
 import io.ipoli.android.challenge.ui.events.UpdateChallengeEvent;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.service.ApplicationService;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.pet.PetActivity;
 import io.ipoli.android.pet.data.Pet;
 import io.ipoli.android.player.AuthProvider;
@@ -107,6 +109,7 @@ import io.ipoli.android.player.events.PlayerSignedInEvent;
 import io.ipoli.android.player.events.PlayerUpdatedEvent;
 import io.ipoli.android.player.events.StartReplicationEvent;
 import io.ipoli.android.player.persistence.PlayerPersistenceService;
+import io.ipoli.android.quest.activities.AddQuestActivity;
 import io.ipoli.android.quest.activities.QuestActivity;
 import io.ipoli.android.quest.data.BaseQuest;
 import io.ipoli.android.quest.data.Category;
@@ -332,6 +335,7 @@ public class App extends MultiDexApplication {
         getAppComponent(this).inject(this);
 
         registerServices();
+        startPersianService();
         playerId = localStorage.readString(Constants.KEY_PLAYER_ID);
 
         int schemaVersion = localStorage.readInt(Constants.KEY_SCHEMA_VERSION);
@@ -361,7 +365,6 @@ public class App extends MultiDexApplication {
     }
 
 
-
     @Subscribe
     public void onFinishTutorialActivity(FinishTutorialActivityEvent e) {
         if (!hasPlayer()) {
@@ -389,6 +392,12 @@ public class App extends MultiDexApplication {
 //        startActivity(intent);
     }
 
+    private void startPersianService() {
+        if (!Utils.getInstance(this).isServiceRunning(ApplicationService.class)) {
+            startService(new Intent(getBaseContext(), ApplicationService.class));
+        }
+    }
+
     private void startNewActivity(Class clazz) {
         Intent intent = new Intent(this, clazz);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -412,14 +421,14 @@ public class App extends MultiDexApplication {
         String text = totalCount == 0 ? getString(R.string.ongoing_notification_no_quests_text) : getString(R.string.ongoing_notification_progress_text, completedCount, totalCount);
         boolean showWhen = quest != null && quest.isScheduled();
         long when = showWhen ? Quest.getStartDateTimeMillis(quest) : 0;
-        String contentInfo = quest == null ? "" : "for " + DurationFormatter.format(this, quest.getDuration());
+        String contentInfo = quest == null ? "" : "به مدت " + DurationFormatter.format(this, quest.getDuration());
         int smallIcon = quest == null ? R.drawable.ic_notification_small : quest.getCategoryType().whiteImage;
         int iconColor = quest == null ? R.color.md_grey_500 : quest.getCategoryType().color500;
 
         Intent startAppIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, startAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent addIntent = new Intent(this, QuickAddActivity.class);
+        Intent addIntent = new Intent(this, AddQuestActivity.class);
         addIntent.putExtra(Constants.QUICK_ADD_ADDITIONAL_TEXT, " " + getString(R.string.today).toLowerCase());
         //// TODO: 5/15/2017 set notification , uncommnet this
 
@@ -484,7 +493,7 @@ public class App extends MultiDexApplication {
     }
 
     private void initReplication() {
-        if(!NetworkConnectivityUtils.isConnectedToInternet(this)) {
+        if (!NetworkConnectivityUtils.isConnectedToInternet(this)) {
             return;
         }
 
@@ -695,7 +704,7 @@ public class App extends MultiDexApplication {
         quest.setDuration(Math.max(quest.getDuration(), Constants.QUEST_MIN_DURATION));
 
         if (quest.getEnd() != null) {
-            if (quest.getEnd().hashCode()==quest.getStart().hashCode()) {
+            if (quest.getEnd().hashCode() == quest.getStart().hashCode()) {
                 quest.setScheduled(quest.getEnd());
             } else {
                 Date scheduledDate = questScheduler.schedule(quest);

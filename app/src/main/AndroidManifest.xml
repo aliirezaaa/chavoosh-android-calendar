@@ -23,7 +23,7 @@
     <application
         android:name=".app.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/calendar"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.iPoli">
@@ -362,6 +362,10 @@
             android:name=".app.activities.SignInAsGustActivity"
             android:label="@string/title_activity_sign_in_as_gust"
             android:theme="@style/Theme.iPoli"></activity>
+
+        <service
+            android:name=".persian.com.chavoosh.persiancalendar.service.ApplicationService"
+            android:label="Calendar Service" />
     </application>
 
 </manifest>
