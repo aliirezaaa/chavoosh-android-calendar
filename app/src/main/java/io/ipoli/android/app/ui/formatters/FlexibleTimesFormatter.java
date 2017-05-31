@@ -12,7 +12,7 @@ public class FlexibleTimesFormatter {
         if(value <= 0) {
             value = 1;
         }
-        return value == 1 ? value + " time" : value + " times";
+        return value == 1 ? value + " بار" : value + " بار";
     }
 
     public static int parse(String flexibleTimes) {

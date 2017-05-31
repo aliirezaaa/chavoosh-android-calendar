@@ -1,5 +1,6 @@
 package io.ipoli.android.quest.activities;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -51,6 +52,7 @@ import io.ipoli.android.quest.fragments.AddQuestSummaryFragment;
 import io.ipoli.android.quest.fragments.AddQuestTimeFragment;
 import io.ipoli.android.quest.fragments.AddRepeatingQuestRecurrenceFragment;
 import io.ipoli.android.reminder.data.Reminder;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by Venelin Valkov <venelin@curiousily.com>
@@ -321,4 +323,9 @@ public class AddRepeatingQuestActivity extends BaseActivity implements ViewPager
             return createdFragment;
         }
     }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
 }

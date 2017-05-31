@@ -1,13 +1,19 @@
 package io.ipoli.android.quest.ui.dialogs;
 
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +58,12 @@ import io.ipoli.android.app.ui.dialogs.DatePickerFragment;
 import io.ipoli.android.app.ui.formatters.DateFormatter;
 import io.ipoli.android.app.ui.formatters.FlexibleTimesFormatter;
 import io.ipoli.android.app.utils.DateUtils;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.data.Recurrence;
+import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
+import io.ipoli.android.quest.fragments.AddQuestDateFragment;
 
 /**
  * Created by Venelin Valkov <venelin@curiousily.com>
@@ -78,8 +89,8 @@ public class RecurrencePickerFragment extends DialogFragment{
         put(WeekDay.SA, R.id.saturday);
         put(WeekDay.SU, R.id.sunday);
     }};
-    private List<String> frequencies = Arrays.asList("Daily", "Weekly", "Monthly", "Yearly");
-    private List<String> flexibleFrequencies = Arrays.asList("Weekly", "Monthly");
+    private List<String> frequencies = Arrays.asList("روزانه", "هفتگی", "ماهیانه", "سالیانه");
+    private List<String> flexibleFrequencies = Arrays.asList("هفتگی", "ماهیانه");
     private boolean isFlexible = false;
     private View view;
 
@@ -155,6 +166,7 @@ public class RecurrencePickerFragment extends DialogFragment{
         super.onCreate(savedInstanceState);
         App.getAppComponent(getActivity()).inject(this);
         Bundle args = getArguments();
+
         String recurrenceJson = args.getString(RECURRENCE);
         if (!TextUtils.isEmpty(recurrenceJson)) {
             try {
@@ -173,7 +185,7 @@ public class RecurrencePickerFragment extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
+        initLocalDateBroadCast();
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.fragment_recurrence_picker, null);
         unbinder = ButterKnife.bind(this, view);
@@ -384,11 +396,12 @@ public class RecurrencePickerFragment extends DialogFragment{
 
     @OnClick(R.id.recurrence_until)
     public void onUntilTapped() {
-        if (until.getTag() != null) {
-            DatePickerFragment.newInstance((LocalDate) until.getTag(), true, onUntilDatePicked).show(getFragmentManager());
-        } else {
-            DatePickerFragment.newInstance(true, onUntilDatePicked).show(getFragmentManager());
-        }
+//        if (until.getTag() != null) {
+//            DatePickerFragment.newInstance((LocalDate) until.getTag(), true, onUntilDatePicked).show(getFragmentManager());
+//        } else {
+//            DatePickerFragment.newInstance(true, onUntilDatePicked).show(getFragmentManager());
+//        }
+        Utils.getInstance(getContext()).pickDate(RecurrencePickerFragment.this, "ON_DATE_SET_FOR_RECURRENCE");
     }
 
     private DatePickerFragment.OnDatePickedListener onUntilDatePicked = date -> {
@@ -505,4 +518,28 @@ public class RecurrencePickerFragment extends DialogFragment{
     public void show(FragmentManager fragmentManager) {
         show(fragmentManager, TAG);
     }
+
+    private void initLocalDateBroadCast() {
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReceiver,
+                new IntentFilter("ON_DATE_SET_FOR_RECURRENCE"));
+    }
+    private BroadcastReceiver dateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int year = intent.getIntExtra("year", 0);
+            int month = intent.getIntExtra("month", 0);
+            int day = intent.getIntExtra("day", 0);
+            PersianDate pDate=new PersianDate(year, month, day);
+
+            String text = getString(R.string.end_of_time);
+            if (DateConverter.persianToLocalDate(pDate) != null) {
+                text = Utils.getInstance(getContext()).dateToString(pDate);
+            }
+            until.setText(text);
+            until.setTag(DateConverter.persianToLocalDate(pDate));
+
+        }
+    };
+
 }

@@ -135,6 +135,10 @@ public class Time {
             format = getMinutes() > 0 ? "h:mm a" : "h a";
         }
 //        Log.i("in time ",  new SimpleDateFormat(format).format(c.getTime()).replace("AM","بعد") );
-        return new SimpleDateFormat(format).format(c.getTime()).replace("AM","ق ظ").replace("PM","ب ظ");
+        return new SimpleDateFormat(format).format(c.getTime()).
+                replace("AM","ق ظ").
+                replace("PM","ب ظ").
+                replace("بعدازظهر","ب ظ").
+                replace("قبل‌ازظهر","ق ظ");
     }
 }

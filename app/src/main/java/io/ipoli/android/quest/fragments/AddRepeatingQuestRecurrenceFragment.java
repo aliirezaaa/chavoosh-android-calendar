@@ -1,5 +1,6 @@
 package io.ipoli.android.quest.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ import io.ipoli.android.quest.data.Category;
 import io.ipoli.android.quest.data.Recurrence;
 import io.ipoli.android.quest.events.NewRepeatingQuestRecurrencePickedEvent;
 import io.ipoli.android.quest.ui.dialogs.RecurrencePickerFragment;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by Polina Zhelyazkova <polina@ipoli.io>
@@ -157,4 +159,7 @@ public class AddRepeatingQuestRecurrenceFragment extends BaseFragment {
     protected boolean useOptionsMenu() {
         return false;
     }
+
+
+
 }

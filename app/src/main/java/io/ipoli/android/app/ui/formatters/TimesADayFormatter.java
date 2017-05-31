@@ -11,11 +11,11 @@ public class TimesADayFormatter {
             value = 1;
         }
         if(value == 1) {
-            return "Once";
+            return "یکبار";
         } else if(value == 2) {
-            return "Twice";
+            return "دو بار";
         }
-        return value + " times";
+        return value + " بار";
     }
 
     public static String formatReadable(int value, String suffix) {
@@ -23,12 +23,12 @@ public class TimesADayFormatter {
             value = 1;
         }
         if(value == 1) {
-            return "Once " + suffix;
+            return "یکبار " + suffix;
         } else if(value == 2) {
-            return "Twice " + suffix;
+            return "دو بار " + suffix;
         }
 
-        return value + " times " + suffix;
+        return value + " بار " + suffix;
     }
 
 }

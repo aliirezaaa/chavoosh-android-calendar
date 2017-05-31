@@ -358,6 +358,7 @@ public class GrowthFragment extends BaseFragment implements AdapterView.OnItemSe
         data.setValueTextSize(12f);
         data.setValueTextColor(getColor(R.color.md_white));
         timeSpentChart.setData(data);
+//        data.setValueTypeface();
 
 //        timeSpentChart.setCenterText(getString(R.string.chart_time_spent_center_text, totalXP, totalCoins));
 //        timeSpentChart.setCenterTextColor(getColor(R.color.md_dark_text_87));

@@ -26,6 +26,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.RawRes;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -1247,7 +1248,10 @@ public class Utils {
             dpd.show(((BaseActivity) activity).getFragmentManager(), "Datepickerdialog");
         }else if (activity instanceof BaseFragment){
             dpd.show(((BaseFragment) activity).getActivity().getFragmentManager(), "Datepickerdialog");
+        }else if (activity instanceof DialogFragment){
+            dpd.show(((DialogFragment) activity).getActivity().getFragmentManager(), "Datepickerdialog");
         }
+
 
 
     }
