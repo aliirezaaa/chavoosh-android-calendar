@@ -10,6 +10,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -165,6 +166,7 @@ public class SyncCalendarActivity extends BaseActivity implements EasyPermission
 
         List<Calendar> calendars = syncAndroidCalendarProvider.getAndroidCalendars();
         for (Calendar c : calendars) {
+            Log.i("cal id",""+c.id);
             viewModels.add(new AndroidCalendarViewModel(c.id, c.displayName, Category.PERSONAL, true));
         }
         adapter.setViewModels(viewModels);
@@ -240,6 +242,7 @@ public class SyncCalendarActivity extends BaseActivity implements EasyPermission
             Map<Quest, Long> questToOriginalId = new HashMap<>();
             List<RepeatingQuest> repeatingQuests = new ArrayList<>();
             for(Long calendarId : selectedCalendars.keySet()) {
+                Log.i("calendar id sync", calendarId.toString());
                 List<Event> events = syncAndroidCalendarProvider.getCalendarEvents(calendarId);
                 AndroidCalendarEventParser.Result result = androidCalendarEventParser.parse(events, selectedCalendars.get(calendarId));
                 quests.addAll(result.quests);

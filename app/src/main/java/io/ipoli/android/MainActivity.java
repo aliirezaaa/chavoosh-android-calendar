@@ -185,7 +185,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //            finish();
 //            return;
 //        }
-//       startActivity(new Intent(this, ChooseAccountActivity.class));
+       startActivity(new Intent(this, ChooseAccountActivity.class));
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 

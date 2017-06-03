@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -479,8 +480,8 @@ public class SettingsActivity extends BaseActivity implements
     /*start persian setting*/
     @OnClick(R.id.persian_settings_btn)
     public void onPersianSettingsClicked(View view) {
-        startActivity(new Intent(this,PersianSettingsActivity.class));
-       overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
+        startActivity(new Intent(this, PersianSettingsActivity.class));
+        overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
     }
 
 
@@ -610,6 +611,7 @@ public class SettingsActivity extends BaseActivity implements
             Map<Quest, Long> questToOriginalId = new HashMap<>();
             List<RepeatingQuest> repeatingQuests = new ArrayList<>();
             for (Long calendarId : calendarsToAdd) {
+                Log.i("calendar id", calendarId.toString());
                 List<Event> events = syncAndroidCalendarProvider.getCalendarEvents(calendarId);
                 AndroidCalendarEventParser.Result result = androidCalendarEventParser.parse(events, selectedCalendars.get(calendarId));
                 quests.addAll(result.quests);

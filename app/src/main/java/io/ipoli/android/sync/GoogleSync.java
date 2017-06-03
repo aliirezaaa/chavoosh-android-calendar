@@ -11,15 +11,7 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
-import com.google.api.client.util.DateTime;
-import com.google.api.services.calendar.Calendar;
-import com.google.api.services.calendar.CalendarScopes;
-import com.google.api.services.calendar.model.CalendarList;
-import com.google.api.services.calendar.model.CalendarListEntry;
-import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.EventAttendee;
-import com.google.api.services.calendar.model.EventDateTime;
-import com.google.api.services.calendar.model.EventReminder;
+
 
 
 import org.json.JSONException;
@@ -37,8 +29,7 @@ import java.util.List;
 
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.HttpHandler;
 //
-/*/
-/*
+/
 // * Created by Client-9 on 5/31/2017.
 //
 
@@ -56,10 +47,10 @@ public class GoogleSync {
                 .build();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this */
-/* FragmentActivity *//*
-, this */
-/* OnConnectionFailedListener *//*
+                .enableAutoManage(this
+ FragmentActivity
+, this
+ OnConnectionFailedListener
 )
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
@@ -108,8 +99,7 @@ public class GoogleSync {
         System.out.printf("Event created: %s\n",event.getHtmlLink());
         new FetchWeatherData().execute();
     }
-   */
-/* public void getCalendarList(){
+ public void getCalendarList(){
         Calendar service = new Calendar.Builder(httpTransport, jsonFactory, credentials)
                 .setApplicationName("applicationName").build();
 
@@ -129,7 +119,7 @@ public class GoogleSync {
             }
             pageToken = calendarList.getNextPageToken();
         } while (pageToken != null);
-    }*//*
+    }
 
 
     private class FetchWeatherData extends AsyncTask<Void, Void, String> {
