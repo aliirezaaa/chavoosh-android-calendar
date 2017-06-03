@@ -1,5 +1,6 @@
 package io.ipoli.android.challenge.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -11,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.ipoli.android.R;
 import io.ipoli.android.app.activities.BaseActivity;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by Venelin Valkov <venelin@curiousily.com>
@@ -49,5 +51,9 @@ public class ChallengeCompleteActivity extends BaseActivity {
     @OnClick(R.id.done)
     public void onDoneClick(View view) {
         finish();
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

@@ -1,5 +1,6 @@
 package io.ipoli.android.challenge.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import io.ipoli.android.challenge.adapters.PickChallengeAdapter;
 import io.ipoli.android.challenge.data.PredefinedChallenge;
 import io.ipoli.android.challenge.events.PersonalizeChallengeEvent;
 import io.ipoli.android.quest.data.Category;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by Venelin Valkov <venelin@curiousily.com>
@@ -128,5 +130,9 @@ public class PickChallengeActivity extends BaseActivity {
         if (finishAfterChoosingChallenge) {
             supportFinishAfterTransition();
         }
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

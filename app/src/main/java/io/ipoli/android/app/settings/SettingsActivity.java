@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -71,6 +72,7 @@ import io.ipoli.android.app.ui.dialogs.TimePickerFragment;
 import io.ipoli.android.app.utils.LocalStorage;
 import io.ipoli.android.app.utils.StringUtils;
 import io.ipoli.android.app.utils.Time;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.ApplicationPreferenceFragment;
 import io.ipoli.android.player.Player;
 import io.ipoli.android.player.events.PickAvatarRequestEvent;
 import io.ipoli.android.player.persistence.PlayerPersistenceService;
@@ -195,9 +197,16 @@ public class SettingsActivity extends BaseActivity implements
         initTimeFormat(player);
         initSyncCalendars(player);
         initDailyChallenge();
-
+//        initPersianSettings();
         appVersion.setText(BuildConfig.VERSION_NAME);
         eventBus.post(new ScreenShownEvent(EventSource.SETTINGS));
+    }
+
+    private void initPersianSettings() {
+//        Button p=(Button)findViewById(R.id.persian_setting_btn);
+//        p.setOnClickListener(v -> {
+//
+//        });
     }
 
     @Override
@@ -313,10 +322,10 @@ public class SettingsActivity extends BaseActivity implements
         selectedSyncCalendars.setText(syncText);
     }
 
-    @OnClick(R.id.pick_avatar_container)
+   /* @OnClick(R.id.pick_avatar_container)
     public void onPickAvatarClicked(View view) {
         eventBus.post(new PickAvatarRequestEvent(EventSource.SETTINGS));
-    }
+    }*/
 
     @OnClick(R.id.ongoing_notification_container)
     public void onOngoingNotificationClicked(View view) {
@@ -466,6 +475,18 @@ public class SettingsActivity extends BaseActivity implements
         enableSyncCalendars.setChecked(!enableSyncCalendars.isChecked());
     }
 
+
+    /*start persian setting*/
+    @OnClick(R.id.persian_settings_btn)
+    public void onPersianSettingsClicked(View view) {
+        startActivity(new Intent(this,PersianSettingsActivity.class));
+       overridePendingTransition(R.anim.slide_in_top, android.R.anim.fade_out);
+    }
+
+
+
+    /*end persian setting*/
+
     @Override
     public void onTimesOfDayPicked(List<TimeOfDay> selectedTimes) {
         Player player = getPlayer();
@@ -504,7 +525,8 @@ public class SettingsActivity extends BaseActivity implements
         List<String> dayNames = new ArrayList<>();
         for (Constants.DaysOfWeek dayOfWeek : Constants.DaysOfWeek.values()) {
             if (selectedDays.contains(dayOfWeek.getIsoOrder())) {
-                dayNames.add(StringUtils.capitalize(dayOfWeek.name()).substring(0, 3));
+//                dayNames.add(StringUtils.capitalize(dayOfWeek.name()).substring(0, 3));
+                dayNames.add(StringUtils.getPersianTranslate(dayOfWeek.name()));
             }
         }
         if (dayNames.isEmpty()) {

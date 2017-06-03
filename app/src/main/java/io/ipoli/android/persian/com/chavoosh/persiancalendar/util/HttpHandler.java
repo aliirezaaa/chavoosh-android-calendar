@@ -100,7 +100,10 @@ public class HttpHandler {
                 JSONObject json = new JSONObject(s);
                 t.setText(json.getString("body"));
             } catch (JSONException e) {
-                e.printStackTrace();
+                if(e!=null){
+                    e.printStackTrace();
+                }
+
             }
 
         }

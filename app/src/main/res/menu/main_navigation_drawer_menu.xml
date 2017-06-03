@@ -5,16 +5,17 @@
         android:id="@+id/drawer_main_group"
         android:checkableBehavior="single">
         <item
+            android:id="@+id/persian_home"
+            android:checked="true"
+            android:icon="@drawable/ic_event_white_24dp"
+            android:title="تقویم ماهیانه" />
+        <item
 
             android:id="@+id/home"
             android:checked="true"
             android:icon="@drawable/ic_event_white_24dp"
             android:title="تقویم روزانه" />
-        <item
-            android:id="@+id/persian_home"
-            android:checked="true"
-            android:icon="@drawable/ic_event_white_24dp"
-            android:title="تقویم ماهیانه" />
+
 
         <item
             android:id="@+id/overview"
@@ -53,7 +54,12 @@
     <group
         android:id="@+id/third_group"
         android:checkableBehavior="single">
-
+        <item
+            android:id="@+id/contact_us"
+            android:checkable="false"
+            android:checked="false"
+            android:icon="@drawable/ic_email_white_24dp"
+            android:title="@string/contact_us" />
         <item
             android:id="@+id/invite_friends"
             android:checkable="false"
@@ -66,17 +72,7 @@
             android:checked="false"
             android:icon="@drawable/ic_settings_black_24dp"
             android:title="@string/settings" />
-        <item
-            android:id="@+id/feedback"
-            android:checkable="false"
-            android:checked="false"
-            android:icon="@drawable/ic_comment_white_24dp"
-            android:title="@string/feedback" />
-        <item
-            android:id="@+id/contact_us"
-            android:checkable="false"
-            android:checked="false"
-            android:icon="@drawable/ic_email_white_24dp"
-            android:title="@string/contact_us" />
+
+
     </group>
 </menu>

@@ -20,7 +20,7 @@ public class GPSLocationPreference extends DialogPreference {
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
-        Utils.getInstance(getContext()).setFontAndShape(holder);
+//        Utils.getInstance(getContext()).setFontAndShape(holder);
     }
 
 }

@@ -34,8 +34,9 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="14sp" />
 
+
                 <LinearLayout
-                    android:id="@+id/pick_avatar_container"
+                    android:id="@+id/persian_settings_btn"
                     android:layout_width="match_parent"
                     android:layout_height="72dp"
                     android:background="?android:attr/selectableItemBackground"
@@ -50,7 +51,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="bottom"
-                        android:text="@string/settings_avatar_title"
+                        android:text="تنظیمات اوقات شرعی"
                         android:textColor="@color/md_dark_text_87"
                         android:textSize="16sp" />
 
@@ -59,7 +60,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="top"
-                        android:text="@string/settings_avatar_desc"
+                        android:text="تنظیمات اوقات شرعی و اذان"
                         android:textColor="@color/md_dark_text_54"
                         android:textSize="14sp" />
 
@@ -71,6 +72,7 @@
                     android:layout_height="72dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:layoutDirection="rtl"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp">
 
@@ -79,6 +81,7 @@
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@+id/ongoing_notification"
+                        android:gravity="right"
                         android:orientation="vertical">
 
                         <TextView
@@ -105,7 +108,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_centerVertical="true"
+                        android:gravity="left"
+                        android:layoutDirection="ltr" />
 
                 </RelativeLayout>
 
@@ -115,6 +120,7 @@
                     android:layout_height="72dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:layoutDirection="rtl"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp">
 
@@ -149,7 +155,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_centerVertical="true"
+                        android:layoutDirection="ltr" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -360,6 +367,7 @@
                     android:layout_height="48dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:layoutDirection="rtl"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp">
 
@@ -377,7 +385,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_centerVertical="true"
+                        android:layoutDirection="ltr" />
 
                 </RelativeLayout>
 
@@ -474,6 +483,7 @@
                     android:layout_height="48dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:layoutDirection="rtl"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp">
 
@@ -491,7 +501,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
+                        android:layout_centerVertical="true"
+                        android:layoutDirection="ltr" />
 
                 </RelativeLayout>
 
@@ -611,6 +622,12 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/md_dark_text_12" />
+
         </LinearLayout>
     </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

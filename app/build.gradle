@@ -43,7 +43,7 @@ android {
 //            }
         }
 
-            debug {
+        debug {
 //            ndk {
 //                abiFilters 'x86_64', 'armeabi-v7a'
 //            }

@@ -43,7 +43,7 @@ public class ApplicationPreferenceFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         utils = Utils.getInstance(getContext());
-        utils.setActivityTitleAndSubtitle(getActivity(), getString(R.string.settings), "");
+//        utils.setActivityTitleAndSubtitle(getActivity(), getString(R.string.settings), "");
 
         addPreferencesFromResource(R.xml.preferences);
 

@@ -24,7 +24,7 @@ public class LocationPreference extends DialogPreference {
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
-        Utils.getInstance(getContext()).setFontAndShape(holder);
+//        Utils.getInstance(getContext()).setFontAndShape(holder);
     }
 
     public void setSelected(String selected) {

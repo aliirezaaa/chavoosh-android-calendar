@@ -28,11 +28,11 @@ public class ShapedListPreference extends ListPreference {
         super(context);
     }
 
-//    @Override
-//    public void onBindViewHolder(PreferenceViewHolder holder) {
-//        super.onBindViewHolder(holder);
+    @Override
+    public void onBindViewHolder(PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
 //        Utils.getInstance(getContext()).setFontAndShape(holder);
-//    }
+    }
 
     public void setSelected(String selected) {
         final boolean wasBlocking = shouldDisableDependents();

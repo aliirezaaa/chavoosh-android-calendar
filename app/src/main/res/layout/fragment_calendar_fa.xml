@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_container"
@@ -86,7 +86,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:text="@string/today"
-                            android:textColor="?attr/colorTextPrimary"
+                            android:textColor="?attr/colorPrimaryDark"
                             android:textSize="@dimen/text_size_title"
                             android:visibility="gone" />
 
@@ -97,7 +97,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="4dp"
                             android:layout_toRightOf="@+id/today"
-                            android:tint="?attr/colorTextPrimary"
+                            android:tint="?attr/colorPrimaryDark"
                             android:visibility="gone"
                             app:srcCompat="@drawable/ic_undo" />
 
@@ -106,7 +106,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:textColor="?attr/colorTextPrimary"
+                            android:textColor="?attr/colorPrimaryDark"
                             android:textSize="@dimen/text_size_title" />
 
                     </RelativeLayout>
@@ -123,7 +123,7 @@
                             android:layout_marginLeft="@dimen/icon_margin"
                             android:layout_toRightOf="@+id/dayInfoContainer"
                             android:gravity="center"
-                            android:tint="?attr/colorIcon"
+                            android:tint="?attr/colorPrimaryDark"
                             app:srcCompat="@drawable/ic_event" />
 
                         <android.support.v7.widget.LinearLayoutCompat
@@ -163,12 +163,13 @@
                 </android.support.v7.widget.LinearLayoutCompat>
 
             </android.support.v7.widget.CardView>
+
             <android.support.v7.widget.CardView
                 android:id="@+id/mycardEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/card_margin"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:cardBackgroundColor="?attr/colorCard">
 
                 <android.support.v7.widget.LinearLayoutCompat
@@ -193,7 +194,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:text="@string/my_events"
-                            android:textColor="?attr/colorTextPrimary"
+                            android:textColor="?attr/colorPrimaryDark"
                             android:textSize="@dimen/text_size_title" />
 
                     </RelativeLayout>
@@ -211,7 +212,7 @@
                             android:layout_height="@dimen/icon_size"
                             android:layout_marginLeft="@dimen/icon_margin"
                             android:gravity="center"
-                            android:tint="?attr/colorIcon"
+                            android:tint="?attr/colorPrimaryDark"
                             app:srcCompat="@drawable/ic_event_note" />
 
                         <io.ipoli.android.app.ui.EmptyStateRecyclerView
@@ -275,7 +276,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:text="@string/events"
-                            android:textColor="?attr/colorTextPrimary"
+                            android:textColor="?attr/colorPrimaryDark"
                             android:textSize="@dimen/text_size_title" />
 
                     </RelativeLayout>
@@ -292,7 +293,7 @@
                             android:layout_height="@dimen/icon_size"
                             android:layout_marginLeft="@dimen/icon_margin"
                             android:gravity="center"
-                            android:tint="?attr/colorIcon"
+                            android:tint="?attr/colorPrimaryDark"
                             app:srcCompat="@drawable/ic_event_note" />
 
                         <android.support.v7.widget.LinearLayoutCompat
@@ -349,7 +350,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:text="@string/events"
-                            android:textColor="?attr/colorTextPrimary"
+                            android:textColor="?attr/colorPrimaryDark"
                             android:textSize="@dimen/text_size_title" />
 
                     </RelativeLayout>
@@ -367,7 +368,7 @@
                             android:layout_height="@dimen/icon_size"
                             android:layout_marginLeft="@dimen/icon_margin"
                             android:gravity="center"
-                            android:tint="?attr/colorIcon"
+                            android:tint="?attr/colorPrimaryDark"
                             app:srcCompat="@drawable/ic_event_note" />
 
                         <android.support.v7.widget.LinearLayoutCompat
@@ -432,7 +433,7 @@
                             android:id="@+id/more_owghat"
                             android:layout_width="@dimen/icon_size"
                             android:layout_height="@dimen/icon_size"
-                            android:tint="?attr/colorIcon"
+                            android:tint="?attr/colorPrimaryDark"
                             app:srcCompat="@drawable/ic_keyboard_arrow_down" />
 
                         <android.support.v7.widget.AppCompatTextView
@@ -476,7 +477,7 @@
                                 android:layout_marginLeft="@dimen/icon_margin"
                                 android:layout_toRightOf="@+id/owghat1TextContainer"
                                 android:gravity="center"
-                                android:tint="?attr/colorIcon"
+                                android:tint="?attr/colorPrimaryDark"
                                 app:srcCompat="@drawable/ic_brightness_4" />
 
                             <android.support.v7.widget.LinearLayoutCompat
@@ -521,7 +522,7 @@
                                 android:layout_marginLeft="@dimen/icon_margin"
                                 android:layout_toRightOf="@+id/aftab1TextContainer"
                                 android:gravity="center"
-                                android:tint="?attr/colorIcon"
+                                android:tint="?attr/colorPrimaryDark"
                                 app:srcCompat="@drawable/ic_brightness_7" />
 
                             <android.support.v7.widget.LinearLayoutCompat
@@ -567,7 +568,7 @@
                                 android:layout_marginLeft="@dimen/icon_margin"
                                 android:layout_toRightOf="@+id/owghat3TextContainer"
                                 android:gravity="center"
-                                android:tint="?attr/colorIcon"
+                                android:tint="?attr/colorPrimaryDark"
                                 app:srcCompat="@drawable/ic_brightness_5" />
 
                             <android.support.v7.widget.LinearLayoutCompat
@@ -613,7 +614,7 @@
                                 android:layout_marginLeft="@dimen/icon_margin"
                                 android:layout_toRightOf="@+id/owghat4TextContainer"
                                 android:gravity="center"
-                                android:tint="?attr/colorIcon"
+                                android:tint="?attr/colorPrimaryDark"
                                 app:srcCompat="@drawable/ic_brightness_5" />
 
                             <android.support.v7.widget.LinearLayoutCompat
@@ -659,7 +660,7 @@
                                 android:layout_marginLeft="@dimen/icon_margin"
                                 android:layout_toRightOf="@+id/owghat5TextContainer"
                                 android:gravity="center"
-                                android:tint="?attr/colorIcon"
+                                android:tint="?attr/colorPrimaryDark"
                                 app:srcCompat="@drawable/ic_brightness_6" />
 
                             <android.support.v7.widget.LinearLayoutCompat
@@ -705,7 +706,7 @@
                                 android:layout_marginLeft="@dimen/icon_margin"
                                 android:layout_toRightOf="@+id/owghat6TextContainer"
                                 android:gravity="center"
-                                android:tint="?attr/colorIcon"
+                                android:tint="?attr/colorPrimaryDark"
                                 app:srcCompat="@drawable/ic_brightness_3" />
 
                             <android.support.v7.widget.LinearLayoutCompat
@@ -751,7 +752,7 @@
                                 android:layout_marginLeft="@dimen/icon_margin"
                                 android:layout_toRightOf="@+id/owghat7TextContainer"
                                 android:gravity="center"
-                                android:tint="?attr/colorIcon"
+                                android:tint="?attr/colorPrimaryDark"
                                 app:srcCompat="@drawable/ic_brightness_3" />
 
                             <android.support.v7.widget.LinearLayoutCompat
@@ -797,7 +798,7 @@
                                 android:layout_marginLeft="@dimen/icon_margin"
                                 android:layout_toRightOf="@+id/owghat8TextContainer"
                                 android:gravity="center"
-                                android:tint="?attr/colorIcon"
+                                android:tint="?attr/colorPrimaryDark"
                                 app:srcCompat="@drawable/ic_brightness_2" />
 
                             <android.support.v7.widget.LinearLayoutCompat
@@ -837,4 +838,8 @@
 
     </io.ipoli.android.persian.com.chavoosh.persiancalendar.view.ScrollViewExt>
 
-</RelativeLayout>
+    <io.ipoli.android.app.ui.FabMenuView
+        android:id="@+id/fab_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</android.support.design.widget.CoordinatorLayout>

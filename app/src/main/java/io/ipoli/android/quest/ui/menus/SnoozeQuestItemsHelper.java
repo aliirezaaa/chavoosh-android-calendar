@@ -35,17 +35,17 @@ public class SnoozeQuestItemsHelper {
     private static List<SnoozeTimeItem> getSnoozeTimeItems(Quest quest) {
         List<SnoozeTimeItem> snoozeTimeItems = new ArrayList<>();
         if (isQuestScheduledForTime(quest)) {
-            snoozeTimeItems.add(new SnoozeTimeItem("10 min", 10));
-            snoozeTimeItems.add(new SnoozeTimeItem("15 min", 15));
-            snoozeTimeItems.add(new SnoozeTimeItem("30 min", 30));
-            snoozeTimeItems.add(new SnoozeTimeItem("1 hour", 60));
+            snoozeTimeItems.add(new SnoozeTimeItem("10 دقیقه", 10));
+            snoozeTimeItems.add(new SnoozeTimeItem("15 دقیقه", 15));
+            snoozeTimeItems.add(new SnoozeTimeItem("30 دقیقه", 30));
+            snoozeTimeItems.add(new SnoozeTimeItem("1 ساعت", 60));
         }
-        snoozeTimeItems.add(new SnoozeTimeItem("Tomorrow", LocalDate.now().plusDays(1)));
-        snoozeTimeItems.add(new SnoozeTimeItem("Move to inbox", null));
-        SnoozeTimeItem pickTime = new SnoozeTimeItem("Pick time");
+        snoozeTimeItems.add(new SnoozeTimeItem("فردا", LocalDate.now().plusDays(1)));
+        snoozeTimeItems.add(new SnoozeTimeItem("انتقال به میزکار", null));
+        SnoozeTimeItem pickTime = new SnoozeTimeItem("انتخاب زمان");
         pickTime.pickTime = true;
         snoozeTimeItems.add(pickTime);
-        SnoozeTimeItem pickDate = new SnoozeTimeItem("Pick date");
+        SnoozeTimeItem pickDate = new SnoozeTimeItem("انتخاب تاریخ");
         pickDate.pickDate = true;
         snoozeTimeItems.add(pickDate);
         return snoozeTimeItems;

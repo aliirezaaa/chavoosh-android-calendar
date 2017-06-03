@@ -28,7 +28,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         utils = Utils.getInstance(locationPreferenceDialog.getContext());
         this.layoutInflater = LayoutInflater.from(context);
         this.locationPreferenceDialog = locationPreferenceDialog;
-//        this.cities = utils.getAllCities(true);
+        this.cities = utils.getAllCities(true);
         this.locale = utils.getAppLanguage();
     }
 

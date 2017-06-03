@@ -133,6 +133,7 @@ public class PersianCalendarFragment extends BaseFragment
 
     @BindView(R.id.agenda_list)
     EmptyStateRecyclerView questList;
+    private CardView user_event;
 
     @Nullable
     @Override
@@ -219,9 +220,9 @@ public class PersianCalendarFragment extends BaseFragment
         islamicDate.setOnClickListener(this);
         shamsiDate.setOnClickListener(this);
 
-        utils.setFontAndShape((TextView) view.findViewById(R.id.event_card_title));
-        utils.setFontAndShape((TextView) view.findViewById(R.id.today));
-        utils.setFontAndShape((TextView) view.findViewById(R.id.owghat_text));
+//        utils.setFontAndShape((TextView) view.findViewById(R.id.event_card_title));
+//        utils.setFontAndShape((TextView) view.findViewById(R.id.today));
+//        utils.setFontAndShape((TextView) view.findViewById(R.id.owghat_text));
 
         String cityName = utils.getCityName(false);
         if (!TextUtils.isEmpty(cityName)) {
@@ -256,65 +257,66 @@ public class PersianCalendarFragment extends BaseFragment
         midnightLayout = (RelativeLayout) view.findViewById(R.id.midnightLayout);
 
         gregorianDate = (TextView) view.findViewById(R.id.gregorian_date);
-        utils.setFont(gregorianDate);
+//        utils.setFont(gregorianDate);
         islamicDate = (TextView) view.findViewById(R.id.islamic_date);
-        utils.setFont(islamicDate);
+//        utils.setFont(islamicDate);
         shamsiDate = (TextView) view.findViewById(R.id.shamsi_date);
-        utils.setFont(shamsiDate);
+//        utils.setFont(shamsiDate);
         weekDayName = (TextView) view.findViewById(R.id.week_day_name);
-        utils.setFont(weekDayName);
+//        utils.setFont(weekDayName);
         today = (TextView) view.findViewById(R.id.today);
         todayIcon = (AppCompatImageView) view.findViewById(R.id.today_icon);
 
         fajrTextView = (TextView) view.findViewById(R.id.fajr);
-        utils.setFont(fajrTextView);
+//        utils.setFont(fajrTextView);
         utils.setFontAndShape((TextView) view.findViewById(R.id.fajrText));
 
         dhuhrTextView = (TextView) view.findViewById(R.id.dhuhr);
-        utils.setFont(dhuhrTextView);
+//        utils.setFont(dhuhrTextView);
         utils.setFontAndShape((TextView) view.findViewById(R.id.dhuhrText));
 
         asrTextView = (TextView) view.findViewById(R.id.asr);
-        utils.setFont(asrTextView);
+//        utils.setFont(asrTextView);
         utils.setFontAndShape((TextView) view.findViewById(R.id.asrText));
 
         maghribTextView = (TextView) view.findViewById(R.id.maghrib);
-        utils.setFont(maghribTextView);
+//        utils.setFont(maghribTextView);
         utils.setFontAndShape((TextView) view.findViewById(R.id.maghribText));
 
         ishaTextView = (TextView) view.findViewById(R.id.isgha);
-        utils.setFont(ishaTextView);
+//        utils.setFont(ishaTextView);
         utils.setFontAndShape((TextView) view.findViewById(R.id.ishaText));
 
         sunriseTextView = (TextView) view.findViewById(R.id.sunrise);
-        utils.setFont(sunriseTextView);
+//        utils.setFont(sunriseTextView);
         utils.setFontAndShape((TextView) view.findViewById(R.id.sunriseText));
 
         sunsetTextView = (TextView) view.findViewById(R.id.sunset);
-        utils.setFont(sunsetTextView);
+//        utils.setFont(sunsetTextView);
         utils.setFontAndShape((TextView) view.findViewById(R.id.sunsetText));
 
         midnightTextView = (TextView) view.findViewById(R.id.midnight);
-        utils.setFont(midnightTextView);
+//        utils.setFont(midnightTextView);
         utils.setFontAndShape((TextView) view.findViewById(R.id.midnightText));
 
 
         moreOwghat = (AppCompatImageView) view.findViewById(R.id.more_owghat);
 
         eventTitle = (TextView) view.findViewById(R.id.event_title);
-        utils.setFont(eventTitle);
+//        utils.setFont(eventTitle);
         holidayTitle = (TextView) view.findViewById(R.id.holiday_title);
-        utils.setFont(holidayTitle);
+//        utils.setFont(holidayTitle);
         //news init
         news_card_title = (TextView) view.findViewById(R.id.news_card_title);
         news_title = (TextView) view.findViewById(R.id.news_title);
         card_news = (CardView) view.findViewById(R.id.cardNews);
+        user_event = (CardView) view.findViewById(R.id.mycardEvent);
     }
 
     private void showQuestsForDate(LocalDate date) {
         eventBus.post(new CalendarDayChangedEvent(date, CalendarDayChangedEvent.Source.AGENDA_CALENDAR));
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(getToolbarText(date)), Locale.getDefault());
-        Date startOfDayDate = DateUtils.toStartOfDay(date);
+//        Date startOfDayDate = DateUtils.toStartOfDay(date);
 //        if (getSupportActionBar() != null) {
 //            getSupportActionBar().setTitle(simpleDateFormat.format(startOfDayDate));
 //        }
@@ -323,11 +325,16 @@ public class PersianCalendarFragment extends BaseFragment
 //        journeyText.setText(getString(R.string.agenda_daily_journey, dateFormat.format(startOfDayDate)));
         questPersistenceService.findAllNonAllDayForDate(date, quests -> {
             List<AgendaViewModel> vms = new ArrayList<>();
-            for (Quest quest : quests) {
-                vms.add(new AgendaViewModel(getContext(), quest, true));
-                Log.i("vms", quest.getName());
+            if(quests.size()!=0){
+                for (Quest quest : quests) {
+                    vms.add(new AgendaViewModel(getContext(), quest, true));
+//                Log.i("vms", quest.getName());
+                }
+                questList.setAdapter(new AgendaAdapter(getContext(), eventBus, vms));
+                user_event.setVisibility(View.VISIBLE);
+            }else {
+                user_event.setVisibility(View.GONE);
             }
-            questList.setAdapter(new AgendaAdapter(getContext(), eventBus, vms));
         });
     }
 

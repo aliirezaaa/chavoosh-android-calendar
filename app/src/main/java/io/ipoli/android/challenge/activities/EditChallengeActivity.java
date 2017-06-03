@@ -61,6 +61,7 @@ import io.ipoli.android.persian.calendar.DateConverter;
 import io.ipoli.android.persian.calendar.PersianDate;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.data.Category;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static io.ipoli.android.MainActivity.getContext;
 
@@ -465,4 +466,8 @@ public class EditChallengeActivity extends BaseActivity implements DatePickerFra
 //            duplicateQuest(dEvent.quest, DateConverter.persianToLocalDate(pDate), dShowAction);
         }
     };
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }

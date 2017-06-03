@@ -104,6 +104,7 @@ import io.ipoli.android.quest.ui.events.UpdateRepeatingQuestEvent;
 import io.ipoli.android.reminder.ReminderMinutesParser;
 import io.ipoli.android.reminder.TimeOffsetType;
 import io.ipoli.android.reminder.data.Reminder;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static io.ipoli.android.MainActivity.getContext;
 import static io.ipoli.android.app.events.EventSource.EDIT_QUEST;
@@ -875,5 +876,10 @@ public class EditQuestActivity extends BaseActivity implements
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(dateReceiver);
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(timeReciever);
         super.onDestroy();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

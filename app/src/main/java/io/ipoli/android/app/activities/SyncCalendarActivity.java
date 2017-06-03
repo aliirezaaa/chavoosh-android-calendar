@@ -47,6 +47,7 @@ import me.everything.providers.android.calendar.Calendar;
 import me.everything.providers.android.calendar.Event;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SyncCalendarActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks, LoaderManager.LoaderCallbacks<Void> {
     private static final int RC_CALENDAR_PERM = 101;
@@ -259,5 +260,9 @@ public class SyncCalendarActivity extends BaseActivity implements EasyPermission
         protected void onStopLoading() {
             cancelLoad();
         }
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

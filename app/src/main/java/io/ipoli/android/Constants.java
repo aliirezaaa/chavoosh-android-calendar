@@ -73,7 +73,7 @@ public interface Constants {
 
     String KEY_SCHEMA_VERSION = "SCHEMA_VERSION";
 
-    String IPOLI_EMAIL = "hi@ipoli.io";
+    String IPOLI_EMAIL = "aliirezaaa@gmail.com";
 
     String API_RESOURCE_SOURCE = "ipoli-android";
     int DEFAULT_PLAYER_XP = 0;

@@ -16,21 +16,21 @@ public class ReminderTimeFormatter {
         }
 
         if(minutes == 0) {
-            return "At start";
+            return "در شروع";
         }
 
         long hours = TimeUnit.MINUTES.toHours(minutes);
         long mins = minutes - hours * 60;
 
         if (hours > 0 && mins > 0) {
-            return hours + "hours and " + mins + " minutes before";
+            return hours + "ساعت و " + mins + " دقیقه قبل";
         }
 
         if (hours > 0 && mins == 0) {
-            return hours == 1 ? "1 hour before" : hours + " hours before";
+            return hours == 1 ? "1 ساعت قبل" : hours + " ساعت قبل";
         }
 
-        return mins == 1 ? "1 minute before" : mins + " minutes before";
+        return mins == 1 ? "1 دقیقه قبل" : mins + " دقیقه قبل";
     }
 
     public static String formatTimeOffset(long timeValue, TimeOffsetType timeOffsetType) {
@@ -39,7 +39,7 @@ public class ReminderTimeFormatter {
         }
 
         if(timeValue == 0) {
-            return "At start";
+            return "در شروع";
         }
 
         String type = timeOffsetType.name().toLowerCase();
@@ -47,6 +47,6 @@ public class ReminderTimeFormatter {
             type = type.substring(0, type.length() - 1);
         }
 
-        return timeValue + " " + type + " before";
+        return timeValue + " " + type + " قبل";
     }
 }

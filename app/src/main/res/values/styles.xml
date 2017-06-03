@@ -43,6 +43,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="alertDialogTheme">@style/Theme.iPoli.AlertDialog</item>
         <item name="drawerArrowStyle">@style/WhiteDrawerIconStyle</item>
+
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <!--persian cal colors -->
         <item name="colorCard">@color/light_card_background</item>
         <item name="colorBackground">@color/light_background</item>

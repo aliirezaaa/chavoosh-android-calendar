@@ -168,7 +168,7 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
     }
 
     public void onLongClickItem(PersianDate day) {
-        persianCalendarFragment.addEventOnCalendar(day);
+//        persianCalendarFragment.addEventOnCalendar(day);
     }
 
     @Override

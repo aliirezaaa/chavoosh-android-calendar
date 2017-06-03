@@ -390,7 +390,7 @@ public class AddQuestSummaryFragment extends BaseFragment {
     private void showTimesADay(int timesADay) {
         timesADayContainer.setVisibility(View.VISIBLE);
         timesADayHorizontalLine.setVisibility(View.VISIBLE);
-        timesADayText.setText(TimesADayFormatter.formatReadable(timesADay, "a day"));
+        timesADayText.setText(TimesADayFormatter.formatReadable(timesADay, "در روز"));
         timesADayText.setTag(timesADay);
     }
 

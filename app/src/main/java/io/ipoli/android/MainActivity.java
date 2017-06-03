@@ -30,8 +30,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -77,6 +80,7 @@ import io.ipoli.android.challenge.fragments.ChallengeListFragment;
 import io.ipoli.android.persian.calendar.DateConverter;
 import io.ipoli.android.persian.calendar.PersianDate;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.ApplicationPreferenceFragment;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.PersianCalendarFragment;
 import io.ipoli.android.pet.PetActivity;
 import io.ipoli.android.pet.data.Pet;
@@ -111,6 +115,8 @@ import io.ipoli.android.quest.ui.events.EditRepeatingQuestRequestEvent;
 import io.ipoli.android.reminder.data.Reminder;
 import io.ipoli.android.reward.fragments.RewardListFragment;
 import io.ipoli.android.shop.activities.CoinStoreActivity;
+import io.ipoli.android.sync.ChooseAccountActivity;
+
 import me.cheshmak.android.sdk.core.Cheshmak;
 import me.cheshmak.android.sdk.core.CheshmakConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -162,7 +168,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
 
 //        changeLanguage("fa");
-//        cheshmakInit();
+        cheshmakInit();
 //        changDirection();
         instance = this.getApplication();
         appComponent().inject(this);
@@ -179,7 +185,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //            finish();
 //            return;
 //        }
-
+//       startActivity(new Intent(this, ChooseAccountActivity.class));
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -296,7 +302,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //                break;
 
             case R.id.invite_friends:
-                inviteFriends();
+
+//                inviteFriends();
+                changeCurrentFragment(new ApplicationPreferenceFragment());
                 break;
 
             case R.id.settings:
@@ -304,14 +312,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
 
-            case R.id.feedback:
-                eventBus.post(new FeedbackTapEvent());
-                RateDialog.newInstance(RateDialog.State.FEEDBACK).show(getSupportFragmentManager());
-                break;
+//            case R.id.feedback:
+//                eventBus.post(new FeedbackTapEvent());
+//                RateDialog.newInstance(RateDialog.State.FEEDBACK).show(getSupportFragmentManager());
+//                break;
 
             case R.id.contact_us:
                 eventBus.post(new ContactUsTapEvent());
-                EmailUtils.send(MainActivity.this, "Hi", localStorage.readString(Constants.KEY_PLAYER_ID), getString(R.string.contact_us_email_chooser_title));
+                EmailUtils.send(MainActivity.this, "درباره تقویم چاووش", localStorage.readString(Constants.KEY_PLAYER_ID), getString(R.string.contact_us_email_chooser_title));
                 break;
         }
 
@@ -417,8 +425,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         long coins = q.getCoins();
 //// TODO: 5/28/2017 translate
         Snackbar snackbar = Snackbar
-                .make(contentContainer,
-                        getString(R.string.quest_complete_with_bounty, experience, coins),
+                .make(contentContainer, getString(R.string.quest_complete_with_bounty, experience, coins),
                         Snackbar.LENGTH_LONG);
 
         snackbar.setAction(R.string.share, view -> {
@@ -439,7 +446,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 !localStorage.readBool(RateDialogConstants.KEY_SHOULD_SHOW_RATE_DIALOG, true)) {
             return false;
         }
-        return new Random().nextBoolean();
+//        return new Random().nextBoolean();
+        return false;
     }
 
     @Subscribe
@@ -631,13 +639,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void inviteFriends() {
-        eventBus.post(new InviteFriendsEvent());
-        Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invite_title))
-                .setMessage(getString(R.string.invite_message))
-                .setCustomImage(Uri.parse(Constants.INVITE_IMAGE_URL))
-                .setCallToActionText(getString(R.string.invite_call_to_action))
-                .build();
-        startActivityForResult(intent, INVITE_FRIEND_REQUEST_CODE);
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable( getApplicationContext() );
+        if(status == ConnectionResult.SUCCESS) {
+            //alarm to go and install Google Play Services
+            eventBus.post(new InviteFriendsEvent());
+            Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invite_title))
+                    .setMessage(getString(R.string.invite_message))
+                    .setCustomImage(Uri.parse(Constants.INVITE_IMAGE_URL))
+                    .setCallToActionText(getString(R.string.invite_call_to_action))
+                    .build();
+            startActivityForResult(intent, INVITE_FRIEND_REQUEST_CODE);
+        }else if(status == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED){
+            Toast.makeText(getContext(),"لطفا گوگل پلی سرویس دستگاه خود را بروزرسانی کنید", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Subscribe

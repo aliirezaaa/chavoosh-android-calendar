@@ -74,7 +74,8 @@ public class DaysOfWeekPickerFragment extends DialogFragment {
             if (preSelectedDays.contains(dayOfWeek.getIsoOrder())) {
                 checkedDays[i] = true;
             }
-            daysOfWeek[i] = StringUtils.capitalize(dayOfWeek.name());
+
+            daysOfWeek[i] = StringUtils.getPersianTranslate(dayOfWeek.name());
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

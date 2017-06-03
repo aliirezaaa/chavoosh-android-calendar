@@ -62,7 +62,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".app.activities.SyncCalendarActivity"
-            android:label="Choose calendars to sync"
+            android:label="انتخاب تقویم برای هماهنگ سازی"
             android:screenOrientation="portrait" />
         <activity
             android:name=".quest.activities.AddQuestActivity"
@@ -361,11 +361,22 @@
         <activity
             android:name=".app.activities.SignInAsGustActivity"
             android:label="@string/title_activity_sign_in_as_gust"
-            android:theme="@style/Theme.iPoli"></activity>
+            android:theme="@style/Theme.iPoli" />
 
         <service
             android:name=".persian.com.chavoosh.persiancalendar.service.ApplicationService"
             android:label="Calendar Service" />
+
+        <activity
+            android:name=".sync.ChooseAccountActivity"
+            android:label="@string/title_activity_choose_account"
+            android:theme="@style/Theme.iPoli" />
+
+        <activity
+            android:name=".app.settings.PersianSettingsActivity"
+            android:label="@string/title_activity_persian_settings"
+            android:parentActivityName=".app.settings.SettingsActivity"
+            android:theme="@style/Theme.iPoli" />
     </application>
 
 </manifest>

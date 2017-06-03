@@ -193,11 +193,27 @@ public class EditReminderFragment extends DialogFragment {
 
     private void initCustomTimes() {
         List<String> times = new ArrayList<>();
+        String name="";
         for (TimeOffsetType type : TimeOffsetType.values()) {
-            times.add(type.name().toLowerCase() + " before");
+            switch (type){
+                case MINUTES:
+                    name="دقیقه";
+                    break;
+                case HOURS:
+                    name="ساعت";
+                    break;
+                case DAYS:
+                    name="روز";
+                    break;
+                case WEEKS:
+                    name="هفته";
+                    break;
+            }
+            times.add(name + " قبل");
         }
         ArrayAdapter<String> customTimeTypesAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, times);
         customTimeTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         customTimeTypesView.setAdapter(customTimeTypesAdapter);
 
         if (reminder != null) {
@@ -214,7 +230,7 @@ public class EditReminderFragment extends DialogFragment {
         for (int REMINDER_PREDEFINED_MINUTE : REMINDER_PREDEFINED_MINUTES) {
             predefinedTimes.add(ReminderTimeFormatter.formatMinutesBeforeReadable(REMINDER_PREDEFINED_MINUTE));
         }
-        predefinedTimes.add("Custom");
+        predefinedTimes.add("دستی");
 
         ArrayAdapter<String> predefinedTimesAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, predefinedTimes);
         predefinedTimesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

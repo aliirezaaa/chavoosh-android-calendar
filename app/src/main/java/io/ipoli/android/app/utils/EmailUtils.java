@@ -3,6 +3,7 @@ package io.ipoli.android.app.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 
 import io.ipoli.android.BuildConfig;
 import io.ipoli.android.Constants;
@@ -22,8 +23,11 @@ public class EmailUtils {
                 "mailto", Constants.IPOLI_EMAIL, null));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         if (!StringUtils.isEmpty(playerId)) {
-            String body = "\n\nPlease, do not delete below this line\n=====================\nThis will help us fix the issue faster:\nPlayer id " + playerId +
-                    "\nVersion " + BuildConfig.VERSION_NAME;
+            String body = "\n\nلطفا خط های پایین را پاک نکنید\n=====================\nاین اطلاعات میتواند سرعت رفع مشکلات را بیشتر کند:"  +
+                    "\nVERSION_NAME : " + BuildConfig.VERSION_NAME
+                    +"\nMANUFACTURER : " + Build.MANUFACTURER
+                    +"\nMODEL : " + Build.MODEL
+                    +"\nSDK : " + Build.VERSION.SDK_INT;
             emailIntent.putExtra(Intent.EXTRA_TEXT, body);
         }
         context.startActivity(Intent.createChooser(emailIntent, chooserTitle));
