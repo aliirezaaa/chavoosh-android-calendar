@@ -9,7 +9,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -25,8 +24,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -55,23 +52,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.ipoli.android.app.App;
-import io.ipoli.android.app.BaseFragment;
 import io.ipoli.android.app.activities.BaseActivity;
 import io.ipoli.android.app.events.CalendarDayChangedEvent;
 import io.ipoli.android.app.events.ContactUsTapEvent;
 import io.ipoli.android.app.events.EventSource;
-import io.ipoli.android.app.events.FeedbackTapEvent;
 import io.ipoli.android.app.events.FriendsInvitedEvent;
 import io.ipoli.android.app.events.InviteFriendsCanceledEvent;
 import io.ipoli.android.app.events.InviteFriendsEvent;
 import io.ipoli.android.app.events.ScreenShownEvent;
 import io.ipoli.android.app.events.UndoCompletedQuestEvent;
-import io.ipoli.android.app.rate.RateDialog;
 import io.ipoli.android.app.rate.RateDialogConstants;
 import io.ipoli.android.app.settings.SettingsActivity;
 import io.ipoli.android.app.share.ShareQuestDialog;
-import io.ipoli.android.app.ui.dialogs.DatePickerFragment;
-import io.ipoli.android.app.ui.dialogs.TimePickerFragment;
 import io.ipoli.android.app.utils.EmailUtils;
 import io.ipoli.android.app.utils.LocalStorage;
 import io.ipoli.android.app.utils.ResourceUtils;
@@ -97,15 +89,12 @@ import io.ipoli.android.quest.commands.StopQuestCommand;
 import io.ipoli.android.quest.data.Quest;
 import io.ipoli.android.quest.events.DuplicateQuestRequestEvent;
 import io.ipoli.android.quest.events.EditQuestRequestEvent;
-import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
 import io.ipoli.android.quest.events.NewQuestEvent;
-import io.ipoli.android.quest.events.NewQuestTimePickedEvent;
 import io.ipoli.android.quest.events.QuestCompletedEvent;
 import io.ipoli.android.quest.events.ShareQuestEvent;
 import io.ipoli.android.quest.events.SnoozeQuestRequestEvent;
 import io.ipoli.android.quest.events.StartQuestRequestEvent;
 import io.ipoli.android.quest.events.StopQuestRequestEvent;
-import io.ipoli.android.quest.fragments.AddQuestDateFragment;
 import io.ipoli.android.quest.fragments.CalendarFragment;
 import io.ipoli.android.quest.fragments.InboxFragment;
 import io.ipoli.android.quest.fragments.OverviewFragment;
@@ -113,9 +102,6 @@ import io.ipoli.android.quest.fragments.RepeatingQuestListFragment;
 import io.ipoli.android.quest.persistence.QuestPersistenceService;
 import io.ipoli.android.quest.ui.events.EditRepeatingQuestRequestEvent;
 import io.ipoli.android.reminder.data.Reminder;
-import io.ipoli.android.reward.fragments.RewardListFragment;
-import io.ipoli.android.shop.activities.CoinStoreActivity;
-import io.ipoli.android.sync.ChooseAccountActivity;
 
 import me.cheshmak.android.sdk.core.Cheshmak;
 import me.cheshmak.android.sdk.core.CheshmakConfig;
@@ -185,7 +171,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //            finish();
 //            return;
 //        }
-       startActivity(new Intent(this, ChooseAccountActivity.class));
+//       startActivity(new Intent(this, ChooseAccountActivity.class));
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -303,8 +289,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             case R.id.invite_friends:
 
-//                inviteFriends();
-                changeCurrentFragment(new ApplicationPreferenceFragment());
+                inviteFriends();
+//                changeCurrentFragment(new ApplicationPreferenceFragment());
                 break;
 
             case R.id.settings:
@@ -586,6 +572,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void saveSnoozedQuest(Quest quest, boolean isDateChanged, boolean showAction) {
+        App.getLocalCalendar().onEventChange(quest);
         questPersistenceService.save(quest);
         String message = getString(R.string.quest_snoozed);
         if (quest.getScheduledDate() == null) {

@@ -36,6 +36,7 @@ import java.util.Calendar;
 import java.util.Collections;
 
 import io.ipoli.android.R;
+import io.ipoli.android.quest.data.Quest;
 
 
 public class ChooseAccountActivity extends FragmentActivity {
@@ -51,12 +52,12 @@ public class ChooseAccountActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
 //        authorizeContactsAccess();
-        addEventOffline();
+//        addEventOffline();
 
 
     }
 
-    private void addEventOffline() {
+    private void addEventOffline(Quest quest) {
         long calID = 1;
         long startMillis = 0;
         long endMillis = 0;

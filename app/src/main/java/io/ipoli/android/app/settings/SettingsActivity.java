@@ -1,8 +1,10 @@
 package io.ipoli.android.app.settings;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -73,6 +76,7 @@ import io.ipoli.android.app.ui.dialogs.TimePickerFragment;
 import io.ipoli.android.app.utils.LocalStorage;
 import io.ipoli.android.app.utils.StringUtils;
 import io.ipoli.android.app.utils.Time;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.ApplicationPreferenceFragment;
 import io.ipoli.android.player.Player;
 import io.ipoli.android.player.events.PickAvatarRequestEvent;
@@ -86,6 +90,8 @@ import io.ipoli.android.quest.schedulers.RepeatingQuestScheduler;
 import me.everything.providers.android.calendar.Event;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+
+import static io.ipoli.android.MainActivity.getContext;
 
 public class SettingsActivity extends BaseActivity implements
         TimeOfDayPickerFragment.OnTimesOfDayPickedListener,
@@ -198,17 +204,14 @@ public class SettingsActivity extends BaseActivity implements
         initTimeFormat(player);
         initSyncCalendars(player);
         initDailyChallenge();
-//        initPersianSettings();
+
         appVersion.setText(BuildConfig.VERSION_NAME);
         eventBus.post(new ScreenShownEvent(EventSource.SETTINGS));
+
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(challengeTimeReceiver,
+                new IntentFilter("ON_TIME_SET_FOR_CHALLENGE"));
     }
 
-    private void initPersianSettings() {
-//        Button p=(Button)findViewById(R.id.persian_setting_btn);
-//        p.setOnClickListener(v -> {
-//
-//        });
-    }
 
     @Override
     protected boolean useParentOptionsMenu() {
@@ -403,8 +406,9 @@ public class SettingsActivity extends BaseActivity implements
     @OnClick(R.id.daily_challenge_start_time_container)
     public void onDailyChallengeStartTimeClicked(View view) {
         if (dailyChallengeNotification.isChecked()) {
-            TimePickerFragment fragment = TimePickerFragment.newInstance(false, this);
-            fragment.show(getSupportFragmentManager());
+            /*TimePickerFragment fragment = TimePickerFragment.newInstance(false, this);
+            fragment.show(getSupportFragmentManager());*/
+            Utils.getInstance(getContext()).pickTime(SettingsActivity.this, "ON_TIME_SET_FOR_CHALLENGE");
         }
     }
 
@@ -671,5 +675,27 @@ public class SettingsActivity extends BaseActivity implements
         protected void onStopLoading() {
             cancelLoad();
         }
+    }
+
+    private BroadcastReceiver challengeTimeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int hour = intent.getIntExtra("hour", 0);
+            int minute = intent.getIntExtra("minute", 0);
+//
+            Time tm = Time.at(hour, minute);
+            dailyChallengeStartTime.setText(tm.toString());
+            localStorage.saveInt(Constants.KEY_DAILY_CHALLENGE_REMINDER_START_MINUTE, tm.toMinuteOfDay());
+            eventBus.post(new DailyChallengeStartTimeChangedEvent(tm));
+
+        }
+    };
+
+
+    @Override
+    public void onDestroy() {
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(challengeTimeReceiver);
+        super.onDestroy();
     }
 }

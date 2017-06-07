@@ -1,5 +1,7 @@
 package io.ipoli.android.quest.data;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -84,6 +86,8 @@ public class Quest extends PersistedObject implements RewardProvider, BaseQuest 
 
     private Integer completedCount;
 
+    private Long eventID = null;
+
 
     @JsonIgnore
     private Long previousScheduledDate;
@@ -113,6 +117,7 @@ public class Quest extends PersistedObject implements RewardProvider, BaseQuest 
         this.setCompletedCount(0);
         this.setTimesADay(1);
         this.allDay = false;
+
     }
 
     public Long getOriginalScheduled() {
@@ -541,7 +546,7 @@ public class Quest extends PersistedObject implements RewardProvider, BaseQuest 
     }
 
     public void setTimesADay(Integer timesADay) {
-        if(timesADay != null && getCompletedCount() != null) {
+        if (timesADay != null && getCompletedCount() != null) {
             setCompletedCount(Math.min(timesADay, getCompletedCount()));
         }
         this.timesADay = timesADay;
@@ -611,5 +616,13 @@ public class Quest extends PersistedObject implements RewardProvider, BaseQuest 
             return TimePreference.ANY;
         }
         return TimePreference.valueOf(preferredStartTime);
+    }
+
+    public Long getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(Long eventID) {
+        this.eventID = eventID;
     }
 }

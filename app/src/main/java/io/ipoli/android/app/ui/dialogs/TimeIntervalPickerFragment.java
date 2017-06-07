@@ -2,12 +2,17 @@ package io.ipoli.android.app.ui.dialogs;
 
 
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +21,10 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.ipoli.android.MainActivity;
 import io.ipoli.android.R;
 import io.ipoli.android.app.utils.Time;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 
 public class TimeIntervalPickerFragment extends DialogFragment {
 
@@ -49,11 +56,11 @@ public class TimeIntervalPickerFragment extends DialogFragment {
 
     public static TimeIntervalPickerFragment newInstance(@StringRes int title, Time startTime, Time endTime, OnTimePickedListener timePickedListener) {
         TimeIntervalPickerFragment fragment = new TimeIntervalPickerFragment();
-        if(startTime == null) {
+        if (startTime == null) {
             startTime = Time.now();
         }
 
-        if(endTime == null) {
+        if (endTime == null) {
             endTime = Time.now();
         }
         Bundle args = new Bundle();
@@ -73,6 +80,10 @@ public class TimeIntervalPickerFragment extends DialogFragment {
             endTime = Time.of(getArguments().getInt(END_MINUTES_AFTER_MIDNIGHT));
             title = getArguments().getInt(TITLE);
         }
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(startTimeReceiver,
+                new IntentFilter("ON_TIME_SET_FOR_START"));
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(endTimeReceiver,
+                new IntentFilter("ON_TIME_SET_FOR_END"));
     }
 
     @Override
@@ -85,20 +96,23 @@ public class TimeIntervalPickerFragment extends DialogFragment {
         startTimeBtn.setText(startTime.toString());
         endTimeBtn.setText(endTime.toString());
 
-        startTimeBtn.setOnClickListener(view1 -> {
+        startTimeBtn.setOnClickListener(view1 -> {/*
             TimePickerFragment fragment = TimePickerFragment.newInstance(false, startTime, time -> {
                 startTime = time;
-                startTimeBtn.setText(startTime.toString());
-            });
-            fragment.show(getFragmentManager());
+                startTimeBtn.setText(startTime.toString());*/
+            Utils.getInstance(getContext()).pickTime(TimeIntervalPickerFragment.this, "ON_TIME_SET_FOR_START");
+
+//            });
+//            fragment.show(getFragmentManager());
         });
 
         endTimeBtn.setOnClickListener(view1 -> {
-            TimePickerFragment fragment = TimePickerFragment.newInstance(false, startTime, time -> {
+            /*TimePickerFragment fragment = TimePickerFragment.newInstance(false, startTime, time -> {
                 endTime = time;
                 endTimeBtn.setText(endTime.toString());
             });
-            fragment.show(getFragmentManager());
+            fragment.show(getFragmentManager());*/
+            Utils.getInstance(getContext()).pickTime(TimeIntervalPickerFragment.this, "ON_TIME_SET_FOR_END");
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -117,10 +131,37 @@ public class TimeIntervalPickerFragment extends DialogFragment {
     @Override
     public void onDestroy() {
         unbinder.unbind();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(startTimeReceiver);
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(endTimeReceiver);
         super.onDestroy();
     }
 
     public void show(FragmentManager fragmentManager) {
         show(fragmentManager, TAG);
     }
+
+    private BroadcastReceiver startTimeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int hour = intent.getIntExtra("hour", 0);
+            int minute = intent.getIntExtra("minute", 0);
+            Time tm = Time.at(hour, minute);
+            startTime = tm;
+            startTimeBtn.setText(startTime.toString());
+
+        }
+    };
+    private BroadcastReceiver endTimeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int hour = intent.getIntExtra("hour", 0);
+            int minute = intent.getIntExtra("minute", 0);
+            Time tm = Time.at(hour, minute);
+            endTime = tm;
+            endTimeBtn.setText(endTime.toString());
+
+        }
+    };
 }

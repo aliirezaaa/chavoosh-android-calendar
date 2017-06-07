@@ -55,7 +55,6 @@ import io.ipoli.android.app.ui.CategoryView;
 import io.ipoli.android.app.ui.dialogs.DatePickerFragment;
 import io.ipoli.android.app.ui.dialogs.TextPickerFragment;
 import io.ipoli.android.app.ui.dialogs.TimePickerFragment;
-import io.ipoli.android.app.ui.formatters.DateFormatter;
 import io.ipoli.android.app.ui.formatters.DurationFormatter;
 import io.ipoli.android.app.ui.formatters.FrequencyTextFormatter;
 import io.ipoli.android.app.ui.formatters.PriorityFormatter;
@@ -78,8 +77,6 @@ import io.ipoli.android.quest.events.CancelDeleteQuestEvent;
 import io.ipoli.android.quest.events.ChallengePickedEvent;
 import io.ipoli.android.quest.events.DeleteQuestRequestEvent;
 import io.ipoli.android.quest.events.DeleteRepeatingQuestRequestEvent;
-import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
-import io.ipoli.android.quest.events.NewQuestTimePickedEvent;
 import io.ipoli.android.quest.events.QuestDatePickedEvent;
 import io.ipoli.android.quest.events.QuestDurationPickedEvent;
 import io.ipoli.android.quest.events.QuestNodePickedEvent;
@@ -90,7 +87,6 @@ import io.ipoli.android.quest.events.UndoDeleteRepeatingQuestEvent;
 import io.ipoli.android.quest.events.UpdateQuestEvent;
 import io.ipoli.android.quest.events.subquests.AddSubQuestTappedEvent;
 import io.ipoli.android.quest.events.subquests.NewSubQuestEvent;
-import io.ipoli.android.quest.fragments.AddQuestDateFragment;
 import io.ipoli.android.quest.persistence.QuestPersistenceService;
 import io.ipoli.android.quest.persistence.RepeatingQuestPersistenceService;
 import io.ipoli.android.quest.ui.dialogs.ChallengePickerFragment;
@@ -585,7 +581,7 @@ public class EditQuestActivity extends BaseActivity implements
 
         }
     };
-    private BroadcastReceiver timeReciever = new BroadcastReceiver() {
+    private BroadcastReceiver timeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
@@ -602,7 +598,7 @@ public class EditQuestActivity extends BaseActivity implements
     private void initLocalBroadCasts() {
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReceiver,
                 new IntentFilter("ON_DATE_SET_FOR_EDIT"));
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(timeReciever,
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(timeReceiver,
                 new IntentFilter("ON_TIME_SET_FOR_EDIT"));
 
     }
@@ -874,7 +870,7 @@ public class EditQuestActivity extends BaseActivity implements
     protected void onDestroy() {
         categoryView.removeCategoryChangedListener(this);
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(dateReceiver);
-        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(timeReciever);
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(timeReceiver);
         super.onDestroy();
     }
 

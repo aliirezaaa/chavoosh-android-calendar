@@ -2,6 +2,7 @@ package io.ipoli.android.app.persistence;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
@@ -26,6 +27,7 @@ import java.util.Map;
 import io.ipoli.android.app.App;
 import io.ipoli.android.app.events.AppErrorEvent;
 import io.ipoli.android.app.utils.StringUtils;
+import io.ipoli.android.quest.data.Quest;
 
 /**
  * Created by Venelin Valkov <venelin@curiousily.com>
@@ -127,7 +129,7 @@ public abstract class BaseCouchbasePersistenceService<T extends PersistedObject>
                 result.add(obj);
             }
         }
-        if(querySort != null) {
+        if (querySort != null) {
             Collections.sort(result, querySort::sort);
         }
         return result;
@@ -137,6 +139,8 @@ public abstract class BaseCouchbasePersistenceService<T extends PersistedObject>
 
     @Override
     public void save(T obj) {
+
+
         TypeReference<Map<String, Object>> mapTypeReference = new TypeReference<Map<String, Object>>() {
         };
         Map<String, Object> data;
@@ -148,6 +152,7 @@ public abstract class BaseCouchbasePersistenceService<T extends PersistedObject>
                 Document document = database.createDocument();
                 document.putProperties(data);
                 obj.setId(document.getId());
+
             } catch (CouchbaseLiteException e) {
                 postError(e);
             }

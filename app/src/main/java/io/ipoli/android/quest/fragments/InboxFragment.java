@@ -121,6 +121,7 @@ public class InboxFragment extends BaseFragment implements OnDataChangedListener
     public void onScheduleQuestForToday(ScheduleQuestForTodayEvent e) {
         Quest q = e.quest;
         q.setScheduledDate(LocalDate.now());
+        App.getLocalCalendar().onEventChange(q);
         questPersistenceService.save(q);
         Toast.makeText(getContext(), "Quest scheduled for today", Toast.LENGTH_SHORT).show();
     }

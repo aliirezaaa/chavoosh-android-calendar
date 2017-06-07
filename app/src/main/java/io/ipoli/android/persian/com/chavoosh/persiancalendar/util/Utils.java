@@ -1190,6 +1190,8 @@ public class Utils {
             tpd.show(((BaseActivity) activity).getFragmentManager(), "Timepickerdialog");
         }else if (activity instanceof BaseFragment){
             tpd.show(((BaseFragment) activity).getActivity().getFragmentManager(), "Timepickerdialog");
+        }else if (activity instanceof DialogFragment){
+            tpd.show(((DialogFragment) activity).getActivity().getFragmentManager(), "Datepickerdialog");
         }
 //        tpd.show(fragment.getActivity().getFragmentManager(), "Timepickerdialog");
 

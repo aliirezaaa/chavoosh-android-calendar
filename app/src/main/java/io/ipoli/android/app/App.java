@@ -13,7 +13,6 @@ import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
-import android.text.format.DateFormat;
 import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
@@ -35,7 +34,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
@@ -82,7 +80,6 @@ import io.ipoli.android.app.utils.ResourceUtils;
 import io.ipoli.android.app.utils.StringUtils;
 import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.challenge.activities.ChallengeCompleteActivity;
-import io.ipoli.android.challenge.activities.PickChallengeActivity;
 import io.ipoli.android.challenge.data.Challenge;
 import io.ipoli.android.challenge.data.Difficulty;
 import io.ipoli.android.challenge.data.PredefinedChallenge;
@@ -105,7 +102,6 @@ import io.ipoli.android.player.Player;
 import io.ipoli.android.player.activities.LevelUpActivity;
 import io.ipoli.android.player.events.LevelDownEvent;
 import io.ipoli.android.player.events.LevelUpEvent;
-import io.ipoli.android.player.events.PlayerSignedInEvent;
 import io.ipoli.android.player.events.PlayerUpdatedEvent;
 import io.ipoli.android.player.events.StartReplicationEvent;
 import io.ipoli.android.player.persistence.PlayerPersistenceService;
@@ -139,6 +135,7 @@ import io.ipoli.android.quest.schedulers.QuestScheduler;
 import io.ipoli.android.quest.schedulers.RepeatingQuestScheduler;
 import io.ipoli.android.quest.ui.events.UpdateRepeatingQuestEvent;
 import io.ipoli.android.quest.widgets.AgendaWidgetProvider;
+import io.ipoli.android.sync.LocalCalendar;
 import okhttp3.Cookie;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -151,6 +148,7 @@ public class App extends MultiDexApplication {
     private static AppComponent appComponent;
 
     private static String playerId;
+   private static LocalCalendar localCalendar;
 
     @Inject
     Bus eventBus;
@@ -328,6 +326,8 @@ public class App extends MultiDexApplication {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+ /* add event to local calendar*/
+        localCalendar = new LocalCalendar(this);
 
         AndroidThreeTen.init(this);
         Amplitude.getInstance().initialize(getApplicationContext(), AnalyticsConstants.PROD_FLURRY_KEY).enableForegroundTracking(this);
@@ -441,6 +441,8 @@ public class App extends MultiDexApplication {
                 .setContentInfo(contentInfo)
                 //// TODO: 5/15/2017 smallicon
                 .setSmallIcon(R.drawable.puzzle)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),
+                        R.drawable.puzzle))
                 .setOnlyAlertOnce(true)
                 .setOngoing(true)
                 .addAction(R.drawable.puzzle, getString(R.string.add), PendingIntent.getActivity(this, 0, addIntent, PendingIntent.FLAG_UPDATE_CURRENT))
@@ -721,10 +723,16 @@ public class App extends MultiDexApplication {
             quest.setExperience(experienceRewardGenerator.generate(quest));
             quest.setCoins(coinsRewardGenerator.generate(quest));
         }
+        Long eventID = localCalendar.onEventChange(quest);
+        if (eventID != null) {
+            quest.setEventID(eventID);
+        }
         questPersistenceService.save(quest);
         if (quest.isCompleted()) {
             onQuestComplete(quest, e.source);
         }
+
+        /*end*/
     }
 
     @Subscribe
@@ -737,6 +745,7 @@ public class App extends MultiDexApplication {
             quest.setExperience(experienceRewardGenerator.generate(quest));
             quest.setCoins(coinsRewardGenerator.generate(quest));
         }
+        localCalendar.onEventChange(quest);
         questPersistenceService.save(quest);
         if (quest.isCompleted()) {
             onQuestComplete(quest, e.source);
@@ -1100,5 +1109,9 @@ public class App extends MultiDexApplication {
 
     interface AccessTokenListener {
         void onAccessTokenReceived(String accessToken);
+    }
+
+    public static LocalCalendar getLocalCalendar() {
+        return localCalendar;
     }
 }

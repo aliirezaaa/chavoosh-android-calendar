@@ -141,7 +141,8 @@ public class AndroidCalendarEventParser {
                 q.addReminder(new io.ipoli.android.reminder.data.Reminder(minutes));
             }
         }
-
+        /*get event id*/
+        q.setEventID(event.id);
         return q;
     }
 
