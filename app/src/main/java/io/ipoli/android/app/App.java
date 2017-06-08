@@ -13,6 +13,7 @@ import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.amplitude.api.Amplitude;
@@ -148,7 +149,7 @@ public class App extends MultiDexApplication {
     private static AppComponent appComponent;
 
     private static String playerId;
-   private static LocalCalendar localCalendar;
+    private static LocalCalendar localCalendar;
 
     @Inject
     Bus eventBus;
@@ -320,7 +321,7 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-
+        Log.i("run", "APP");
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/Yekan.ttf")
                 .setFontAttrId(R.attr.fontPath)
@@ -360,7 +361,7 @@ public class App extends MultiDexApplication {
             return;
         }
 
-        initReplication();
+//        initReplication();
         initAppStart();
     }
 
@@ -430,7 +431,7 @@ public class App extends MultiDexApplication {
 
         Intent addIntent = new Intent(this, AddQuestActivity.class);
         addIntent.putExtra(Constants.QUICK_ADD_ADDITIONAL_TEXT, " " + getString(R.string.today).toLowerCase());
-        //// TODO: 5/15/2017 set notification , uncommnet this
+
 
         NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                 .setContentTitle(title)
@@ -529,7 +530,7 @@ public class App extends MultiDexApplication {
 
     @Subscribe
     public void onStartReplication(StartReplicationEvent e) {
-        syncData(e.cookies);
+//        syncData(e.cookies);
     }
 
     private void syncData(List<Cookie> cookies) {

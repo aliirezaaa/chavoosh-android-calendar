@@ -132,6 +132,7 @@ public class OverviewFragment extends BaseFragment implements OnDataChangedListe
         }
         final String toastMessage = toast;
         q.setScheduledDate(scheduledDate);
+        App.getLocalCalendar().onEventChange(q);
         questPersistenceService.save(q);
         Toast.makeText(getContext(), toastMessage, Toast.LENGTH_SHORT).show();
     }

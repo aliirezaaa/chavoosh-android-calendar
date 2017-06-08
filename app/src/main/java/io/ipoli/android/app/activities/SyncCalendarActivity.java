@@ -230,8 +230,10 @@ public class SyncCalendarActivity extends BaseActivity implements EasyPermission
 
         @Override
         public Void loadInBackground() {
+
             Map<Long, Category> selectedCalendars = adapter.getSelectedCalendars();
             if(selectedCalendars.isEmpty()) {
+                Log.i("calendar id sync", "empty");
                 return null;
             }
 

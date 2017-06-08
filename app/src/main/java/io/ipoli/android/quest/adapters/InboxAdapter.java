@@ -72,11 +72,11 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> 
             LocalDate endDate = q.getEndDate();
             if (endDate.isBefore(today)) {
                 long overdueDays = DAYS.between(endDate, today);
-                String daysText = overdueDays > 1 ? "days" : "day";
-                holder.dueIn.setText("Overdue by " + overdueDays + " " + daysText);
+                String daysText = overdueDays > 1 ? "روز" : "روز";
+                holder.dueIn.setText("سر رسیده " + overdueDays + " " + daysText);
                 holder.dueIn.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
             } else {
-                holder.dueIn.setText("Due " + DateFormatter.formatWithoutYear(endDate, today));
+                holder.dueIn.setText("پیشبینی برای " + DateFormatter.formatWithoutYear(endDate, today));
                 holder.dueIn.setTextColor(ContextCompat.getColor(context, R.color.md_dark_text_54));
             }
         } else {

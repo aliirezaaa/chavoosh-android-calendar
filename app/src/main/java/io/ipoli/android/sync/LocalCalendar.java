@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import android.net.ParseException;
 import android.net.Uri;
 import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -38,9 +39,11 @@ public class LocalCalendar {
     }
 
     public Long onEventChange(Quest quest) {
+        /*todo cal id most be dynamic */
         long calID = 1;
         long startMillis = 0;
         long endMillis = 0;
+        logQuest(quest);
 //        Calendar beginTime = Calendar.getInstance();
 //        beginTime.set(2017, 5, 7, 17, 20, 0);
 //
@@ -58,8 +61,6 @@ public class LocalCalendar {
 //                quest.getEndDate().getMonthValue(),
 //                quest.getEndDate().getDayOfMonth());
         endMillis = startMillis + TimeUnit.MINUTES.toMillis(quest.getDuration());
-
-
         ContentResolver cr = app.getContentResolver();
         ContentValues values = new ContentValues();
         values.put(CalendarContract.Events.DTSTART, startMillis);
@@ -83,7 +84,6 @@ public class LocalCalendar {
             Uri updateUri = null;
             updateUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, quest.getEventID());
             int rows = app.getContentResolver().update(updateUri, values, null, null);
-
             Log.i("updated", quest.getName() + " " + quest.getEventID() + " start:" + quest.getEndDate() + " end:" + quest.getDuration());
 //            Log.i("start", quest.getStartDate().toString());
 //            Log.i("end", quest.getEndDate().toString());
@@ -113,6 +113,7 @@ public class LocalCalendar {
 
     }
 
+    @NonNull
     private Long dateToMillis(String dateTime, String format) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd HH:mm");
@@ -127,5 +128,23 @@ public class LocalCalendar {
         return convertedDate.getTime();
     }
 
+    public void logQuest(Quest q) {
+        Log.i("", "-----------------------------" + "\n");
+        Log.i("name :", q.getName() + "\n");
+        Log.i("has start time :", q.hasStartTime() + "\n");
+        Log.i("is scheduled :", q.isScheduled() + "\n");
+        if(q.hasStartTime()){
+            Log.i("start time:", q.getStartTime().toString() + "\n");
+        }
+        if(q.isScheduled()){
+            Log.i("scheduled :", q.getScheduledDate() + "\n");
+        }
 
+//   Log.i("start time:", q.getStartTime().toString() + "\n");
+//        Log.i("start date :", q.getStartDate() + "\n");
+//
+
+
+
+    }
 }

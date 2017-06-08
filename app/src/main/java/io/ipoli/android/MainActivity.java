@@ -53,6 +53,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.ipoli.android.app.App;
 import io.ipoli.android.app.activities.BaseActivity;
+import io.ipoli.android.app.activities.SyncCalendarActivity;
 import io.ipoli.android.app.events.CalendarDayChangedEvent;
 import io.ipoli.android.app.events.ContactUsTapEvent;
 import io.ipoli.android.app.events.EventSource;
@@ -60,6 +61,7 @@ import io.ipoli.android.app.events.FriendsInvitedEvent;
 import io.ipoli.android.app.events.InviteFriendsCanceledEvent;
 import io.ipoli.android.app.events.InviteFriendsEvent;
 import io.ipoli.android.app.events.ScreenShownEvent;
+import io.ipoli.android.app.events.SyncCalendarRequestEvent;
 import io.ipoli.android.app.events.UndoCompletedQuestEvent;
 import io.ipoli.android.app.rate.RateDialogConstants;
 import io.ipoli.android.app.settings.SettingsActivity;
@@ -289,8 +291,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             case R.id.invite_friends:
 
-                inviteFriends();
+//                inviteFriends();
 //                changeCurrentFragment(new ApplicationPreferenceFragment());
+                startActivity(new Intent(this,SyncCalendarActivity.class));
                 break;
 
             case R.id.settings:

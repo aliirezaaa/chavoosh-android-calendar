@@ -14,7 +14,7 @@ import io.ipoli.android.app.utils.DateUtils;
  * on 1/28/16.
  */
 public class DateFormatter {
-    private static final String DEFAULT_EMPTY_VALUE = "Don't know";
+    private static final String DEFAULT_EMPTY_VALUE = "معلوم نیست";
     private static SimpleDateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("dd MMM yy", Locale.getDefault());
     private static SimpleDateFormat DATE_NO_YEAR_FORMAT = new SimpleDateFormat("dd MMM", Locale.getDefault());
 
@@ -23,10 +23,10 @@ public class DateFormatter {
             return DEFAULT_EMPTY_VALUE;
         }
         if (DateUtils.isToday(date)) {
-            return "Today";
+            return "امروز";
         }
         if (DateUtils.isTomorrow(date)) {
-            return "Tomorrow";
+            return "فردا";
         }
         return DEFAULT_DATE_FORMAT.format(DateUtils.toStartOfDay(date));
     }
@@ -36,13 +36,13 @@ public class DateFormatter {
             return emptyValue;
         }
         if (DateUtils.isToday(date)) {
-            return "Today";
+            return "امروز";
         }
         if (DateUtils.isTomorrow(date)) {
-            return "Tomorrow";
+            return "فردا";
         }
         if (DateUtils.isYesterday(date)) {
-            return "Yesterday";
+            return "دیروز";
         }
         if (currentDate != null) {
             if (currentDate.with(DayOfWeek.MONDAY).isEqual(date.with(DayOfWeek.MONDAY))) {

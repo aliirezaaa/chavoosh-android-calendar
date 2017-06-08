@@ -123,7 +123,7 @@ public class InboxFragment extends BaseFragment implements OnDataChangedListener
         q.setScheduledDate(LocalDate.now());
         App.getLocalCalendar().onEventChange(q);
         questPersistenceService.save(q);
-        Toast.makeText(getContext(), "Quest scheduled for today", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "کار برای امروز برنامه ریزی شد", Toast.LENGTH_SHORT).show();
     }
 
     @Override

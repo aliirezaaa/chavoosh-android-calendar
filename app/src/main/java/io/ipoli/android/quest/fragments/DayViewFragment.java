@@ -460,6 +460,7 @@ public class DayViewFragment extends BaseFragment implements CalendarListener<Qu
     }
 
     private void saveQuest(Quest q) {
+        App.getLocalCalendar().onEventChange(q);
         questPersistenceService.save(q);
     }
 

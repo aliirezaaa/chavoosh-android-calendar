@@ -44,6 +44,7 @@ public class SnoozeQuestReceiver extends BroadcastReceiver {
             }
 
             q.setStartMinute(q.getStartMinute() + Constants.DEFAULT_SNOOZE_TIME_MINUTES);
+            App.getLocalCalendar().onEventChange(q);
             questPersistenceService.save(q);
             eventBus.post(new QuestSnoozedEvent(q));
             result.finish();
