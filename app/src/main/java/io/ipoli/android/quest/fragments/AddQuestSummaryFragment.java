@@ -35,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.ipoli.android.Constants;
 import io.ipoli.android.R;
 import io.ipoli.android.app.App;
 import io.ipoli.android.app.BaseFragment;
@@ -282,6 +283,7 @@ public class AddQuestSummaryFragment extends BaseFragment {
     public void onDurationClicked(View v) {
         DurationPickerFragment fragment = DurationPickerFragment.newInstance((int) durationText.getTag(), duration -> {
             postEvent(new NewQuestDurationPickedEvent(duration));
+            Log.i("addQ", duration + "");
             showDuration(duration);
         });
         fragment.show(getFragmentManager());
@@ -383,8 +385,17 @@ public class AddQuestSummaryFragment extends BaseFragment {
     }
 
     private void showDuration(int duration) {
-        durationText.setText("به مدت " + DurationFormatter.formatReadable(duration));
-        durationText.setTag(duration);
+//        durationText.setText("به مدت " + DurationFormatter.formatReadable(duration));
+//        int[] availableDurations = Constants.DURATIONS;
+//        if (duration == Constants.QUEST_MIN_DURATION) {
+            durationText.setText("به مدت " + DurationFormatter.formatReadable(duration));
+            durationText.setTag(duration);
+//        } else {
+//            durationText.setText("به مدت " +DurationFormatter.formatReadable(availableDurations[duration]));
+//            durationText.setTag(availableDurations[duration]);
+//        }
+
+
     }
 
     private void showTimesADay(int timesADay) {
@@ -428,7 +439,7 @@ public class AddQuestSummaryFragment extends BaseFragment {
 //
 //            }
 //        } else
-        if(quest.getStart()==null ||quest.getEnd()==null){
+        if (quest.getStart() == null || quest.getEnd() == null) {
             scheduledDate.setText("مشخص نیست");
             return;
         }
@@ -441,11 +452,11 @@ public class AddQuestSummaryFragment extends BaseFragment {
             Log.i("byDate", byDate.toString());
             LocalDate today = LocalDate.now();
 //            Range<Integer> endOfMonth=Range.create(20,31);
-            int endOfMonth=byDate.getDayOfMonth();
+            int endOfMonth = byDate.getDayOfMonth();
             if (byDate.equals(today.with(DayOfWeek.FRIDAY))) {
                 scheduledDate.setText(R.string.by_end_of_week);
 
-            } else if (endOfMonth>20 &&endOfMonth<32) {
+            } else if (endOfMonth > 20 && endOfMonth < 32) {
                 scheduledDate.setText(R.string.by_end_of_month);
             } else {
 //                String dayNumberSuffix = DateUtils.getDayNumberSuffix(byDate.getDayOfMonth());

@@ -291,9 +291,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             case R.id.invite_friends:
 
-//                inviteFriends();
+                inviteFriends();
 //                changeCurrentFragment(new ApplicationPreferenceFragment());
-                startActivity(new Intent(this,SyncCalendarActivity.class));
+//                startActivity(new Intent(this,SyncCalendarActivity.class));
                 break;
 
             case R.id.settings:

@@ -80,8 +80,39 @@ public class DurationPickerFragment extends DialogFragment {
                     selectedDurationIndex = which;
                 })
                 .setPositiveButton(getString(R.string.help_dialog_ok), (dialog, which) -> {
-                    int duration = new DurationMatcher().parseShort(questDurations.get(selectedDurationIndex));
-                    durationPickedListener.onDurationPicked(duration);
+//                    int duration = new DurationMatcher().parseShort(questDurations.get(selectedDurationIndex));
+//                    int duration = selectedDurationIndex;
+                    int time=0;
+                    switch (selectedDurationIndex){
+                        case 0:
+                            time=0;
+                            break;
+                        case 1:
+                            time=15;
+                            break;
+                        case 2:
+                            time=20;
+                            break;
+                        case 3:
+                            time=30;
+                            break;
+                        case 4:
+                            time=60;
+                            break;
+                        case 5:
+                            time=90;
+                            break;
+                        case 6:
+                            time=120;
+                            break;
+                        case 7:
+                            time=180;
+                            break;
+                        case 8:
+                            time=240;
+                            break;
+                    }
+                    durationPickedListener.onDurationPicked(time);
                 })
                 .setNegativeButton(R.string.cancel, (dialog, which) -> {
 
