@@ -238,7 +238,7 @@
     <string name="sweet">SWEET</string>
     <string name="level_up_message"><![CDATA[Good job! You are now at level <b>%d</b>! Keep up the good work!]]></string>
     <string name="empty_text_rewards">What a shame! No rewards here! Add one?</string>
-    <string name="empty_overview_text">Your adventure is empty! Start it by adding a quest?</string>
+    <string name="empty_overview_text">کاری وجود ندارد</string>
     <string name="empty_inbox_text">میزکار شما خالی است</string>
     <string name="empty_repeating_quests_text">هیچ کار روزمره دورهای وجود ندارد. ایا می خواهید  اضافه کنید؟</string>
     <string name="nav_drawer_player_xp">XP: %s</string>
@@ -249,7 +249,7 @@
     <string name="help_dialog_growth_daily_progress">پیشرفت های روزمره خود را پایش کنید</string>
     <string name="help_dialog_growth_time_spent_chart">نمودار زمان سپری شده نشان می دهد کدام کار روزانه بیشترین زمان را سپری کرده است</string>
     <string name="help_dialog_growth_experience_chart">The experience chart shows you how much XP you gain per day</string>
-    <string name="chart_no_data_to_display">No data to display. Go complete some quests!</string>
+    <string name="chart_no_data_to_display">اطلاعاتی برای نمایش وجود ندارد</string>
     <string name="summary_stats_hours_spent">ساعت های سپری شده: %.1f</string>
     <string name="summary_stats_quests_done">کارهای انجام شده: %d</string>
     <string name="title_activity_add_challenge">خود را به چالش بکشید</string>
@@ -375,7 +375,7 @@
     <string name="pick_challenge">PICK CHALLENGE</string>
     <string name="challenge_accepted">چالش پذیرفته شد!</string>
     <string name="widget_agenda_empty">iPoli wants a quest!</string>
-    <string name="quests">Quests</string>
+    <string name="quests">کار ها</string>
     <string name="quest_started">فعالیت شروع شد</string>
     <string name="quest_stopped">فعالیت متوقف شد</string>
     <string name="reward_earned">%s earned! Enjoy!</string>

@@ -330,9 +330,9 @@ public class EditChallengeActivity extends BaseActivity implements DatePickerFra
         }
 
         ArrayList<String> hints = new ArrayList<>();
-        hints.add("1st result");
-        hints.add("2nd result");
-        hints.add("3rd result");
+        hints.add("اولین نتیجه");
+        hints.add("دومین نتیجه");
+        hints.add("سومین نتیجه");
         MultiTextPickerFragment f = MultiTextPickerFragment.newInstance(texts, hints, R.string.challenge_expected_results_question, this::populateExpectedResults);
         f.show(getSupportFragmentManager());
     }
@@ -345,9 +345,9 @@ public class EditChallengeActivity extends BaseActivity implements DatePickerFra
         }
 
         ArrayList<String> hints = new ArrayList<>();
-        hints.add("1st reason");
-        hints.add("2nd reason");
-        hints.add("3rd reason");
+        hints.add("اولین دلیل");
+        hints.add("دومین دلیل");
+        hints.add("سومین دلیل");
         MultiTextPickerFragment f = MultiTextPickerFragment.newInstance(texts, hints, R.string.challenge_reasons_question, this::populateReasons);
         f.show(getSupportFragmentManager());
     }

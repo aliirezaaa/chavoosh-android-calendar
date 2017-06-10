@@ -23,6 +23,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="72dp"
         android:layout_toStartOf="@+id/sub_quest_more_menu"
+        android:gravity="right"
         android:imeOptions="actionDone"
         android:inputType="textCapSentences"
         android:maxLines="1"

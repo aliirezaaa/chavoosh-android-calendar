@@ -176,32 +176,32 @@ public class PersonalizeChallengeActivity extends BaseActivity {
     }
 
     private void createFamilyAndFriendsTime() {
-        Quest quest1 = makeQuest("Plan a vacation with friends", Category.PERSONAL, LocalDate.now().plusDays(5));
+        Quest quest1 = makeQuest("یک مسافرت با دوستان خود ترتیب دهید", Category.PERSONAL, LocalDate.now().plusDays(5));
         quest1.setDuration(90);
         viewModels.add(new PredefinedChallengeQuestViewModel(quest1));
 
-        RepeatingQuest rq1 = makeRepeatingQuest("Call parents once every week", "Call parents", 30, category);
+        RepeatingQuest rq1 = makeRepeatingQuest("با والیدن خود هر هفته تماس بگیرید", "Call parents", 30, category);
         Recurrence recurrence = Recurrence.create();
         recurrence.setRecurrenceType(Recurrence.RepeatType.WEEKLY);
         recurrence.setFlexibleCount(1);
         rq1.setRecurrence(recurrence);
         viewModels.add(new PredefinedChallengeQuestViewModel(rq1.getRawText(), rq1));
 
-        RepeatingQuest rq2 = makeRepeatingQuest("Visit parents once every month", "Visit parents", 180, category);
+        RepeatingQuest rq2 = makeRepeatingQuest("والدین خود را هر ماه ملاقات کنید", "Visit parents", 180, category);
         recurrence = Recurrence.create();
         recurrence.setRecurrenceType(Recurrence.RepeatType.MONTHLY);
         recurrence.setFlexibleCount(1);
         rq2.setRecurrence(recurrence);
         viewModels.add(new PredefinedChallengeQuestViewModel(rq2.getRawText(), rq2));
 
-        RepeatingQuest rq3 = makeRepeatingQuest("Have family dinner 3 times a week", "Have family dinner", 90, category);
+        RepeatingQuest rq3 = makeRepeatingQuest("سه بار در هفته شام را با خانواده میل کنید", "Have family dinner", 90, category);
         recurrence = Recurrence.create();
         recurrence.setRecurrenceType(Recurrence.RepeatType.WEEKLY);
         recurrence.setFlexibleCount(3);
         rq3.setRecurrence(recurrence);
         viewModels.add(new PredefinedChallengeQuestViewModel(rq3.getRawText(), rq3));
 
-        RepeatingQuest rq4 = makeRepeatingQuest("Go out with friends 2 times a week", "Go out with friends", 90, category);
+        RepeatingQuest rq4 = makeRepeatingQuest("دو بار در هفته با دوستان خود بیرون بروید", "Go out with friends", 90, category);
         recurrence = Recurrence.create();
         recurrence.setRecurrenceType(Recurrence.RepeatType.WEEKLY);
         recurrence.setFlexibleCount(2);

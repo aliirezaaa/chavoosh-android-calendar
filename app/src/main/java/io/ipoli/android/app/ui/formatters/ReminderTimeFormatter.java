@@ -2,6 +2,7 @@ package io.ipoli.android.app.ui.formatters;
 
 import java.util.concurrent.TimeUnit;
 
+import io.ipoli.android.app.utils.StringUtils;
 import io.ipoli.android.reminder.TimeOffsetType;
 
 /**
@@ -42,11 +43,12 @@ public class ReminderTimeFormatter {
             return "در شروع";
         }
 
-        String type = timeOffsetType.name().toLowerCase();
+//        String type = timeOffsetType.name().toLowerCase();
+        String type = StringUtils.getPersianTranslate(timeOffsetType.name());
+
         if(timeValue == 1) {
             type = type.substring(0, type.length() - 1);
         }
-
         return timeValue + " " + type + " قبل";
     }
 }

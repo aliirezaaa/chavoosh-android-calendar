@@ -42,13 +42,14 @@ public class StringUtils {
     }
 
     public static String capitalize(String text) {
-        return Character.toUpperCase(text.charAt(0)) + text.substring(1).toLowerCase();
+//        return Character.toUpperCase(text.charAt(0)) + text.substring(1).toLowerCase();
+        return getPersianTranslate(text);
     }
 
     public static String capitalizeAndReplaceUnderscore(String text) {
         String t = Character.toUpperCase(text.charAt(0)) + text.substring(1).toLowerCase();
 
-        getPersianTranslate(text);
+//        getPersianTranslate(text);
 //        return t.replace("_", " ");
         return  getPersianTranslate(text);
     }

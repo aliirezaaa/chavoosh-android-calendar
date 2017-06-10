@@ -1,10 +1,16 @@
 package io.ipoli.android.challenge.fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +29,13 @@ import io.ipoli.android.app.App;
 import io.ipoli.android.app.BaseFragment;
 import io.ipoli.android.app.ui.dialogs.DatePickerFragment;
 import io.ipoli.android.challenge.events.NewChallengeEndDatePickedEvent;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.calendar.PersianDate;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.adapters.QuestOptionsAdapter;
 import io.ipoli.android.quest.data.Category;
+import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
+import io.ipoli.android.quest.fragments.AddQuestDateFragment;
 
 /**
  * Created by Venelin Valkov <venelin@curiousily.com>
@@ -52,7 +63,8 @@ public class AddChallengeEndDateFragment extends BaseFragment {
         dateOptions.setHasFixedSize(true);
 
         List<Pair<String, View.OnClickListener>> options = new ArrayList<>();
-
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReceiver,
+                new IntentFilter("ON_DATE_SET_FOR_CHALLENGE_END"));
         LocalDate today = LocalDate.now();
         options.add(new Pair<>(getString(R.string.one_month), v -> {
             postEvent(new NewChallengeEndDatePickedEvent(today.plusMonths(1)));
@@ -74,9 +86,10 @@ public class AddChallengeEndDateFragment extends BaseFragment {
                 v -> postEvent(new NewChallengeEndDatePickedEvent(today.plusDays(15)))));
 
         options.add(new Pair<>(getString(R.string.exact_date), v -> {
-            DatePickerFragment fragment = DatePickerFragment.newInstance(LocalDate.now(), true, false,
+          /*  DatePickerFragment fragment = DatePickerFragment.newInstance(LocalDate.now(), true, false,
                     date -> postEvent(new NewChallengeEndDatePickedEvent(date)));
-            fragment.show(getFragmentManager());
+            fragment.show(getFragmentManager());*/
+            Utils.getInstance(getContext()).pickDate(AddChallengeEndDateFragment.this, "ON_DATE_SET_FOR_CHALLENGE_END");
         }));
 
 
@@ -120,4 +133,21 @@ public class AddChallengeEndDateFragment extends BaseFragment {
     protected boolean useOptionsMenu() {
         return false;
     }
+    private BroadcastReceiver dateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int year = intent.getIntExtra("year", 0);
+            int month = intent.getIntExtra("month", 0);
+            int day = intent.getIntExtra("day", 0);
+            Log.d("receiver", "Got message: " + year);
+            Log.d("receiver", "Got message: " + month);
+            Log.d("receiver", "Got message: " + day);
+
+            PersianDate pDate=new PersianDate(year, month, day);
+
+            postEvent(new NewChallengeEndDatePickedEvent(DateConverter.persianToLocalDate(pDate)));
+
+        }
+    };
 }

@@ -50,10 +50,10 @@ public class DurationFormatter {
         }
 
         if (hours > 0 && mins == 0) {
-            return hours == 1 ? "1 hour" : hours + " hours";
+            return hours == 1 ? "1 ساعت" : hours + " ساعت";
         }
 
-        return mins == 1 ? "1 minute" : mins + " minutes";
+        return mins == 1 ? "1 دقیقه" : mins + " دقیقه";
     }
 
     public static String formatReadableShort(int duration) {
@@ -85,11 +85,11 @@ public class DurationFormatter {
             return "";
         }
         if (hours > 0 && mins > 0) {
-            return hours + "h " + separator + " " + mins + "m";
+            return hours + "ساعت " + separator + " " + mins + "دقیقه";
         }
 
         if (hours > 0 && mins == 0) {
-            return hours == 1 ? "1 hour" : hours + " hours";
+            return hours == 1 ? "1 ساعت" : hours + " ساعت";
         }
 
         return mins + " دقیقه";

@@ -37,6 +37,8 @@ import io.ipoli.android.challenge.events.ChangeChallengeQuestsRequestEvent;
 import io.ipoli.android.challenge.events.ChangeChallengeReasonsRequestEvent;
 import io.ipoli.android.challenge.events.NewChallengeDifficultyPickedEvent;
 import io.ipoli.android.challenge.ui.dialogs.DifficultyPickerFragment;
+import io.ipoli.android.persian.calendar.DateConverter;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.data.Quest;
 import io.ipoli.android.quest.data.RepeatingQuest;
 
@@ -153,13 +155,13 @@ public class AddChallengeSummaryFragment extends BaseFragment {
     private void showQuests(List<Quest> quests, List<RepeatingQuest> repeatingQuests) {
         questsContainer.removeAllViews();
 
-        for(Quest q : quests) {
+        for (Quest q : quests) {
             View v = LayoutInflater.from(getActivity()).inflate(R.layout.add_challenge_quest_item, questsContainer, false);
             populateQuestView(q.getName(), false, v);
             questsContainer.addView(v);
 
         }
-        for(RepeatingQuest rq : repeatingQuests) {
+        for (RepeatingQuest rq : repeatingQuests) {
             View v = LayoutInflater.from(getActivity()).inflate(R.layout.add_challenge_quest_item, questsContainer, false);
             populateQuestView(rq.getName(), true, v);
             questsContainer.addView(v);
@@ -204,13 +206,16 @@ public class AddChallengeSummaryFragment extends BaseFragment {
 
     private void showEndDate(Challenge challenge) {
         LocalDate byDate = challenge.getEndDate();
-        String dayNumberSuffix = DateUtils.getDayNumberSuffix(byDate.getDayOfMonth());
+       /* String dayNumberSuffix = DateUtils.getDayNumberSuffix(byDate.getDayOfMonth());
         DateFormat dateFormat = new SimpleDateFormat(getString(R.string.agenda_daily_journey_format, dayNumberSuffix));
-        endDate.setText(getString(R.string.add_quest_by_date, dateFormat.format(DateUtils.toStartOfDay(byDate))));
+        endDate.setText(getString(R.string.add_quest_by_date, dateFormat.format(DateUtils.toStartOfDay(byDate))));*/
+        endDate.setText(Utils.getInstance(getContext()).dateToString(DateConverter.localToPersianDate(byDate)));
     }
 
     private void showDifficulty(Difficulty difficulty) {
+//        difficultyText.setText(StringUtils.capitalize(difficulty.name()));
         difficultyText.setText(StringUtils.capitalize(difficulty.name()));
+
         difficultyText.setTag(difficulty);
     }
 }
