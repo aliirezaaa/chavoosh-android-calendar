@@ -366,15 +366,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void updatePetInDrawer(Pet pet) {
-        View header = navigationView.getHeaderView(0);
+//        View header = navigationView.getHeaderView(0);
 
-        CircleImageView petPictureView = (CircleImageView) header.findViewById(R.id.pet_picture);
-        petPictureView.setImageResource(ResourceUtils.extractDrawableResource(MainActivity.this, pet.getPicture() + "_head"));
-        petPictureView.setOnClickListener(v -> startActivity(new Intent(this, PetActivity.class)));
+//        CircleImageView petPictureView = (CircleImageView) header.findViewById(R.id.pet_picture);
+//        petPictureView.setImageResource(ResourceUtils.extractDrawableResource(MainActivity.this, pet.getPicture() + "_head"));
+//        petPictureView.setOnClickListener(v -> startActivity(new Intent(this, PetActivity.class)));
 
-        ImageView petStateView = (ImageView) header.findViewById(R.id.pet_state);
-        GradientDrawable drawable = (GradientDrawable) petStateView.getBackground();
-        drawable.setColor(ContextCompat.getColor(this, pet.getStateColor()));
+//        ImageView petStateView = (ImageView) header.findViewById(R.id.pet_state);
+//        GradientDrawable drawable = (GradientDrawable) petStateView.getBackground();
+//        drawable.setColor(ContextCompat.getColor(this, pet.getStateColor()));
     }
 
     private int getCurrentProgress(Player player) {
@@ -658,9 +658,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             String picture = data.getStringExtra(Constants.PICTURE_NAME_EXTRA_KEY);
             if (!TextUtils.isEmpty(picture)) {
                 Player player = getPlayer();
-                ImageView avatarImage = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.player_picture);
-                avatarImage.setImageResource(ResourceUtils.extractDrawableResource(this, picture));
-                player.setPicture(picture);
+//                ImageView avatarImage = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.player_picture);
+//                avatarImage.setImageResource(ResourceUtils.extractDrawableResource(this, picture));
+//                player.setPicture(picture);
                 playerPersistenceService.save(player);
             }
         }

@@ -33,7 +33,7 @@
         <item
             android:id="@+id/challenges"
             android:checked="false"
-            app:srcCompat="@drawable/ic_sword_white_24dp"
+            android:icon="@drawable/ic_sword_white_24dp"
             android:title="@string/challenges" />
 
         <item
