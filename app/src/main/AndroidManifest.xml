@@ -338,7 +338,7 @@
         </receiver>
         <receiver
             android:name=".app.receivers.AndroidCalendarEventChangedReceiver"
-            android:priority="999">
+            android:priority="1000">
             <intent-filter>
                 <action android:name="android.intent.action.PROVIDER_CHANGED" />
 

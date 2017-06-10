@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.util.Pair;
 
 import com.squareup.otto.Bus;
@@ -69,15 +70,19 @@ public class AndroidCalendarEventChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Log.i("event chang", "first");
         if (!EasyPermissions.hasPermissions(context, Manifest.permission.READ_CALENDAR)) {
+            Log.i("event chang", "permi den");
             return;
         }
 
         App.getAppComponent(context).inject(this);
         Player player = playerPersistenceService.get();
-
-        if(player == null) {
+        Log.d("event chang", player.getId());
+        if (player == null) {
+            Log.i("event chang", "p null");
             return;
+
         }
 
         updateDirtyEvents(context, player);
@@ -99,12 +104,12 @@ public class AndroidCalendarEventChangedReceiver extends BroadcastReceiver {
         Map<RepeatingQuest, Pair<List<Quest>, List<Quest>>> repeatingQuestToQuestsToRemoveAndCreate = prepareRepeatingQuests(context, repeatingQuests);
 
         List<Quest> questsToUpdate = new ArrayList<>();
-        for(Quest q : quests) {
+        for (Quest q : quests) {
             Quest existingQuest = questPersistenceService.findFromAndroidCalendar(q.getSourceMapping().getAndroidCalendarMapping());
-            if(existingQuest != null && existingQuest.isCompleted()) {
+            if (existingQuest != null && existingQuest.isCompleted()) {
                 continue;
             }
-            if(existingQuest != null) {
+            if (existingQuest != null) {
                 copyQuestProperties(q, existingQuest);
             }
             questsToUpdate.add(q);

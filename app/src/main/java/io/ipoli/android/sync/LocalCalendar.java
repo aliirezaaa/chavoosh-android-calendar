@@ -39,8 +39,9 @@ public class LocalCalendar {
     }
 
     public Long onEventChange(Quest quest) {
+        return null;
         /*todo cal id most be dynamic */
-        long calID = 1;
+       /* long calID = 1;
         long startMillis = 0;
         long endMillis = 0;
         logQuest(quest);
@@ -80,7 +81,7 @@ public class LocalCalendar {
             return null;
         }
         if (quest.getEventID() != null && quest.getScheduledDate() != null) {
-            /*update exiting event */
+            *//*update exiting event *//*
             Uri updateUri = null;
             updateUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, quest.getEventID());
             int rows = app.getContentResolver().update(updateUri, values, null, null);
@@ -90,7 +91,7 @@ public class LocalCalendar {
 //            Log.i("scheduled", quest.getScheduledDate().toString());
             return null;
         } else if (quest.getStartDate() != null && quest.getScheduledDate() != null) {
-            /*insert new event from app to local calendar*/
+            *//*insert new event from app to local calendar*//*
             Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
 
 // get the event ID that is the last element in the Uri
@@ -102,7 +103,7 @@ public class LocalCalendar {
             return eventID;
 
         } else if (quest.getEventID() != null && quest.getScheduledDate() == null) {
-            /*if event in calendar but moved to inbox now*/
+            *//*if event in calendar but moved to inbox now*//*
             Uri deleteUri = null;
             deleteUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, quest.getEventID());
             int rows = app.getContentResolver().delete(deleteUri, null, null);
@@ -110,7 +111,7 @@ public class LocalCalendar {
         } else {
             return null;
         }
-
+*/
     }
 
     @NonNull
