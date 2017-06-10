@@ -413,13 +413,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         long experience = q.getExperience();
         long coins = q.getCoins();
 //// TODO: 5/28/2017 translate
-        Snackbar snackbar = Snackbar
-                .make(contentContainer, getString(R.string.quest_complete_with_bounty, experience, coins),
-                        Snackbar.LENGTH_LONG);
 
-        snackbar.setAction(R.string.share, view -> {
-            eventBus.post(new ShareQuestEvent(q, EventSource.SNACKBAR));
-        });
+        Snackbar snackbar = Snackbar
+                .make(contentContainer, "کار به اتمام رسید",
+                        Snackbar.LENGTH_LONG);
+//
+//        snackbar.setAction(R.string.share, view -> {
+//            eventBus.post(new ShareQuestEvent(q, EventSource.SNACKBAR));
+//        });
 
         snackbar.show();
 
@@ -430,11 +431,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private boolean shouldShowRateDialog() {
-        int appRun = localStorage.readInt(Constants.KEY_APP_RUN_COUNT);
-        if (isRateDialogShown || appRun < RateDialogConstants.MIN_APP_RUN_FOR_RATE_DIALOG ||
-                !localStorage.readBool(RateDialogConstants.KEY_SHOULD_SHOW_RATE_DIALOG, true)) {
-            return false;
-        }
+//        int appRun = localStorage.readInt(Constants.KEY_APP_RUN_COUNT);
+//        if (isRateDialogShown || appRun < RateDialogConstants.MIN_APP_RUN_FOR_RATE_DIALOG ||
+//                !localStorage.readBool(RateDialogConstants.KEY_SHOULD_SHOW_RATE_DIALOG, true)) {
+//            return false;
+//        }
 //        return new Random().nextBoolean();
         return false;
     }
@@ -442,7 +443,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Subscribe
     public void onUndoCompletedQuest(UndoCompletedQuestEvent e) {
         Quest q = e.quest;
-        String text = getString(q.getScheduledDate() == null ? R.string.quest_undone_to_inbox : R.string.quest_undone, e.experience, e.coins);
+        String text = q.getScheduledDate() == null ? "کار به میز کار منتقل شد" : "کار از حالت انجام شده خارج شد";
         Snackbar.make(contentContainer, text, Snackbar.LENGTH_SHORT).show();
     }
 

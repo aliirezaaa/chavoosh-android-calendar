@@ -76,7 +76,7 @@
     <dimen name="mdtp_year_label_height">64dp</dimen>
     <dimen name="mdtp_year_label_text_size">22dp</dimen>
     <item format="float" name="mdtp_ampm_circle_radius_multiplier" translatable="false" type="string">0.22</item>
-    <string name="mdtp_cancel">@android:string/cancel</string>
+    <string name="mdtp_cancel">رد کردن</string>
     <item format="float" name="mdtp_circle_radius_multiplier" translatable="false" type="string">0.82</item>
     <item format="float" name="mdtp_circle_radius_multiplier_24HourMode" translatable="false" type="string">0.85</item>
     <string name="mdtp_date_v1_monthyear">MMMM yyyy</string>
@@ -90,7 +90,7 @@
     <item format="float" name="mdtp_numbers_radius_multiplier_inner" translatable="false" type="string">0.60</item>
     <item format="float" name="mdtp_numbers_radius_multiplier_normal" translatable="false" type="string">0.81</item>
     <item format="float" name="mdtp_numbers_radius_multiplier_outer" translatable="false" type="string">0.83</item>
-    <string name="mdtp_ok">@android:string/ok</string>
+    <string name="mdtp_ok">باشه</string>
     <string name="mdtp_radial_numbers_typeface" translatable="false">sans-serif</string>
     <string name="mdtp_sans_serif" translatable="false">sans-serif</string>
     <string name="mdtp_second_picker_description">Seconds circular slider</string>

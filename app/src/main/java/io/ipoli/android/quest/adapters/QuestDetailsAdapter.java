@@ -70,15 +70,15 @@ public class QuestDetailsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void createItems(Quest quest) {
         items = new ArrayList<>();
-        items.add("Sub Quests");
+        items.add("زیر برنامه");
         for (SubQuest sq : quest.getSubQuests()) {
             items.add(sq);
         }
 
         items.add(new AddSubQuestButton(context.getString(R.string.add_sub_quest)));
-        items.add("Notes");
+        items.add("یادداشت");
         if (quest.getTextNotes().isEmpty()) {
-            items.add(new EmptyNoteHint("Tap to add a note"));
+            items.add(new EmptyNoteHint("یک یادداشت اضافه کنید"));
         }
         for (Note note : quest.getNotes()) {
             items.add(note);
