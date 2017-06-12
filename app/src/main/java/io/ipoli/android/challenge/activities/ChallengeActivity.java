@@ -425,12 +425,12 @@ public class ChallengeActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.add_quests)
-    public void onAddQuestsClick(View v) {
-        Intent intent = new Intent(this, PickChallengeQuestsActivity.class);
-        intent.putExtra(Constants.CHALLENGE_ID_EXTRA_KEY, challengeId);
-        startActivity(intent);
-    }
+//    @OnClick(R.id.add_quests)
+//    public void onAddQuestsClick(View v) {
+//        Intent intent = new Intent(this, PickChallengeQuestsActivity.class);
+//        intent.putExtra(Constants.CHALLENGE_ID_EXTRA_KEY, challengeId);
+//        startActivity(intent);
+//    }
 
     @Override
     protected void attachBaseContext(Context newBase) {

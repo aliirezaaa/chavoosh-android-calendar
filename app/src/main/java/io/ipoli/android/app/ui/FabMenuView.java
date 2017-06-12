@@ -28,7 +28,7 @@ import io.ipoli.android.app.utils.ViewUtils;
 import io.ipoli.android.challenge.activities.AddChallengeActivity;
 import io.ipoli.android.quest.activities.AddQuestActivity;
 import io.ipoli.android.quest.activities.AddRepeatingQuestActivity;
-import io.ipoli.android.reward.activities.EditRewardActivity;
+//import io.ipoli.android.reward.activities.EditRewardActivity;
 
 /**
  * Created by Polina Zhelyazkova <polina@ipoli.io>

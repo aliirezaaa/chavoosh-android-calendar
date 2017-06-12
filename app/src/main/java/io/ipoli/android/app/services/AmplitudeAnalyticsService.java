@@ -130,13 +130,13 @@ import io.ipoli.android.quest.persistence.events.RepeatingQuestDeletedEvent;
 import io.ipoli.android.quest.ui.events.AddQuestRequestEvent;
 import io.ipoli.android.quest.ui.events.QuestReminderPickedEvent;
 import io.ipoli.android.quest.ui.events.UpdateRepeatingQuestEvent;
-import io.ipoli.android.reward.events.BuyRewardEvent;
-import io.ipoli.android.reward.events.DeleteRewardRequestEvent;
-import io.ipoli.android.reward.events.EditRewardRequestEvent;
-import io.ipoli.android.reward.events.NewRewardSavedEvent;
-import io.ipoli.android.shop.events.BuyCoinsTappedEvent;
-import io.ipoli.android.shop.events.CoinsPurchasedEvent;
-import io.ipoli.android.shop.events.PetBoughtEvent;
+//import io.ipoli.android.reward.events.BuyRewardEvent;
+//import io.ipoli.android.reward.events.DeleteRewardRequestEvent;
+//import io.ipoli.android.reward.events.EditRewardRequestEvent;
+//import io.ipoli.android.reward.events.NewRewardSavedEvent;
+//import io.ipoli.android.shop.events.BuyCoinsTappedEvent;
+//import io.ipoli.android.shop.events.CoinsPurchasedEvent;
+//import io.ipoli.android.shop.events.PetBoughtEvent;
 
 public class AmplitudeAnalyticsService implements AnalyticsService {
 
@@ -526,33 +526,33 @@ public class AmplitudeAnalyticsService implements AnalyticsService {
         log("level_down", EventParams.of("new_level", e.newLevel + ""));
     }
 
-    @Subscribe
-    public void onBuyReward(BuyRewardEvent e) {
-        log("buy_reward", EventParams.create()
-                .add("name", e.reward.getName())
-                .add("price", e.reward.getPrice() + ""));
-    }
+//    @Subscribe
+//    public void onBuyReward(BuyRewardEvent e) {
+//        log("buy_reward", EventParams.create()
+//                .add("name", e.reward.getName())
+//                .add("price", e.reward.getPrice() + ""));
+//    }
 
-    @Subscribe
-    public void onDeleteRewardRequest(DeleteRewardRequestEvent e) {
-        log("delete_reward", EventParams.create()
-                .add("name", e.reward.getName())
-                .add("price", e.reward.getPrice() + ""));
-    }
+//    @Subscribe
+//    public void onDeleteRewardRequest(DeleteRewardRequestEvent e) {
+//        log("delete_reward", EventParams.create()
+//                .add("name", e.reward.getName())
+//                .add("price", e.reward.getPrice() + ""));
+//    }
+//
+//    @Subscribe
+//    public void onEditRewardRequest(EditRewardRequestEvent e) {
+//        log("edit_reward", EventParams.create()
+//                .add("name", e.reward.getName())
+//                .add("price", e.reward.getPrice() + ""));
+//    }
 
-    @Subscribe
-    public void onEditRewardRequest(EditRewardRequestEvent e) {
-        log("edit_reward", EventParams.create()
-                .add("name", e.reward.getName())
-                .add("price", e.reward.getPrice() + ""));
-    }
-
-    @Subscribe
-    public void onNewRewardSaved(NewRewardSavedEvent e) {
-        log("new_reward_saved", EventParams.create()
-                .add("name", e.reward.getName())
-                .add("price", e.reward.getPrice() + ""));
-    }
+//    @Subscribe
+//    public void onNewRewardSaved(NewRewardSavedEvent e) {
+//        log("new_reward_saved", EventParams.create()
+//                .add("name", e.reward.getName())
+//                .add("price", e.reward.getPrice() + ""));
+//    }
 
     @Subscribe
     public void onAddQuestButtonTapped(AddQuestButtonTappedEvent e) {
@@ -791,10 +791,10 @@ public class AmplitudeAnalyticsService implements AnalyticsService {
         log("ongoing_notification_changed", EventParams.of("enabled", e.isEnabled));
     }
 
-    @Subscribe
-    public void onPetBoughtEvent(PetBoughtEvent e) {
-        log("pet_bought", EventParams.of("pet", e.petViewModel.getPictureName()));
-    }
+//    @Subscribe
+//    public void onPetBoughtEvent(PetBoughtEvent e) {
+//        log("pet_bought", EventParams.of("pet", e.petViewModel.getPictureName()));
+//    }
 
     @Subscribe
     public void onRevivePetRequest(RevivePetRequest e) {
@@ -828,20 +828,20 @@ public class AmplitudeAnalyticsService implements AnalyticsService {
                 .add("source", e.source.name().toLowerCase()));
     }
 
-    @Subscribe
-    public void onBuyCoinsTapped(BuyCoinsTappedEvent e) {
-        log("buy_coins_tapped", EventParams.of("sku", e.sku));
-    }
+//    @Subscribe
+//    public void onBuyCoinsTapped(BuyCoinsTappedEvent e) {
+//        log("buy_coins_tapped", EventParams.of("sku", e.sku));
+//    }
 
     @Subscribe
     public void onAvatarCoinsTapped(AvatarCoinsTappedEvent e) {
         log("avatar_coins_taped");
     }
 
-    @Subscribe
-    public void onCoinsPurchased(CoinsPurchasedEvent e) {
-        log("coins_purchased", EventParams.of("sku", e.sku));
-    }
+//    @Subscribe
+//    public void onCoinsPurchased(CoinsPurchasedEvent e) {
+//        log("coins_purchased", EventParams.of("sku", e.sku));
+//    }
 
     @Subscribe
     public void onMostProductiveTimesChanged(MostProductiveTimesChangedEvent e) {

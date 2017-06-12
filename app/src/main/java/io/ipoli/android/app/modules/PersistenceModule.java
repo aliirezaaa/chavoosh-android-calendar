@@ -16,8 +16,8 @@ import io.ipoli.android.quest.persistence.CouchbaseQuestPersistenceService;
 import io.ipoli.android.quest.persistence.CouchbaseRepeatingQuestPersistenceService;
 import io.ipoli.android.quest.persistence.QuestPersistenceService;
 import io.ipoli.android.quest.persistence.RepeatingQuestPersistenceService;
-import io.ipoli.android.reward.persistence.CouchbaseRewardPersistenceService;
-import io.ipoli.android.reward.persistence.RewardPersistenceService;
+//import io.ipoli.android.reward.persistence.CouchbaseRewardPersistenceService;
+//import io.ipoli.android.reward.persistence.RewardPersistenceService;
 
 /**
  * Created by Venelin Valkov <venelin@curiousily.com>
@@ -46,10 +46,10 @@ public class PersistenceModule {
         return new CouchbaseChallengePersistenceService(database, objectMapper, questPersistenceService, repeatingQuestPersistenceService, eventBus);
     }
 
-    @Provides
-    public RewardPersistenceService provideRewardPersistenceService(Database database, ObjectMapper objectMapper, Bus eventBus) {
-        return new CouchbaseRewardPersistenceService(database, objectMapper, eventBus);
-    }
+//    @Provides
+//    public RewardPersistenceService provideRewardPersistenceService(Database database, ObjectMapper objectMapper, Bus eventBus) {
+//        return new CouchbaseRewardPersistenceService(database, objectMapper, eventBus);
+//    }
 
     @Provides
     public CalendarPersistenceService provideAndroidCalendarPersistenceService(Database database, PlayerPersistenceService playerPersistenceService, QuestPersistenceService questPersistenceService, RepeatingQuestPersistenceService repeatingQuestPersistenceService, Bus eventBus){

@@ -26,7 +26,7 @@ import io.ipoli.android.app.AppComponent;
 import io.ipoli.android.app.utils.DateUtils;
 import io.ipoli.android.app.utils.KeyboardUtils;
 import io.ipoli.android.app.utils.LocalStorage;
-import io.ipoli.android.challenge.activities.PickDailyChallengeQuestsActivity;
+//import io.ipoli.android.challenge.activities.PickDailyChallengeQuestsActivity;
 import io.ipoli.android.player.Player;
 import io.ipoli.android.player.persistence.PlayerPersistenceService;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -86,7 +86,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_pick_daily_challenge_quests) {
-            startActivity(new Intent(this, PickDailyChallengeQuestsActivity.class));
+//            startActivity(new Intent(this, PickDailyChallengeQuestsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
