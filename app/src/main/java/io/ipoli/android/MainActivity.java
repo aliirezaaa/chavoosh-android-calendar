@@ -105,8 +105,8 @@ import io.ipoli.android.quest.persistence.QuestPersistenceService;
 import io.ipoli.android.quest.ui.events.EditRepeatingQuestRequestEvent;
 import io.ipoli.android.reminder.data.Reminder;
 
-import me.cheshmak.android.sdk.core.Cheshmak;
-import me.cheshmak.android.sdk.core.CheshmakConfig;
+/*import me.cheshmak.android.sdk.core.Cheshmak;
+import me.cheshmak.android.sdk.core.CheshmakConfig;*/
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -156,7 +156,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
 
 //        changeLanguage("fa");
-        cheshmakInit();
+       /* cheshmakInit();*/
 //        changDirection();
         instance = this.getApplication();
         appComponent().inject(this);
@@ -207,14 +207,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
-    private void cheshmakInit() {
+   /* private void cheshmakInit() {
         CheshmakConfig config = new CheshmakConfig();
         config.setIsEnableAutoActivityReports(true);
         config.setIsEnableExceptionReporting(true);
         Cheshmak.with(getApplicationContext(), config);
 
         Cheshmak.initTracker("G0qe5bjhhByjKq6K26y1RQ==");
-    }
+    }*/
 
     private void changeLanguage(String langouage) {
         Resources res = getResources();

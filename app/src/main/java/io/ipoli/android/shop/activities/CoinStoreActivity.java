@@ -25,7 +25,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-//import io.ipoli.android.BillingConstants;
 import io.ipoli.android.R;
 import io.ipoli.android.app.App;
 import io.ipoli.android.app.activities.BaseActivity;
@@ -46,6 +45,8 @@ import io.ipoli.android.shop.iab.Inventory;
 import io.ipoli.android.shop.iab.Purchase;
 import io.ipoli.android.shop.iab.SkuDetails;
 import io.ipoli.android.shop.viewmodels.ProductViewModels;
+
+//import io.ipoli.android.BillingConstants;
 
 public class CoinStoreActivity extends BaseActivity {
     private static final String SKU_COINS_100 = "coins_100";
