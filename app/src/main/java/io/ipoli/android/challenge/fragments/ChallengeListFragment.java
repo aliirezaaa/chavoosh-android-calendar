@@ -113,11 +113,11 @@ public class ChallengeListFragment extends BaseFragment implements OnDataChanged
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        /*switch (item.getItemId()) {
             case R.id.action_pick_challenge:
 //                startActivity(new Intent(getContext(), PickChallengeActivity.class));
                 return true;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 

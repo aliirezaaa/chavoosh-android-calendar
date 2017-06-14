@@ -13,11 +13,11 @@
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
                     "position": {
-                        "startLine": 30,
+                        "startLine": 29,
                         "startColumn": 4,
-                        "startOffset": 1919,
+                        "startOffset": 1839,
                         "endColumn": 60,
-                        "endOffset": 1975
+                        "endOffset": 1895
                     }
                 }
             },
@@ -32,11 +32,11 @@
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
                     "position": {
-                        "startLine": 24,
+                        "startLine": 23,
                         "startColumn": 4,
-                        "startOffset": 1293,
+                        "startOffset": 1213,
                         "endColumn": 104,
-                        "endOffset": 1393
+                        "endOffset": 1313
                     }
                 }
             },
@@ -51,11 +51,11 @@
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
                     "position": {
-                        "startLine": 29,
+                        "startLine": 28,
                         "startColumn": 4,
-                        "startOffset": 1795,
+                        "startOffset": 1715,
                         "endColumn": 123,
-                        "endOffset": 1914
+                        "endOffset": 1834
                     }
                 }
             },
@@ -64,8 +64,8 @@
                     "startLine": 5,
                     "startColumn": 4,
                     "startOffset": 391,
-                    "endColumn": 79,
-                    "endOffset": 466
+                    "endColumn": 111,
+                    "endOffset": 498
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
@@ -73,8 +73,8 @@
                         "startLine": 19,
                         "startColumn": 4,
                         "startOffset": 809,
-                        "endColumn": 79,
-                        "endOffset": 884
+                        "endColumn": 111,
+                        "endOffset": 916
                     }
                 }
             },
@@ -82,18 +82,18 @@
                 "to": {
                     "startLine": 6,
                     "startColumn": 4,
-                    "startOffset": 471,
-                    "endColumn": 111,
-                    "endOffset": 578
+                    "startOffset": 503,
+                    "endColumn": 115,
+                    "endOffset": 614
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
                     "position": {
-                        "startLine": 20,
+                        "startLine": 27,
                         "startColumn": 4,
-                        "startOffset": 889,
-                        "endColumn": 111,
-                        "endOffset": 996
+                        "startOffset": 1595,
+                        "endColumn": 119,
+                        "endOffset": 1710
                     }
                 }
             },
@@ -101,18 +101,18 @@
                 "to": {
                     "startLine": 7,
                     "startColumn": 4,
-                    "startOffset": 583,
+                    "startOffset": 619,
                     "endColumn": 115,
-                    "endOffset": 694
+                    "endOffset": 730
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
                     "position": {
-                        "startLine": 28,
+                        "startLine": 20,
                         "startColumn": 4,
-                        "startOffset": 1675,
-                        "endColumn": 119,
-                        "endOffset": 1790
+                        "startOffset": 921,
+                        "endColumn": 115,
+                        "endOffset": 1032
                     }
                 }
             },
@@ -120,18 +120,18 @@
                 "to": {
                     "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 699,
-                    "endColumn": 115,
-                    "endOffset": 810
+                    "startOffset": 735,
+                    "endColumn": 90,
+                    "endOffset": 821
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
                     "position": {
-                        "startLine": 21,
+                        "startLine": 25,
                         "startColumn": 4,
-                        "startOffset": 1001,
-                        "endColumn": 115,
-                        "endOffset": 1112
+                        "startOffset": 1418,
+                        "endColumn": 90,
+                        "endOffset": 1504
                     }
                 }
             },
@@ -139,18 +139,18 @@
                 "to": {
                     "startLine": 9,
                     "startColumn": 4,
-                    "startOffset": 815,
-                    "endColumn": 90,
-                    "endOffset": 901
+                    "startOffset": 826,
+                    "endColumn": 86,
+                    "endOffset": 908
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
                     "position": {
-                        "startLine": 26,
+                        "startLine": 21,
                         "startColumn": 4,
-                        "startOffset": 1498,
-                        "endColumn": 90,
-                        "endOffset": 1584
+                        "startOffset": 1037,
+                        "endColumn": 86,
+                        "endOffset": 1119
                     }
                 }
             },
@@ -158,18 +158,18 @@
                 "to": {
                     "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 906,
-                    "endColumn": 86,
-                    "endOffset": 988
+                    "startOffset": 913,
+                    "endColumn": 88,
+                    "endOffset": 997
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
-                        "startOffset": 1117,
-                        "endColumn": 86,
-                        "endOffset": 1199
+                        "startOffset": 1124,
+                        "endColumn": 88,
+                        "endOffset": 1208
                     }
                 }
             },
@@ -177,18 +177,18 @@
                 "to": {
                     "startLine": 11,
                     "startColumn": 4,
-                    "startOffset": 993,
-                    "endColumn": 88,
-                    "endOffset": 1077
+                    "startOffset": 1002,
+                    "endColumn": 85,
+                    "endOffset": 1083
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
                     "position": {
-                        "startLine": 23,
+                        "startLine": 26,
                         "startColumn": 4,
-                        "startOffset": 1204,
-                        "endColumn": 88,
-                        "endOffset": 1288
+                        "startOffset": 1509,
+                        "endColumn": 85,
+                        "endOffset": 1590
                     }
                 }
             },
@@ -196,37 +196,18 @@
                 "to": {
                     "startLine": 12,
                     "startColumn": 4,
-                    "startOffset": 1082,
-                    "endColumn": 85,
-                    "endOffset": 1163
-                },
-                "from": {
-                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
-                    "position": {
-                        "startLine": 27,
-                        "startColumn": 4,
-                        "startOffset": 1589,
-                        "endColumn": 85,
-                        "endOffset": 1670
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 13,
-                    "startColumn": 4,
-                    "startOffset": 1168,
+                    "startOffset": 1088,
                     "endColumn": 99,
-                    "endOffset": 1263
+                    "endOffset": 1183
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-hi\\strings.xml",
                     "position": {
-                        "startLine": 25,
+                        "startLine": 24,
                         "startColumn": 4,
-                        "startOffset": 1398,
+                        "startOffset": 1318,
                         "endColumn": 99,
-                        "endOffset": 1493
+                        "endOffset": 1413
                     }
                 }
             }

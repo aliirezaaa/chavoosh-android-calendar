@@ -13,11 +13,11 @@
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
-                        "startLine": 26,
+                        "startLine": 25,
                         "startColumn": 4,
-                        "startOffset": 1033,
+                        "startOffset": 972,
                         "endColumn": 51,
-                        "endOffset": 1080
+                        "endOffset": 1019
                     }
                 }
             },
@@ -32,11 +32,11 @@
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
-                        "startLine": 27,
+                        "startLine": 26,
                         "startColumn": 4,
-                        "startOffset": 1085,
+                        "startOffset": 1024,
                         "endColumn": 53,
-                        "endOffset": 1134
+                        "endOffset": 1073
                     }
                 }
             },
@@ -70,11 +70,11 @@
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
-                        "startLine": 30,
+                        "startLine": 28,
                         "startColumn": 4,
-                        "startOffset": 1244,
+                        "startOffset": 1132,
                         "endColumn": 50,
-                        "endOffset": 1290
+                        "endOffset": 1178
                     }
                 }
             },
@@ -83,17 +83,17 @@
                     "startLine": 6,
                     "startColumn": 4,
                     "startOffset": 274,
-                    "endColumn": 50,
-                    "endOffset": 320
+                    "endColumn": 53,
+                    "endOffset": 323
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
-                        "startOffset": 1193,
-                        "endColumn": 50,
-                        "endOffset": 1239
+                        "startOffset": 1183,
+                        "endColumn": 53,
+                        "endOffset": 1232
                     }
                 }
             },
@@ -101,18 +101,18 @@
                 "to": {
                     "startLine": 7,
                     "startColumn": 4,
-                    "startOffset": 325,
+                    "startOffset": 328,
                     "endColumn": 53,
-                    "endOffset": 374
+                    "endOffset": 377
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
-                        "startLine": 31,
+                        "startLine": 27,
                         "startColumn": 4,
-                        "startOffset": 1295,
+                        "startOffset": 1078,
                         "endColumn": 53,
-                        "endOffset": 1344
+                        "endOffset": 1127
                     }
                 }
             },
@@ -120,28 +120,9 @@
                 "to": {
                     "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 379,
-                    "endColumn": 53,
-                    "endOffset": 428
-                },
-                "from": {
-                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
-                    "position": {
-                        "startLine": 28,
-                        "startColumn": 4,
-                        "startOffset": 1139,
-                        "endColumn": 53,
-                        "endOffset": 1188
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 9,
-                    "startColumn": 4,
-                    "startOffset": 433,
-                    "endColumn": 60,
-                    "endOffset": 489
+                    "startOffset": 382,
+                    "endColumn": 51,
+                    "endOffset": 429
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
@@ -149,46 +130,27 @@
                         "startLine": 23,
                         "startColumn": 4,
                         "startOffset": 858,
-                        "endColumn": 60,
-                        "endOffset": 914
+                        "endColumn": 51,
+                        "endOffset": 905
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 10,
+                    "startLine": 9,
                     "startColumn": 4,
-                    "startOffset": 494,
-                    "endColumn": 51,
-                    "endOffset": 541
+                    "startOffset": 434,
+                    "endColumn": 61,
+                    "endOffset": 491
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
-                        "startOffset": 919,
-                        "endColumn": 51,
-                        "endOffset": 966
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 11,
-                    "startColumn": 4,
-                    "startOffset": 546,
-                    "endColumn": 61,
-                    "endOffset": 603
-                },
-                "from": {
-                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\src\\main\\res\\values-sw600dp-land\\dimens.xml",
-                    "position": {
-                        "startLine": 25,
-                        "startColumn": 4,
-                        "startOffset": 971,
+                        "startOffset": 910,
                         "endColumn": 61,
-                        "endOffset": 1028
+                        "endOffset": 967
                     }
                 }
             }

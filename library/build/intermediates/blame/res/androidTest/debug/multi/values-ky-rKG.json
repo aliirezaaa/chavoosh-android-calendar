@@ -64,8 +64,8 @@
                     "startLine": 5,
                     "startColumn": 4,
                     "startOffset": 389,
-                    "endColumn": 83,
-                    "endOffset": 468
+                    "endColumn": 107,
+                    "endOffset": 492
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-ky-rKG\\values-ky-rKG.xml",
@@ -73,8 +73,8 @@
                         "startLine": 5,
                         "startColumn": 4,
                         "startOffset": 389,
-                        "endColumn": 83,
-                        "endOffset": 468
+                        "endColumn": 107,
+                        "endOffset": 492
                     }
                 }
             },
@@ -82,18 +82,18 @@
                 "to": {
                     "startLine": 6,
                     "startColumn": 4,
-                    "startOffset": 473,
-                    "endColumn": 107,
-                    "endOffset": 576
+                    "startOffset": 497,
+                    "endColumn": 118,
+                    "endOffset": 611
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-ky-rKG\\values-ky-rKG.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 473,
-                        "endColumn": 107,
-                        "endOffset": 576
+                        "startOffset": 497,
+                        "endColumn": 118,
+                        "endOffset": 611
                     }
                 }
             },
@@ -101,18 +101,18 @@
                 "to": {
                     "startLine": 7,
                     "startColumn": 4,
-                    "startOffset": 581,
-                    "endColumn": 118,
-                    "endOffset": 695
+                    "startOffset": 616,
+                    "endColumn": 110,
+                    "endOffset": 722
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-ky-rKG\\values-ky-rKG.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
-                        "startOffset": 581,
-                        "endColumn": 118,
-                        "endOffset": 695
+                        "startOffset": 616,
+                        "endColumn": 110,
+                        "endOffset": 722
                     }
                 }
             },
@@ -120,18 +120,18 @@
                 "to": {
                     "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 700,
-                    "endColumn": 110,
-                    "endOffset": 806
+                    "startOffset": 727,
+                    "endColumn": 96,
+                    "endOffset": 819
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-ky-rKG\\values-ky-rKG.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
-                        "startOffset": 700,
-                        "endColumn": 110,
-                        "endOffset": 806
+                        "startOffset": 727,
+                        "endColumn": 96,
+                        "endOffset": 819
                     }
                 }
             },
@@ -139,18 +139,18 @@
                 "to": {
                     "startLine": 9,
                     "startColumn": 4,
-                    "startOffset": 811,
-                    "endColumn": 96,
-                    "endOffset": 903
+                    "startOffset": 824,
+                    "endColumn": 91,
+                    "endOffset": 911
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-ky-rKG\\values-ky-rKG.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
-                        "startOffset": 811,
-                        "endColumn": 96,
-                        "endOffset": 903
+                        "startOffset": 824,
+                        "endColumn": 91,
+                        "endOffset": 911
                     }
                 }
             },
@@ -158,18 +158,18 @@
                 "to": {
                     "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 908,
-                    "endColumn": 91,
-                    "endOffset": 995
+                    "startOffset": 916,
+                    "endColumn": 97,
+                    "endOffset": 1009
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-ky-rKG\\values-ky-rKG.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
-                        "startOffset": 908,
-                        "endColumn": 91,
-                        "endOffset": 995
+                        "startOffset": 916,
+                        "endColumn": 97,
+                        "endOffset": 1009
                     }
                 }
             },
@@ -177,18 +177,18 @@
                 "to": {
                     "startLine": 11,
                     "startColumn": 4,
-                    "startOffset": 1000,
-                    "endColumn": 97,
-                    "endOffset": 1093
+                    "startOffset": 1014,
+                    "endColumn": 89,
+                    "endOffset": 1099
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-ky-rKG\\values-ky-rKG.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
-                        "startOffset": 1000,
-                        "endColumn": 97,
-                        "endOffset": 1093
+                        "startOffset": 1014,
+                        "endColumn": 89,
+                        "endOffset": 1099
                     }
                 }
             },
@@ -196,37 +196,18 @@
                 "to": {
                     "startLine": 12,
                     "startColumn": 4,
-                    "startOffset": 1098,
-                    "endColumn": 89,
-                    "endOffset": 1183
+                    "startOffset": 1104,
+                    "endColumn": 98,
+                    "endOffset": 1198
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-ky-rKG\\values-ky-rKG.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
-                        "startOffset": 1098,
-                        "endColumn": 89,
-                        "endOffset": 1183
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 13,
-                    "startColumn": 4,
-                    "startOffset": 1188,
-                    "endColumn": 98,
-                    "endOffset": 1282
-                },
-                "from": {
-                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-ky-rKG\\values-ky-rKG.xml",
-                    "position": {
-                        "startLine": 13,
-                        "startColumn": 4,
-                        "startOffset": 1188,
+                        "startOffset": 1104,
                         "endColumn": 98,
-                        "endOffset": 1282
+                        "endOffset": 1198
                     }
                 }
             }

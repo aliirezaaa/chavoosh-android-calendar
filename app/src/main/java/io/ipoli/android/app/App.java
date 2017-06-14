@@ -347,8 +347,8 @@ public class App extends MultiDexApplication {
             /* change it for now
             exchange false and true
              */
-            if (localStorage.readBool(Constants.KEY_SHOULD_SHOW_TUTORIAL, false)) {
-                localStorage.saveBool(Constants.KEY_SHOULD_SHOW_TUTORIAL, true);
+            if (localStorage.readBool(Constants.KEY_SHOULD_SHOW_TUTORIAL, true)) {
+                localStorage.saveBool(Constants.KEY_SHOULD_SHOW_TUTORIAL, false);
                 startNewActivity(TutorialActivity.class);
             } else {
                 /*remove sign in for now
@@ -369,7 +369,8 @@ public class App extends MultiDexApplication {
     @Subscribe
     public void onFinishTutorialActivity(FinishTutorialActivityEvent e) {
         if (!hasPlayer()) {
-            startNewActivity(SignInActivity.class);
+//            startNewActivity(SignInActivity.class);
+            startNewActivity(SignInAsGustActivity.class);
         }
     }
 

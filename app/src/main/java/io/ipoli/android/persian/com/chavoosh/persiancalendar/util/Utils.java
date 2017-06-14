@@ -47,6 +47,7 @@ import android.widget.Toast;
 
 
 import com.ibm.icu.util.ULocale;
+
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -903,6 +904,8 @@ public class Utils {
 
     }
 
+
+
     private static class SetExactAlarm {
         @TargetApi(Build.VERSION_CODES.KITKAT)
         public static void setExactAlarm(AlarmManager alarmManager,
@@ -1185,12 +1188,12 @@ public class Utils {
                 Log.d("TimePicker", "Dialog was cancelled");
             }
         });
-        if(activity instanceof BaseActivity){
+        if (activity instanceof BaseActivity) {
 
             tpd.show(((BaseActivity) activity).getFragmentManager(), "Timepickerdialog");
-        }else if (activity instanceof BaseFragment){
+        } else if (activity instanceof BaseFragment) {
             tpd.show(((BaseFragment) activity).getActivity().getFragmentManager(), "Timepickerdialog");
-        }else if (activity instanceof DialogFragment){
+        } else if (activity instanceof DialogFragment) {
             tpd.show(((DialogFragment) activity).getActivity().getFragmentManager(), "Datepickerdialog");
         }
 //        tpd.show(fragment.getActivity().getFragmentManager(), "Timepickerdialog");
@@ -1198,6 +1201,7 @@ public class Utils {
     }
 
     public void pickDate(Object activity, String tag) {
+
         DatePickerDialog dpd;
         com.ibm.icu.util.Calendar now = com.ibm.icu.util.Calendar.getInstance(new ULocale("fa_IR"));
 
@@ -1279,16 +1283,17 @@ public class Utils {
             endOfMonth = 31;
 
         }
-        Log.i("end of month",""+endOfMonth);
+        Log.i("end of month", "" + endOfMonth);
         PersianDate p = new PersianDate(getToday().getYear(), getToday().getMonth(), endOfMonth);
 
         return DateConverter.persianToLocalDate(p);
     }
 
-    public void changLayoutDirection(Activity activity){
+    public void changLayoutDirection(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                activity.getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+            activity.getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
     }
+
 
 }
