@@ -22,20 +22,10 @@
             app:popupTheme="@style/Theme.iPoli.PopupOverlay">
 
 
-            <ImageButton
-                android:id="@+id/submit_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:background="@null"
-                android:clickable="true"
-                android:paddingEnd="20dp"
-                android:paddingStart="20dp"
-                android:visibility="gone"
-                app:srcCompat="@drawable/ic_done_white_32dp" />
-
 
         </android.support.v7.widget.Toolbar>
+
+
     </android.support.design.widget.AppBarLayout>
 
     <io.ipoli.android.persian.com.chavoosh.persiancalendar.view.ScrollViewExt xmlns:android="http://schemas.android.com/apk/res/android"
@@ -314,6 +304,8 @@
                                 android:textSize="@dimen/text_size_description" />
 
                         </android.support.v7.widget.LinearLayoutCompat>
+
+
 
                     </LinearLayout>
 

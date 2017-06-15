@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -55,7 +56,9 @@ import io.ipoli.android.persian.calendar.CivilDate;
 import io.ipoli.android.persian.calendar.DateConverter;
 import io.ipoli.android.persian.calendar.PersianDate;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
+import io.ipoli.android.quest.activities.AddQuestActivity;
 import io.ipoli.android.quest.adapters.EditQuestSubQuestListAdapter;
+import io.ipoli.android.quest.data.Category;
 import io.ipoli.android.quest.data.Quest;
 import io.ipoli.android.quest.data.RepeatingQuest;
 import io.ipoli.android.quest.data.SubQuest;
@@ -64,12 +67,15 @@ import io.ipoli.android.quest.events.ChangeQuestNameRequestEvent;
 import io.ipoli.android.quest.events.ChangeQuestPriorityRequestEvent;
 import io.ipoli.android.quest.events.ChangeQuestRecurrenceRequestEvent;
 import io.ipoli.android.quest.events.ChangeQuestTimeRequestEvent;
+import io.ipoli.android.quest.events.NameAndCategoryPickedEvent;
 import io.ipoli.android.quest.events.NewQuestChallengePickedEvent;
 import io.ipoli.android.quest.events.NewQuestDurationPickedEvent;
 import io.ipoli.android.quest.events.NewQuestNotePickedEvent;
 import io.ipoli.android.quest.events.NewQuestRemindersPickedEvent;
 import io.ipoli.android.quest.events.NewQuestSubQuestsPickedEvent;
 import io.ipoli.android.quest.events.NewQuestTimesADayPickedEvent;
+import io.ipoli.android.quest.events.RepeatingQuestSummaryStart;
+import io.ipoli.android.quest.events.SummaryFragmentStart;
 import io.ipoli.android.quest.ui.AddSubQuestView;
 import io.ipoli.android.quest.ui.dialogs.ChallengePickerFragment;
 import io.ipoli.android.quest.ui.dialogs.DurationPickerFragment;
@@ -148,6 +154,7 @@ public class AddQuestSummaryFragment extends BaseFragment {
 
     private EditQuestSubQuestListAdapter subQuestListAdapter;
     private boolean use24HourFormat;
+    private boolean shouldShow = true;
 
     @Nullable
     @Override
@@ -155,16 +162,24 @@ public class AddQuestSummaryFragment extends BaseFragment {
         App.getAppComponent(getContext()).inject(this);
         View view = inflater.inflate(R.layout.fragment_wizard_quest_summary, container, false);
         unbinder = ButterKnife.bind(this, view);
-
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         use24HourFormat = shouldUse24HourFormat();
         initSubQuestsUI();
-
+        if (shouldShow) {
+            if (getActivity().getClass().toString().contains("AddQuestActivity")) {
+                postEvent(new SummaryFragmentStart("بدون نام", Category.WORK));
+            } else {
+                postEvent(new RepeatingQuestSummaryStart("بدون نام", Category.WORK));
+            }
+            shouldShow = false;
+        }
         return view;
     }
 
     @Override
     public void onDestroyView() {
         unbinder.unbind();
+//        shouldShow=true;
         super.onDestroyView();
     }
 
@@ -388,8 +403,8 @@ public class AddQuestSummaryFragment extends BaseFragment {
 //        durationText.setText("به مدت " + DurationFormatter.formatReadable(duration));
 //        int[] availableDurations = Constants.DURATIONS;
 //        if (duration == Constants.QUEST_MIN_DURATION) {
-            durationText.setText("به مدت " + DurationFormatter.formatReadable(duration));
-            durationText.setTag(duration);
+        durationText.setText("به مدت " + DurationFormatter.formatReadable(duration));
+        durationText.setTag(duration);
 //        } else {
 //            durationText.setText("به مدت " +DurationFormatter.formatReadable(availableDurations[duration]));
 //            durationText.setTag(availableDurations[duration]);

@@ -137,6 +137,8 @@ import io.ipoli.android.quest.schedulers.RepeatingQuestScheduler;
 import io.ipoli.android.quest.ui.events.UpdateRepeatingQuestEvent;
 import io.ipoli.android.quest.widgets.AgendaWidgetProvider;
 import io.ipoli.android.sync.LocalCalendar;
+import me.cheshmak.android.sdk.core.Cheshmak;
+import me.cheshmak.android.sdk.core.CheshmakConfig;
 import okhttp3.Cookie;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -329,7 +331,7 @@ public class App extends MultiDexApplication {
         );
  /* add event to local calendar*/
         localCalendar = new LocalCalendar(this);
-
+        cheshmakInit();
         AndroidThreeTen.init(this);
         Amplitude.getInstance().initialize(getApplicationContext(), AnalyticsConstants.PROD_FLURRY_KEY).enableForegroundTracking(this);
 
@@ -1115,5 +1117,13 @@ public class App extends MultiDexApplication {
 
     public static LocalCalendar getLocalCalendar() {
         return localCalendar;
+    }
+    private void cheshmakInit() {
+        CheshmakConfig config = new CheshmakConfig();
+        config.setIsEnableAutoActivityReports(true);
+        config.setIsEnableExceptionReporting(true);
+        Cheshmak.with(getApplicationContext(), config);
+
+        Cheshmak.initTracker("G0qe5bjhhByjKq6K26y1RQ==");
     }
 }

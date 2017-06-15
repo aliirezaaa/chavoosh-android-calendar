@@ -107,6 +107,8 @@ import io.ipoli.android.reminder.data.Reminder;
 
 /*import me.cheshmak.android.sdk.core.Cheshmak;
 import me.cheshmak.android.sdk.core.CheshmakConfig;*/
+import me.cheshmak.android.sdk.core.Cheshmak;
+import me.cheshmak.android.sdk.core.CheshmakConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -156,7 +158,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
 
 //        changeLanguage("fa");
-       /* cheshmakInit();*/
+
 //        changDirection();
         instance = this.getApplication();
         appComponent().inject(this);
@@ -183,7 +185,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         navigationView.setNavigationItemSelectedListener(this);
 
-
+        onReceivePush();
 //        startCalendar();
        startPersianCalendar();
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
@@ -207,6 +209,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     }
 
+    private void onReceivePush() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.getExtras() != null) {
+                Toast.makeText(this,"Cheshmak push notification data"+
+                        intent.getExtras().getString("me.cheshmak.data")+"\n"+
+                        intent.getExtras().getString("title")+"\n"+
+                        intent.getExtras().getString("message")+"\n",Toast.LENGTH_SHORT).show();
+            }
+        }
+        //some code​
+    }
+
    /* private void cheshmakInit() {
         CheshmakConfig config = new CheshmakConfig();
         config.setIsEnableAutoActivityReports(true);
@@ -214,8 +229,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Cheshmak.with(getApplicationContext(), config);
 
         Cheshmak.initTracker("G0qe5bjhhByjKq6K26y1RQ==");
-    }*/
-
+    }
+*/
     private void changeLanguage(String langouage) {
         Resources res = getResources();
 // Change locale settings in the app.
@@ -700,6 +715,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 new IntentFilter("ON_DATE_SET_FOR_SNOOZE"));
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(snoozeTimeReceiver,
                 new IntentFilter("ON_DATE_SET_FOR_SNOOZE_TIME"));
+
     }
 
     private BroadcastReceiver dateReceiver = new BroadcastReceiver() {
@@ -713,6 +729,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             duplicateQuest(dEvent.quest, DateConverter.persianToLocalDate(pDate), dShowAction);
         }
     };
+
     private BroadcastReceiver snoozeDateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

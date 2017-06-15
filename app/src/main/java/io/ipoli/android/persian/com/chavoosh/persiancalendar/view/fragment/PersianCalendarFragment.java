@@ -1,7 +1,11 @@
 package io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment;
 
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -21,6 +25,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -69,6 +78,8 @@ import io.ipoli.android.persian.com.github.praytimes.PrayTime;
 import io.ipoli.android.persian.com.github.praytimes.PrayTimesCalculator;
 import io.ipoli.android.quest.adapters.AgendaAdapter;
 import io.ipoli.android.quest.data.Quest;
+import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
+import io.ipoli.android.quest.fragments.AddQuestDateFragment;
 import io.ipoli.android.quest.persistence.QuestPersistenceService;
 import io.ipoli.android.quest.viewmodels.AgendaViewModel;
 
@@ -121,6 +132,7 @@ public class PersianCalendarFragment extends BaseFragment
     private RelativeLayout ishaLayout;
     private RelativeLayout midnightLayout;
     private LocalDate selectedDay;
+    private WebView news_web_view;
 
     private int viewPagerPosition;
     private ScrollViewExt about_layout;
@@ -236,13 +248,23 @@ public class PersianCalendarFragment extends BaseFragment
         utils.setActivityTitleAndSubtitle(getActivity(), utils.getMonthName(today),
                 utils.formatNumber(today.getYear()));
 
-
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(newsReceiver,
+                new IntentFilter("ON_NEWS_CHANGE_LISTENER"));
 //        View toolbar_view = inflater.inflate(R.layout.activity_cal_fa, container, false);
 
-//        ImageView submit_img=(ImageView)toolbar_view.findViewById(R.id.submit_img);
-//        submit_img.setOnClickListener(v -> {
+//        ImageView toolbar_hint=(ImageView)view.findViewById(R.id.toolbar_hint);
+
+//        FrameLayout toolbar_hint=(FrameLayout)view.findViewById(R.id.toolbar_hint);
+
+//        toolbar_hint.setOnClickListener(v -> {
 //            Log.i("selected date ",utils.dateToString(utils.getToday()));
 //        });
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReceiver,
+                new IntentFilter("ON_DATE_SET_FOR_MONTH_VIEW"));
+        toolbar.setOnClickListener(v -> {
+            Log.i("selected date ",utils.dateToString(utils.getToday()));
+            Utils.getInstance(getContext()).pickDate(PersianCalendarFragment.this, "ON_DATE_SET_FOR_MONTH_VIEW");
+        });
         return view;
     }
 
@@ -311,6 +333,9 @@ public class PersianCalendarFragment extends BaseFragment
         news_title = (TextView) view.findViewById(R.id.news_title);
         card_news = (CardView) view.findViewById(R.id.cardNews);
         user_event = (CardView) view.findViewById(R.id.mycardEvent);
+
+//        news_web_view=(WebView)view.findViewById(R.id.news_webview);
+
     }
 
     private void showQuestsForDate(LocalDate date) {
@@ -350,6 +375,7 @@ public class PersianCalendarFragment extends BaseFragment
 //        news_title.setText(json.getString("title"));
 //        Log.i("title",jsonStr);
         card_news.setVisibility(View.VISIBLE);
+
 
 
     }
@@ -575,4 +601,30 @@ public class PersianCalendarFragment extends BaseFragment
         eventBus.unregister(this);
         super.onPause();
     }
+
+    private BroadcastReceiver newsReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            String title=intent.getStringExtra("title");
+            String description=intent.getStringExtra("description");
+            news_card_title.setText(title);
+            news_title.setText(description);
+        }
+    };
+    private BroadcastReceiver dateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int year = intent.getIntExtra("year", 0);
+            int month = intent.getIntExtra("month", 0);
+            int day = intent.getIntExtra("day", 0);
+
+            PersianDate pDate=new PersianDate(year, month, day);
+            bringDate(pDate);
+            //post to next fragment
+
+
+        }
+    };
 }
