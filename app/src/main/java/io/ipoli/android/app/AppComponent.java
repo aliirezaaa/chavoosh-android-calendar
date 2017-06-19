@@ -16,6 +16,7 @@ import io.ipoli.android.app.modules.ApiModule;
 import io.ipoli.android.app.modules.AppModule;
 import io.ipoli.android.app.modules.BusModule;
 import io.ipoli.android.app.modules.CouchbaseModule;
+import io.ipoli.android.app.modules.InteractiveTutorialModule;
 import io.ipoli.android.app.modules.LocalStorageModule;
 import io.ipoli.android.app.modules.ObjectMapperModule;
 import io.ipoli.android.app.modules.PersistenceModule;
@@ -28,6 +29,7 @@ import io.ipoli.android.app.receivers.AndroidCalendarEventChangedReceiver;
 import io.ipoli.android.app.receivers.BootCompleteReceiver;
 import io.ipoli.android.app.receivers.DateChangedReceiver;
 import io.ipoli.android.app.settings.SettingsActivity;
+import io.ipoli.android.app.tutorial.InteractiveTutorial;
 import io.ipoli.android.app.tutorial.TutorialActivity;
 import io.ipoli.android.app.tutorial.fragments.PickTutorialQuestsFragment;
 import io.ipoli.android.app.tutorial.fragments.PickTutorialRepeatingQuestsFragment;
@@ -101,7 +103,8 @@ import io.ipoli.android.quest.widgets.QuestRemoteViewsFactory;
                 TimeParserModule.class,
                 ApiModule.class,
                 UrlProviderModule.class,
-                AndroidCalendarModule.class
+                AndroidCalendarModule.class,
+                InteractiveTutorialModule.class
         }
 )
 public interface AppComponent {
@@ -239,5 +242,7 @@ public interface AppComponent {
 //    void inject(CoinStoreActivity coinStoreActivity);
 
     void inject(PersianCalendarFragment persianCalendarFragment);
+    void inject(InteractiveTutorial interactiveTutorial);
+
 }
 

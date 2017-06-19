@@ -8,6 +8,7 @@
     <include layout="@layout/default_app_bar" />
 
     <ScrollView
+        android:id="@+id/setting_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
@@ -41,16 +42,18 @@
                     android:layout_height="72dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:gravity="right"
                     android:orientation="vertical"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
                     android:weightSum="2">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/pray_setting_txt"
+                        android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:gravity="bottom"
+                        android:gravity="bottom|right"
                         android:text="تنظیمات اوقات شرعی"
                         android:textColor="@color/md_dark_text_87"
                         android:textSize="16sp" />
@@ -201,11 +204,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:gravity="right"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/schulde_txt"
                     style="@style/TextAppearance.AppCompat.Body2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
@@ -219,13 +224,15 @@
                     android:layout_height="72dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:gravity="right"
                     android:orientation="vertical"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
                     android:weightSum="2">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/active_time_txt"
+                        android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:gravity="bottom"
@@ -349,11 +356,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:gravity="right"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/challenge_schulde_txt"
                     style="@style/TextAppearance.AppCompat.Body2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="16dp"
                     android:paddingStart="16dp"
@@ -622,6 +631,7 @@
                 </LinearLayout>
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
