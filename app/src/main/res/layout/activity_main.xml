@@ -8,6 +8,19 @@
     android:fitsSystemWindows="true">
 
     <FrameLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:id="@+id/setting_spot"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom|right"
+            android:gravity="bottom|right"
+            android:orientation="horizontal"></LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

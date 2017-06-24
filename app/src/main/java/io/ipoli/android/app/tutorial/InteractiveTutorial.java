@@ -49,9 +49,9 @@ public class InteractiveTutorial {
         Typeface typeface=Typeface.createFromAsset(activity.getAssets(), "fonts/Yekan.ttf");
         TapTarget t = TapTarget.forView(view, title, description)
                 // All options below are optional
-                .outerCircleColor(R.color.colorPrimary)      // Specify a color for the outer circle
+                .outerCircleColor(target_circle_color)      // Specify a color for the outer circle
                 .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
-                .targetCircleColor(R.color.colorPrimaryDark)   // Specify a color for the target circle
+                .targetCircleColor(circle_color)   // Specify a color for the target circle
                 .titleTextSize(20)                  // Specify the size (in sp) of the title text
                 .titleTextColor(R.color.md_white)      // Specify the color of the title text
                 .descriptionTextSize(18)            // Specify the size (in sp) of the description text
@@ -131,9 +131,9 @@ public class InteractiveTutorial {
         Typeface typeface=Typeface.createFromAsset(activity.getAssets(), "fonts/Yekan.ttf");
         TapTarget t = TapTarget.forToolbarMenuItem(toolbar,item, title, description)
                 // All options below are optional
-                .outerCircleColor(R.color.colorPrimary)      // Specify a color for the outer circle
+                .outerCircleColor(R.color.colorPrimaryDark)      // Specify a color for the outer circle
                 .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
-                .targetCircleColor(R.color.colorPrimaryDark)   // Specify a color for the target circle
+                .targetCircleColor(R.color.color4)   // Specify a color for the target circle
                 .titleTextSize(20)                  // Specify the size (in sp) of the title text
                 .titleTextColor(R.color.md_white)      // Specify the color of the title text
                 .descriptionTextSize(18)            // Specify the size (in sp) of the description text

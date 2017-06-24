@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.internal.NavigationMenuItemView;
@@ -33,9 +34,12 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -78,6 +82,7 @@ import io.ipoli.android.app.events.ScreenShownEvent;
 import io.ipoli.android.app.events.SyncCalendarRequestEvent;
 import io.ipoli.android.app.events.UndoCompletedQuestEvent;
 import io.ipoli.android.app.rate.RateDialogConstants;
+import io.ipoli.android.app.settings.HelpActivity;
 import io.ipoli.android.app.settings.SettingsActivity;
 import io.ipoli.android.app.share.ShareQuestDialog;
 import io.ipoli.android.app.tutorial.InteractiveTutorial;
@@ -122,8 +127,8 @@ import io.ipoli.android.reminder.data.Reminder;
 
 /*import me.cheshmak.android.sdk.core.Cheshmak;
 import me.cheshmak.android.sdk.core.CheshmakConfig;*/
-import me.cheshmak.android.sdk.core.Cheshmak;
-import me.cheshmak.android.sdk.core.CheshmakConfig;
+//import me.cheshmak.android.sdk.core.Cheshmak;
+//import me.cheshmak.android.sdk.core.CheshmakConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -143,6 +148,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @BindView(R.id.content_container)
     View contentContainer;
+
+    @BindView(R.id.setting_spot)
+    LinearLayout settingSpot;
 
     @Inject
     Bus eventBus;
@@ -216,9 +224,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 if (toolbar != null) {
                 }
                 navigationItemSelected = null;
-                if(localStorage.readBool("main_tutorial",true)){
+                if (localStorage.readBool("main_tutorial", true)) {
                     showTourGuide();
-                    localStorage.saveBool("main_tutorial",false);
+                    localStorage.saveBool("main_tutorial", false);
                 }
 
             }
@@ -234,12 +242,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         Utils.getInstance(getContext()).changLayoutDirection(this);
         initLocalDateBroadCast();
+//        isOnScreen(navigationView.getChildAt(0));
 //        toolbar.post(() -> {
 //            //create your anim here
 ////            showTourGuide(view);
 //                showTapTargetView();
 ////            localStorage.saveBool("week",true);
 //        });
+
 
     }
 
@@ -360,6 +370,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.contact_us:
                 eventBus.post(new ContactUsTapEvent());
                 EmailUtils.send(MainActivity.this, "درباره تقویم چاووش", localStorage.readString(Constants.KEY_PLAYER_ID), getString(R.string.contact_us_email_chooser_title));
+                break;
+
+            case R.id.about_us:
+                startActivity(new Intent(this, HelpActivity.class));
                 break;
         }
 
@@ -768,7 +782,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             duplicateQuest(dEvent.quest, DateConverter.persianToLocalDate(pDate), dShowAction);
         }
     };
-
     private BroadcastReceiver snoozeDateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -806,7 +819,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void showTourGuide() {
-
+        navigationView.post(() -> {
       /*  new SpotlightView.Builder(this)
                 .introAnimationDuration(400)
                 .enableRevealAnimation(true)
@@ -827,31 +840,99 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 .enableDismissAfterShown(true)
                 .usageId("1") //UNIQUE ID
                 .show();*/
-        RecyclerView recyclerView = (RecyclerView) navigationView.getChildAt(0);
-        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-        layoutManager.scrollToPositionWithOffset(4, 0);
+//        RecyclerView recyclerView = (RecyclerView) navigationView.getChildAt(0);
+//        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//        layoutManager.scrollToPositionWithOffset(4, 0);
 
+            NavigationMenuView navView = (NavigationMenuView) navigationView.getChildAt(0);
+            Menu menu=navigationView.getMenu();
+            MenuItem setting=menu.findItem(R.id.settings);
+            Log.i("menu find",setting.getTitle().toString());
+//            ViewTarget target = new ViewTarget(navView.getChildAt(11));
+//            NavigationMenuItemView item = (NavigationMenuItemView) navView.getChildAt(11);
+////        Log.i("getitemid", item.getChildAt(0) + "");
+            smoothScrollToView(navView);
 
-        NavigationMenuView navView = (NavigationMenuView) navigationView.getChildAt(0);
-        ViewTarget target = new ViewTarget(navView.getChildAt(10));
-        NavigationMenuItemView item = (NavigationMenuItemView) navView.getChildAt(11);
-        Log.i("getitemid", item.getChildAt(0) + "");
-
-        List<TapTarget> targets = new ArrayList<>();
-        ViewTarget target_item = new ViewTarget( item.getChildAt(0));
-        Rect rect=new Rect(target_item.getRect().left+200,
-                target_item.getRect().top-100,
-                target_item.getRect().right,
-                target_item.getRect().bottom);
-
-        targets.add(interactiveTutorial.createTutorialForRect(
-             rect,
-                this,
-                "شما تصمیم بگیرید",
-                "به تنظیمات برنامه سر بزنید و برنامه را برای استفاده خود شخصی سازی کنید"));
+//            ViewTarget target_item = new ViewTarget(item.getChildAt(0));
+//            Rect rect = new Rect(navView.getWidth()+navView.getRight(),
+//                    navView.getTop() + navView.getHeight() - 100,
+//                    navView.getWidth()/2-navView.getWidth()/4,
+//                    navView.getBottom());
+            List<TapTarget> targets = new ArrayList<>();
+            targets.add(interactiveTutorial.createTutorialForView(
+                    settingSpot,
+                    this,
+                    "شما تصمیم بگیرید",
+                    "به تنظیمات برنامه سر بزنید و برنامه را برای استفاده خود شخصی سازی کنید"));
 //        ViewTarget target = new ViewTarget(toolbar).getView();
+//                isOnScreen(navigationView.getChildAt(0));
 
-
-        interactiveTutorial.showTutorials(targets, this, "cal_view");
+            interactiveTutorial.showTutorials(targets, this, "cal_view");
+            settingSpot.setVisibility(View.GONE);
+        });
     }
+
+    public void smoothScrollToView(View view) {
+        navigationView.post(() -> {
+            int[] location = new int[2];
+            view.getLocationInWindow(location);
+            final int bottom = location[1];
+            //Do something after 100ms
+            NavigationMenuView navView = (NavigationMenuView) navigationView.getChildAt(0);
+            navView.smoothScrollBy(0, navigationView.getBottom());
+
+//            ObjectAnimator objectAnimator = ObjectAnimator.ofInt(settingScroll, "scrollY", view.getTop()).setDuration(200);
+//            objectAnimator.start();
+
+        }
+
+        );
+
+
+    }
+    private boolean isOnScreen(View view){
+        ViewTreeObserver vto = view.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final int i[] = new int[2];
+                final Rect scrollBounds = new Rect();
+
+                view.getHitRect(scrollBounds);
+                navigationView.getLocationOnScreen(i);
+
+                if (i[1] >= scrollBounds.bottom) {
+                    view.post(new Runnable() {
+                        @Override
+                        public void run() {
+//                            sView.smoothScrollTo(0, sView.getScrollY() + (i[1] - scrollBounds.bottom));
+                            Log.i("observ","its on screen");
+                        }
+                    });
+                }
+
+                vto.removeOnGlobalLayoutListener(this);
+            }
+        });
+
+
+
+
+        return false;
+    }
+    private boolean isViewVisible(View view) {
+        Rect scrollBounds = new Rect();
+        view.getDrawingRect(scrollBounds);
+
+        float top = view.getY();
+        float bottom = top + view.getHeight();
+
+        if (scrollBounds.top < top && scrollBounds.bottom > bottom) {
+            Log.i("isvisible","its on screen");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

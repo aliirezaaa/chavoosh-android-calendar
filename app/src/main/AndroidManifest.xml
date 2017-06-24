@@ -33,7 +33,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.iPoli">
-            ​<meta-data android:name="cheshmakPush" android:value="openActivityOnPush"/>​
+            ​
+            <meta-data
+                android:name="cheshmakPush"
+                android:value="openActivityOnPush" />
+            ​
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -370,22 +374,28 @@
         <service
             android:name=".app.services.PushService"
             android:label="Push Service">
-            ​<meta-data  android:name="cheshmakPush" android:value="startServiceOnPush" />​
+            ​
+            <meta-data
+                android:name="cheshmakPush"
+                android:value="startServiceOnPush" />
+            ​
         </service>
-
-
 
         <activity
             android:name=".sync.ChooseAccountActivity"
             android:label="@string/title_activity_choose_account"
-            android:theme="@style/Theme.iPoli"
-            />
-
+            android:theme="@style/Theme.iPoli" />
         <activity
             android:name=".app.settings.PersianSettingsActivity"
             android:label="@string/title_activity_persian_settings"
             android:parentActivityName=".app.settings.SettingsActivity"
             android:theme="@style/Theme.iPoli" />
+
+        <activity
+            android:name=".app.settings.HelpActivity"
+            android:label="@string/title_activity_help"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.iPoli"></activity>
     </application>
 
 </manifest>

@@ -118,12 +118,14 @@ public class AddRepeatingQuestActivity extends BaseActivity implements ViewPager
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (fragmentPager.getCurrentItem() == REPEATING_QUEST_NAME_FRAGMENT_INDEX) {
+                if (fragmentPager.getCurrentItem() == REPEATING_QUEST_SUMMARY_FRAGMENT_INDEX) {
                     finish();
                 } else {
-                    fragmentPager.setCurrentItem(fragmentPager.getCurrentItem() - 1);
+                    fragmentPager.setCurrentItem(0);
                 }
+
                 return true;
+
             case R.id.action_save:
                 saveRepeatingQuest();
                 return true;
@@ -351,5 +353,7 @@ public class AddRepeatingQuestActivity extends BaseActivity implements ViewPager
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
+    public Toolbar getToolbar(){
+        return this.toolbar;
+    }
 }

@@ -5,6 +5,8 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
@@ -202,14 +204,17 @@ public class UpdateUtils {
         }
 
         int icon = utils.getDayIconResource(persian.getDayOfMonth());
+        Bitmap bigIcon = BitmapFactory.decodeResource(utils.getContext().getResources(), icon);
 
         ApplicationService applicationService = ApplicationService.getInstance();
+        NotificationCompat.Builder mBuilder;
         if (applicationService != null && utils.isNotifyDate()) {
             applicationService.startForeground(
                     NOTIFICATION_ID,
                     new NotificationCompat.Builder(context)
                             .setPriority(NotificationCompat.PRIORITY_LOW)
                             .setOngoing(true)
+//                            .setLargeIcon(bigIcon)
                             .setSmallIcon(icon)
                             .setWhen(0)
                             .setContentIntent(launchAppPendingIntent)

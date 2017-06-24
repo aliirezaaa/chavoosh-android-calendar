@@ -7,6 +7,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Range;
 import android.view.LayoutInflater;
@@ -18,8 +19,10 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.getkeepsafe.taptargetview.TapTarget;
 import com.ibm.icu.util.LocaleData;
 import com.squareup.otto.Bus;
+import com.wooplr.spotlight.target.ViewTarget;
 
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
@@ -40,6 +43,7 @@ import io.ipoli.android.Constants;
 import io.ipoli.android.R;
 import io.ipoli.android.app.App;
 import io.ipoli.android.app.BaseFragment;
+import io.ipoli.android.app.tutorial.InteractiveTutorial;
 import io.ipoli.android.app.ui.dialogs.TextPickerFragment;
 import io.ipoli.android.app.ui.formatters.DateFormatter;
 import io.ipoli.android.app.ui.formatters.DurationFormatter;
@@ -49,6 +53,7 @@ import io.ipoli.android.app.ui.formatters.ReminderTimeFormatter;
 import io.ipoli.android.app.ui.formatters.TimesADayFormatter;
 import io.ipoli.android.app.utils.DateUtils;
 import io.ipoli.android.app.utils.KeyboardUtils;
+import io.ipoli.android.app.utils.LocalStorage;
 import io.ipoli.android.app.utils.StringUtils;
 import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.app.utils.TimePreference;
@@ -57,6 +62,7 @@ import io.ipoli.android.persian.calendar.DateConverter;
 import io.ipoli.android.persian.calendar.PersianDate;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
 import io.ipoli.android.quest.activities.AddQuestActivity;
+import io.ipoli.android.quest.activities.AddRepeatingQuestActivity;
 import io.ipoli.android.quest.adapters.EditQuestSubQuestListAdapter;
 import io.ipoli.android.quest.data.Category;
 import io.ipoli.android.quest.data.Quest;
@@ -95,6 +101,8 @@ public class AddQuestSummaryFragment extends BaseFragment {
 
     @Inject
     Bus eventBus;
+    @Inject
+    InteractiveTutorial interactiveTutorial;
 
     private Unbinder unbinder;
 
@@ -152,6 +160,9 @@ public class AddQuestSummaryFragment extends BaseFragment {
     @BindView(R.id.add_quest_summary_note)
     TextView noteText;
 
+    @Inject
+    LocalStorage localStorage;
+
     private EditQuestSubQuestListAdapter subQuestListAdapter;
     private boolean use24HourFormat;
     private boolean shouldShow = true;
@@ -168,11 +179,26 @@ public class AddQuestSummaryFragment extends BaseFragment {
         if (shouldShow) {
             if (getActivity().getClass().toString().contains("AddQuestActivity")) {
                 postEvent(new SummaryFragmentStart("بدون نام", Category.WORK));
+                noteText.post(() -> {
+                    if(localStorage.readBool("add_quest",true)){
+                        createAndShowTutorials(view);
+                        localStorage.saveBool("add_quest",false);
+                    }
+
+                });
             } else {
                 postEvent(new RepeatingQuestSummaryStart("بدون نام", Category.WORK));
+                noteText.post(() -> {
+                    if(localStorage.readBool("add_repeat_quest",true)){
+                        createAndShowTutorialsForSummary(view);
+                        localStorage.saveBool("add_repeat_quest",false);
+                    }
+
+                });
             }
             shouldShow = false;
         }
+
         return view;
     }
 
@@ -488,6 +514,93 @@ public class AddQuestSummaryFragment extends BaseFragment {
         CivilDate cDate = new CivilDate(quest.getEndDate().getYear(), quest.getEndDate().getMonthValue(), quest.getEndDate().getDayOfMonth());
         PersianDate pDate = DateConverter.civilToPersian(cDate);
         return Utils.getInstance(getContext()).dateToString(pDate);
+    }
+
+    private void createAndShowTutorials(View view) {
+        List<TapTarget> targets = new ArrayList<>();
+        targets.add(interactiveTutorial.createTutorialForView(
+                view.findViewById(R.id.add_quest_summary_name),
+                getActivity(),
+                "نام فعالیت کاری",
+                "نام کاری که میخواهید انجام دهید چیست؟"));
+
+        ViewTarget target = new ViewTarget(scheduledDate);
+        targets.add(interactiveTutorial.createTutorialForRect(
+                target.getRect(),
+                getActivity(),
+                "تاریخ فعالیت کاری",
+                "در چه تاریخی قصد انجام کار خود را دارید؟"));
+        ViewTarget time_target = new ViewTarget(startTime);
+        targets.add(interactiveTutorial.createTutorialForRect(
+                time_target.getRect(),
+                getActivity(),
+                "ساعت فعالیت کاری",
+                "در چه ساعتی از روز قصد انجام کار خود را دارید؟"));
+        targets.add(interactiveTutorial.createTutorialForView(
+                view.findViewById(R.id.add_quest_summary_duration),
+                getActivity(),
+                "طول مدت کار",
+                "کار مد نظر شما در چه مدتی انجام می شود؟"));
+//        ViewTarget target = new ViewTarget(monthViewPager);
+        targets.add(interactiveTutorial.createTutorialForView(
+                view.findViewById(R.id.add_quest_summary_priority),
+                getActivity(),
+                "اهمیت کار",
+                "اهمیت انجام این کار برای شما چقدر است؟"));
+        Toolbar toolbar=((AddQuestActivity)getActivity()).getToolbar();
+        targets.add(interactiveTutorial.createTutorialForMenuItem(
+                toolbar,
+                R.id.action_save,
+                getActivity(),
+                "ذخیره کار",
+                "در پایان ، پس از انجام تغییرات لازم ، کار خود را ذخیره کنید"));
+
+
+
+        interactiveTutorial.showTutorials(targets, getActivity(), "add_quest_summary");
+    }
+
+    private void createAndShowTutorialsForSummary(View view) {
+        List<TapTarget> targets = new ArrayList<>();
+        targets.add(interactiveTutorial.createTutorialForView(
+                view.findViewById(R.id.add_quest_summary_name),
+                getActivity(),
+                "نام فعالیت کاری",
+                "نام کاری که میخواهید انجام دهید چیست؟"));
+
+        ViewTarget target = new ViewTarget(recurrenceText);
+        targets.add(interactiveTutorial.createTutorialForRect(
+                target.getRect(),
+                getActivity(),
+                "تعداد تکرار",
+                "چند بار میخواهید این کار را انجام دهید؟"));
+        ViewTarget time_target = new ViewTarget(startTime);
+        targets.add(interactiveTutorial.createTutorialForRect(
+                time_target.getRect(),
+                getActivity(),
+                "ساعت فعالیت کاری",
+                "در چه ساعتی از روز قصد انجام کار خود را دارید؟"));
+        targets.add(interactiveTutorial.createTutorialForView(
+                view.findViewById(R.id.add_quest_summary_duration),
+                getActivity(),
+                "طول مدت کار",
+                "کار مد نظر شما در چه مدتی انجام می شود؟"));
+        targets.add(interactiveTutorial.createTutorialForView(
+                view.findViewById(R.id.add_quest_summary_priority),
+                getActivity(),
+                "اهمیت کار",
+                "اهمیت انجام این کار برای شما چقدر است؟"));
+//        ViewTarget target = new ViewTarget(monthViewPager);
+        Toolbar toolbar=((AddRepeatingQuestActivity)getActivity()).getToolbar();
+        targets.add(interactiveTutorial.createTutorialForMenuItem(
+                toolbar,
+                R.id.action_save,
+                getActivity(),
+                "ذخیره کار",
+                "در پایان ، پس از انجام تغییرات لازم ، کار خود را ذخیره کنید"));
+
+
+        interactiveTutorial.showTutorials(targets, getActivity(), "add_quest_summary");
     }
 
 }

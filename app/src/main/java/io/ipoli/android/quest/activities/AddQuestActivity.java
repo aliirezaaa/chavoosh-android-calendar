@@ -387,4 +387,8 @@ public class AddQuestActivity extends BaseActivity implements ViewPager.OnPageCh
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
+    public Toolbar getToolbar(){
+        return this.toolbar;
+    }
 }

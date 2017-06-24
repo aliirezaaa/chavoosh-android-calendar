@@ -28,6 +28,7 @@ import io.ipoli.android.app.rate.RateDialog;
 import io.ipoli.android.app.receivers.AndroidCalendarEventChangedReceiver;
 import io.ipoli.android.app.receivers.BootCompleteReceiver;
 import io.ipoli.android.app.receivers.DateChangedReceiver;
+import io.ipoli.android.app.services.PushService;
 import io.ipoli.android.app.settings.SettingsActivity;
 import io.ipoli.android.app.tutorial.InteractiveTutorial;
 import io.ipoli.android.app.tutorial.TutorialActivity;
@@ -242,7 +243,10 @@ public interface AppComponent {
 //    void inject(CoinStoreActivity coinStoreActivity);
 
     void inject(PersianCalendarFragment persianCalendarFragment);
+
     void inject(InteractiveTutorial interactiveTutorial);
+
+    void inject(PushService pushService);
 
 }
 

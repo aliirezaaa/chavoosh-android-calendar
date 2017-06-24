@@ -137,8 +137,8 @@ import io.ipoli.android.quest.schedulers.RepeatingQuestScheduler;
 import io.ipoli.android.quest.ui.events.UpdateRepeatingQuestEvent;
 import io.ipoli.android.quest.widgets.AgendaWidgetProvider;
 import io.ipoli.android.sync.LocalCalendar;
-import me.cheshmak.android.sdk.core.Cheshmak;
-import me.cheshmak.android.sdk.core.CheshmakConfig;
+//import me.cheshmak.android.sdk.core.Cheshmak;
+//import me.cheshmak.android.sdk.core.CheshmakConfig;
 import okhttp3.Cookie;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -331,7 +331,7 @@ public class App extends MultiDexApplication {
         );
  /* add event to local calendar*/
         localCalendar = new LocalCalendar(this);
-        cheshmakInit();
+//        cheshmakInit();
         AndroidThreeTen.init(this);
         Amplitude.getInstance().initialize(getApplicationContext(), AnalyticsConstants.PROD_FLURRY_KEY).enableForegroundTracking(this);
 
@@ -428,7 +428,7 @@ public class App extends MultiDexApplication {
         String contentInfo = quest == null ? "" : "به مدت " + DurationFormatter.format(this, quest.getDuration());
         int smallIcon = quest == null ? R.drawable.ic_notification_small : quest.getCategoryType().whiteImage;
         int iconColor = quest == null ? R.color.md_grey_500 : quest.getCategoryType().color500;
-
+//        Bitmap bigIcon = BitmapFactory.decodeResource(getResources(), );
         Intent startAppIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, startAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -1118,12 +1118,12 @@ public class App extends MultiDexApplication {
     public static LocalCalendar getLocalCalendar() {
         return localCalendar;
     }
-    private void cheshmakInit() {
-        CheshmakConfig config = new CheshmakConfig();
-        config.setIsEnableAutoActivityReports(true);
-        config.setIsEnableExceptionReporting(true);
-        Cheshmak.with(getApplicationContext(), config);
-
-        Cheshmak.initTracker("G0qe5bjhhByjKq6K26y1RQ==");
-    }
+//    private void cheshmakInit() {
+//        CheshmakConfig config = new CheshmakConfig();
+//        config.setIsEnableAutoActivityReports(true);
+//        config.setIsEnableExceptionReporting(true);
+//        Cheshmak.with(getApplicationContext(), config);
+//
+//        Cheshmak.initTracker("G0qe5bjhhByjKq6K26y1RQ==");
+//    }
 }

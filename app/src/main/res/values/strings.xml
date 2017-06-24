@@ -69,7 +69,7 @@
     <string name="tomorrow">فردا</string>
     <string name="next_7_days">هفت روز آینده</string>
     <string name="cancel">لغو</string>
-    <string name="title_fragment_wizard_quest_name">کا روزانه جدید</string>
+    <string name="title_fragment_wizard_quest_name">کار روزانه جدید</string>
     <string name="unknown_choice">نمی دانم</string>
     <string name="delete">پاک کردن</string>
     <string name="delete_it">آن را پاک کن</string>
@@ -420,7 +420,37 @@
     <string name="on_date">در تاریخ</string>
     <string name="at_time">در زمان</string>
     <string name="for_while">به مدت</string>
+    <string name="about_us">درباره ما</string>
+    <string name="sec1txt">شرکت چاووش فعالیت خود را از سال 1378 با نام کامل چاووش رایانه  سپاهان آغاز نمود. زمینه اصلی فعالیت این شرکت ، ارائه خدمات و محصولات فن آوری اطلاعات و ارتباطات ، ابتدا با تمرکز بر کاربری های فن آوری های مرتبط با اینترنت و اطلاع رسانی شکل گرفت و بعدا زمینه های جدید به آن افزوده شد . از آنجا که پدیده فن آوری اطلاعات و کاربردهای آن نسبت به صنایع و حرفه های موجود جدید تر است ، هدف اصلی این شرکت معرفی و استفاده  موثر ار کاربردهای مذکور برای بهبود فرایند ها و وال های کاری مشتریان از همه ابعاد می باشد و در حال حاضر بر مشاوره و ارائه راه کار های فن آوری اطلاعات تمرکز دارد.</string>
+    <string name="sec2txt">
+ زمینه های فعالیت :"\n"
+1- سرویس دهی اینترنت ، تلفن اینترنتی و اینترنت پر سرعت"\n"
+"\n"2- طراحی ، پیاده سازی و نگهداری شبکه های مخابراتی و دیتا
+"\n"3- طراحی و ساخت مراکز داده و سایت ها ی کامپیوتری
+"\n"4-ارائه راه حل های پرتال و اینترانت سازمانی
+"\n"5- نصب و استقرار وب سایت و راه حل های تجارت الکترونیک
+"\n"6- طراحی و تولید نرم افزار های سازمانی به سفارش مشتری
+"\n"7-آموزش انفورماتیک
+</string>
+    <string name="sec3txt">"\n"دامنه ی خدمات :
+"\n"- مشاوره و تدوین استراتژی
+- تهیه و تامین تجهیزات"\n"
+"\n"- تولید و تامین نرم افزار
+- نصب ، راه اندازی و استقرار"\n"
+"\n"- پشتیبانی و نگهداری
+</string>
+    <string name="sec4txt"> تهران ، خیابان ولی عصر ، قبل از فاطمی ، کوچه میرهادی ، پلاک 14 ، واحد 15 تلفن : 021-88948784 و 5</string>
+    <string name="sec5txt">اصفهان - خیابان فردوسی - نبش خیابان عافیت ، ساختمان آزاد</string>
     <!--<string name="challenge_percentage_done">%d%% done</string>-->
+    <string name="mini_sec1">سرویس دهی اینترنت ، تلفن اینترنتی و اینترنت پرسرعت</string>
+    <string name="mini_sec2">طراحی ، پیاده سازی و نگهداری شبکه های مخابراتی و دیتا</string>
+    <string name="mini_sec3">طراحی و ساخت مراکز داده و سایت های کامپیوتری </string>
+    <string name="mini_sec4">نصب و استقرار وب سایت و راه حل های تجارت الکترونیک</string>
+    <string name="mini_sec5">طراحی و تولید نرم افزار های سازمانی به سفارش مشتری</string>
+    <string name="mini_sec6">آموزش انفورماتیک</string>
+    <string name="mini_sec7">جهت اطلاعات بیشتر به وبسایت چاووش مراجعه کنید</string>
+    <string name="mini_sec8">www.chavoosh.com</string>
+    <string name="about_subject">زمینه های فعالیت چاووش</string>
 
     <!--persian strings-->
     <!--<string name="events">رویداد</string>-->
@@ -545,6 +575,7 @@
     <string name="title_activity_sign_in_as_gust">SignInAsGustActivity</string>
     <string name="title_activity_choose_account">ChooseAccountActivity</string>
     <string name="title_activity_persian_settings">PersianSettingsActivity</string>
+    <string name="title_activity_help">درباره چاووش</string>
     <!--ipoli strings end-->
 
 </resources>

@@ -852,12 +852,12 @@ public class SettingsActivity extends BaseActivity implements
     public void smoothScrollToView(View view) {
         view.post(() -> {
             int[] location = new int[2];
-            view.getLocationInWindow(location);
+            settingScroll.getLocationInWindow(location);
             final int bottom = location[1];
             final Handler handler = new Handler();
 
             //Do something after 100ms
-            settingScroll.smoothScrollTo(0, view.getBottom() + 200);
+            settingScroll.scrollTo(0, view.getBottom() +settingScroll.getHeight()/4);
 //            ObjectAnimator objectAnimator = ObjectAnimator.ofInt(settingScroll, "scrollY", view.getTop()).setDuration(200);
 //            objectAnimator.start();
 

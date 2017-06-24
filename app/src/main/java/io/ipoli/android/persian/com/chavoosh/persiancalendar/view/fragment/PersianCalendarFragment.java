@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -27,17 +27,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.getkeepsafe.taptargetview.TapTargetView;
 import com.squareup.otto.Bus;
 import com.wooplr.spotlight.SpotlightView;
 import com.wooplr.spotlight.target.ViewTarget;
@@ -48,11 +44,9 @@ import io.ipoli.android.MainActivity;
 import io.ipoli.android.R;
 import io.ipoli.android.app.App;
 import io.ipoli.android.app.BaseFragment;
-import io.ipoli.android.app.activities.BaseActivity;
 import io.ipoli.android.app.events.CalendarDayChangedEvent;
 import io.ipoli.android.app.tutorial.InteractiveTutorial;
 import io.ipoli.android.app.ui.EmptyStateRecyclerView;
-import io.ipoli.android.app.utils.DateUtils;
 import io.ipoli.android.app.utils.LocalStorage;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
 
@@ -88,8 +82,6 @@ import io.ipoli.android.persian.com.github.praytimes.PrayTime;
 import io.ipoli.android.persian.com.github.praytimes.PrayTimesCalculator;
 import io.ipoli.android.quest.adapters.AgendaAdapter;
 import io.ipoli.android.quest.data.Quest;
-import io.ipoli.android.quest.events.NewQuestDatePickedEvent;
-import io.ipoli.android.quest.fragments.AddQuestDateFragment;
 import io.ipoli.android.quest.persistence.QuestPersistenceService;
 import io.ipoli.android.quest.viewmodels.AgendaViewModel;
 
@@ -143,6 +135,12 @@ public class PersianCalendarFragment extends BaseFragment
     private RelativeLayout midnightLayout;
     private LocalDate selectedDay;
     private WebView news_web_view;
+    private String title;
+    private String description;
+    private String imgUrl;
+    private String url;
+    private boolean isGif;
+    private boolean isPersistence;
     Toolbar toolbar;
 
     private int viewPagerPosition;
@@ -157,6 +155,10 @@ public class PersianCalendarFragment extends BaseFragment
 
     @BindView(R.id.agenda_list)
     EmptyStateRecyclerView questList;
+
+    @BindView(R.id.news_image)
+    AppCompatImageView newsImage;
+
     private CardView user_event;
 
     @Inject
@@ -206,13 +208,18 @@ public class PersianCalendarFragment extends BaseFragment
 //        questList.setEmptyView(questListContainer, R.string.empty_agenda_text, R.drawable.ic_calendar_blank_grey_24dp);
 
 
-        if (utils.isNetworkConnected()) {
-            try {
-                showNews();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (utils.isNetworkConnected()) {
+//            try {
+//                showNews();
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+            onReceivePush();
+
+
+
         about_layout = (ScrollViewExt) view.findViewById(R.id.about_layout);
         Rect scrollBounds = new Rect();
         about_layout.getHitRect(scrollBounds);
@@ -302,9 +309,9 @@ public class PersianCalendarFragment extends BaseFragment
         owghat.post(() -> {
             //create your anim here
 //            showTourGuide(view);
-            if(localStorage.readBool("persian_tutorial",true)){
+            if (localStorage.readBool("persian_tutorial", true)) {
                 createAndShowTutorials(view);
-                localStorage.saveBool("persian_tutorial",false);
+                localStorage.saveBool("persian_tutorial", false);
             }
 
 
@@ -341,7 +348,7 @@ public class PersianCalendarFragment extends BaseFragment
                 "با این منو به همه ی قسمت های برنامه دسترسی داشته باشید"));
 
 
-        interactiveTutorial.showTutorials(targets, getActivity(),"persian_cal");
+        interactiveTutorial.showTutorials(targets, getActivity(), "persian_cal");
     }
 
     private void initLocalBrodcasts() {
@@ -744,14 +751,50 @@ public class PersianCalendarFragment extends BaseFragment
         super.onPause();
     }
 
+    public void onReceivePush() {
+        if (!localStorage.readBool("show_news", false)) {
+            card_news.setVisibility(View.GONE);
+            return;
+        }
+        title = localStorage.readString("news_title");
+        description = localStorage.readString("news_description");
+        imgUrl = localStorage.readString("news_img_url");
+        url = localStorage.readString("news_url");
+        isGif = localStorage.readBool("isGif", false);
+
+        if (isGif && imgUrl != null) {
+            Glide.with(getContext())
+                    .load(imgUrl)
+                    .asGif()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(newsImage);
+            newsImage.setVisibility(View.VISIBLE);
+        } else if (imgUrl != null && !isGif) {
+            Glide.with(getContext())
+                    .load(imgUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(newsImage);
+            newsImage.setVisibility(View.VISIBLE);
+        }
+        news_card_title.setText(title);
+        news_title.setText(description);
+        news_title.setOnClickListener(v -> {
+            if (url != null) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browserIntent);
+            }
+        });
+        card_news.setVisibility(View.VISIBLE);
+
+    }
+
+
     private BroadcastReceiver newsReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
-            String title = intent.getStringExtra("title");
-            String description = intent.getStringExtra("description");
-            news_card_title.setText(title);
-            news_title.setText(description);
+
+            onReceivePush();
         }
     };
     private BroadcastReceiver dateReceiver = new BroadcastReceiver() {
@@ -769,4 +812,11 @@ public class PersianCalendarFragment extends BaseFragment
 
         }
     };
+
+    public void onDestroy() {
+
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(dateReceiver);
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(newsReceiver);
+    }
 }
