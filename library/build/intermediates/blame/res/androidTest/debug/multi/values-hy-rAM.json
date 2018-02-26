@@ -64,8 +64,8 @@
                     "startLine": 5,
                     "startColumn": 4,
                     "startOffset": 393,
-                    "endColumn": 84,
-                    "endOffset": 473
+                    "endColumn": 117,
+                    "endOffset": 506
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-hy-rAM\\values-hy-rAM.xml",
@@ -73,8 +73,8 @@
                         "startLine": 5,
                         "startColumn": 4,
                         "startOffset": 393,
-                        "endColumn": 84,
-                        "endOffset": 473
+                        "endColumn": 117,
+                        "endOffset": 506
                     }
                 }
             },
@@ -82,18 +82,18 @@
                 "to": {
                     "startLine": 6,
                     "startColumn": 4,
-                    "startOffset": 478,
+                    "startOffset": 511,
                     "endColumn": 117,
-                    "endOffset": 591
+                    "endOffset": 624
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-hy-rAM\\values-hy-rAM.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 478,
+                        "startOffset": 511,
                         "endColumn": 117,
-                        "endOffset": 591
+                        "endOffset": 624
                     }
                 }
             },
@@ -101,18 +101,18 @@
                 "to": {
                     "startLine": 7,
                     "startColumn": 4,
-                    "startOffset": 596,
-                    "endColumn": 117,
-                    "endOffset": 709
+                    "startOffset": 629,
+                    "endColumn": 121,
+                    "endOffset": 746
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-hy-rAM\\values-hy-rAM.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
-                        "startOffset": 596,
-                        "endColumn": 117,
-                        "endOffset": 709
+                        "startOffset": 629,
+                        "endColumn": 121,
+                        "endOffset": 746
                     }
                 }
             },
@@ -120,18 +120,18 @@
                 "to": {
                     "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 714,
-                    "endColumn": 121,
-                    "endOffset": 831
+                    "startOffset": 751,
+                    "endColumn": 93,
+                    "endOffset": 840
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-hy-rAM\\values-hy-rAM.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
-                        "startOffset": 714,
-                        "endColumn": 121,
-                        "endOffset": 831
+                        "startOffset": 751,
+                        "endColumn": 93,
+                        "endOffset": 840
                     }
                 }
             },
@@ -139,18 +139,18 @@
                 "to": {
                     "startLine": 9,
                     "startColumn": 4,
-                    "startOffset": 836,
-                    "endColumn": 93,
-                    "endOffset": 925
+                    "startOffset": 845,
+                    "endColumn": 89,
+                    "endOffset": 930
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-hy-rAM\\values-hy-rAM.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
-                        "startOffset": 836,
-                        "endColumn": 93,
-                        "endOffset": 925
+                        "startOffset": 845,
+                        "endColumn": 89,
+                        "endOffset": 930
                     }
                 }
             },
@@ -158,18 +158,18 @@
                 "to": {
                     "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 930,
-                    "endColumn": 89,
-                    "endOffset": 1015
+                    "startOffset": 935,
+                    "endColumn": 93,
+                    "endOffset": 1024
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-hy-rAM\\values-hy-rAM.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
-                        "startOffset": 930,
-                        "endColumn": 89,
-                        "endOffset": 1015
+                        "startOffset": 935,
+                        "endColumn": 93,
+                        "endOffset": 1024
                     }
                 }
             },
@@ -177,18 +177,18 @@
                 "to": {
                     "startLine": 11,
                     "startColumn": 4,
-                    "startOffset": 1020,
-                    "endColumn": 93,
-                    "endOffset": 1109
+                    "startOffset": 1029,
+                    "endColumn": 87,
+                    "endOffset": 1112
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-hy-rAM\\values-hy-rAM.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
-                        "startOffset": 1020,
-                        "endColumn": 93,
-                        "endOffset": 1109
+                        "startOffset": 1029,
+                        "endColumn": 87,
+                        "endOffset": 1112
                     }
                 }
             },
@@ -196,37 +196,18 @@
                 "to": {
                     "startLine": 12,
                     "startColumn": 4,
-                    "startOffset": 1114,
-                    "endColumn": 87,
-                    "endOffset": 1197
+                    "startOffset": 1117,
+                    "endColumn": 101,
+                    "endOffset": 1214
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-hy-rAM\\values-hy-rAM.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
-                        "startOffset": 1114,
-                        "endColumn": 87,
-                        "endOffset": 1197
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 13,
-                    "startColumn": 4,
-                    "startOffset": 1202,
-                    "endColumn": 101,
-                    "endOffset": 1299
-                },
-                "from": {
-                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-hy-rAM\\values-hy-rAM.xml",
-                    "position": {
-                        "startLine": 13,
-                        "startColumn": 4,
-                        "startOffset": 1202,
+                        "startOffset": 1117,
                         "endColumn": 101,
-                        "endOffset": 1299
+                        "endOffset": 1214
                     }
                 }
             }

@@ -1,13 +1,17 @@
 package io.ipoli.android.app.settings;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
@@ -23,10 +27,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.squareup.otto.Bus;
+import com.wooplr.spotlight.target.ViewTarget;
 
 import org.threeten.bp.LocalDate;
 
@@ -65,6 +74,7 @@ import io.ipoli.android.app.settings.events.OngoingNotificationChangeEvent;
 import io.ipoli.android.app.settings.events.SleepHoursChangedEvent;
 import io.ipoli.android.app.settings.events.WorkDaysChangedEvent;
 import io.ipoli.android.app.settings.events.WorkHoursChangedEvent;
+import io.ipoli.android.app.tutorial.InteractiveTutorial;
 import io.ipoli.android.app.tutorial.TutorialActivity;
 import io.ipoli.android.app.tutorial.events.ShowTutorialEvent;
 import io.ipoli.android.app.ui.dialogs.AndroidCalendarsPickerFragment;
@@ -99,7 +109,8 @@ public class SettingsActivity extends BaseActivity implements
         DaysOfWeekPickerFragment.OnDaysOfWeekPickedListener,
         EasyPermissions.PermissionCallbacks,
         LoaderManager.LoaderCallbacks<Void> {
-
+    @Inject
+    InteractiveTutorial interactiveTutorial;
     private static final int RC_CALENDAR_PERM = 102;
     @Inject
     Bus eventBus;
@@ -131,6 +142,9 @@ public class SettingsActivity extends BaseActivity implements
     @BindView(R.id.root_container)
     ViewGroup rootContainer;
 
+    @BindView(R.id.setting_scrollview)
+    ScrollView settingScroll;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -142,6 +156,9 @@ public class SettingsActivity extends BaseActivity implements
 
     @BindView(R.id.time_format)
     Switch timeFormat;
+
+    @BindView(R.id.pray_setting_txt)
+    TextView prayText;
 
     @BindView(R.id.enable_sync_calendars)
     Switch enableSyncCalendars;
@@ -210,8 +227,12 @@ public class SettingsActivity extends BaseActivity implements
 
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(challengeTimeReceiver,
                 new IntentFilter("ON_TIME_SET_FOR_CHALLENGE"));
-    }
+        if(localStorage.readBool("setting_tutorial",true)){
+            createAndShowTutorials();
+            localStorage.saveBool("setting_tutorial",false);
+        }
 
+    }
 
     @Override
     protected boolean useParentOptionsMenu() {
@@ -698,4 +719,162 @@ public class SettingsActivity extends BaseActivity implements
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(challengeTimeReceiver);
         super.onDestroy();
     }
+
+    int step = 0;
+
+    private void createAndShowTutorials() {
+
+//        ObjectAnimator objectAnimator = ObjectAnimator.ofInt(settingScroll, "scrollY", bottom).setDuration(1000);
+//        objectAnimator.start();
+//        dailyChallengeNotification.post(() -> {
+//            int[] location = new int[2];
+//            dailyChallengeNotification.getLocationInWindow(location);
+//            final int bottom = location[1];
+//            final Handler handler = new Handler();
+//            handler.postDelayed(() -> {
+//                //Do something after 100ms
+////                settingScroll.smoothScrollTo(0, 1500);
+//
+//                ObjectAnimator objectAnimator = ObjectAnimator.ofInt(settingScroll, "scrollY", bottom + 100).setDuration(1000);
+//                objectAnimator.start();
+//            }, 500);
+//
+//
+//        });
+
+//        List<TapTarget> targets = new ArrayList<>();
+//        TapTargetView.showFor(this,
+//                interactiveTutorial.createTutorialForView(
+//                        findViewById(R.id.pray_setting_txt),
+//                        this,
+//                        "اوقات شرعی",
+//                        "اگر تمایل به نمایش اوقات سرعی دارید، تنظیمات مربوط به آن را در این قسمت برای شهر خود تنظیم کنید"),
+//                new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
+//                    @Override
+//                    public void onTargetClick(TapTargetView view) {
+//                        super.onTargetClick(view);      // This call is optional
+//                        smoothScrollToView(mostProductiveTime);
+//                        new Handler().postDelayed(() -> {
+//                            TapTargetView.showFor(SettingsActivity.this,
+//                                    interactiveTutorial.createTutorialForView(
+//                                            findViewById(R.id.pray_setting_txt),
+//                                            SettingsActivity.this,
+//                                            "اوقات شرعی",
+//                                            "اگر تمایل به نمایش اوقات سرعی دارید، تنظیمات مربوط به آن را در این قسمت برای شهر خود تنظیم کنید"));
+//                        }, 1500);
+////
+//                    }
+//                });
+
+//        ViewTarget target = new ViewTarget(findViewById(R.id.persian_settings_btn));
+
+
+
+
+        new TapTargetSequence(this)
+                .targets(
+                        interactiveTutorial.createTutorialForView(
+                                findViewById(R.id.pray_setting_txt),
+                                this,
+                                "اوقات شرعی",
+                                "اگر تمایل به نمایش اوقات شرعی دارید، تنظیمات مربوط به آن را در این قسمت برای شهر خود تنظیم کنید"),
+                        interactiveTutorial.createTutorialForView(
+                                findViewById(R.id.schulde_txt),
+                                this,
+                                "زمانبندی شخصی",
+                                "تنظیمات مربوط به برنامه ی روزانه ی خود را وارد کنید تا برنامه طبق آن برای شما برنامه ریزی کند"),
+                        interactiveTutorial.createTutorialForView(
+                                findViewById(R.id.challenge_schulde_txt),
+                                this,
+                                "چالش ها شخصی میشوند",
+                                "برنامه ، شما را در روزهایی که تنظیم میکنید به چالش میکشد")
+                )
+                .listener(new TapTargetSequence.Listener() {
+                    // This listener will tell us when interesting(tm) events happen in regards
+                    // to the sequence
+                    @Override
+                    public void onSequenceFinish() {
+                        // Yay
+
+                    }
+
+                    @Override
+                    public void onSequenceStep(TapTarget tapTarget, boolean b) {
+//                        if (step != 2) {
+                        switch (step) {
+                            case 0:
+                                smoothScrollToView(findViewById(R.id.schulde_txt));
+                                break;
+                            case 1:
+                                smoothScrollToView(findViewById(R.id.challenge_schulde_txt));
+                                break;
+                            default:
+                                break;
+                        }
+//                            smoothScrollToView(findViewById(R.id.schulde_txt));
+                        step++;
+//                        }
+                    }
+
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        // Boo
+                    }
+                }).start();
+
+
+    }
+//        targets.add();
+
+//        targets.add(interactiveTutorial.createTutorialForView(
+//                findViewById(R.id.persian_settings_btn),
+//               this,
+//                "اوقات شرعی",
+//                "اگر تمایل به نمایش اوقات سرعی دارید، تنظیمات مربوط به آن را در این قسمت برای شهر خود تنظیم کنید"));
+//
+//
+//        targets.add(interactiveTutorial.createTutorialForView(
+//                toolbar.getChildAt(0),
+//                this,
+//                "در زمان سفر کنید",
+//                "با کلیک روی این نوار میتوانید به تاریخ مورد نظر به سرعت دسترسی داشته باشید"));
+////        ViewTarget target = new ViewTarget(monthViewPager);
+//        targets.add(interactiveTutorial.createTutorialForNav(
+//                toolbar,
+//                this,
+//                "همه چیز اینجاست",
+//                "با این منو به همه ی قسمت های برنامه دسترسی داشته باشید"));
+//
+//
+//                interactiveTutorial.showTutorials(targets, this, "settings");
+
+    public void smoothScrollToView(View view) {
+        view.post(() -> {
+            int[] location = new int[2];
+            settingScroll.getLocationInWindow(location);
+            final int bottom = location[1];
+            final Handler handler = new Handler();
+
+            //Do something after 100ms
+            settingScroll.scrollTo(0, view.getBottom() +settingScroll.getHeight()/4);
+//            ObjectAnimator objectAnimator = ObjectAnimator.ofInt(settingScroll, "scrollY", view.getTop()).setDuration(200);
+//            objectAnimator.start();
+
+        });
+
+
+    }
+
+    public void showTutorial(View view) {
+
+
+    }
+
+    public Rect getRect(View view) {
+        int[] location = new int[2];
+        view.getLocationInWindow(location);
+        return new Rect(location[0], location[1], location[0] + view.getWidth(), location[1] + view.getHeight());
+    }
+
+
 }

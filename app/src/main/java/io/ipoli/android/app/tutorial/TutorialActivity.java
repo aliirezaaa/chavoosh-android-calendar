@@ -1,5 +1,6 @@
 package io.ipoli.android.app.tutorial;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import io.ipoli.android.app.App;
 import io.ipoli.android.app.events.FinishTutorialActivityEvent;
 import io.ipoli.android.app.tutorial.events.TutorialSkippedEvent;
 import io.ipoli.android.app.tutorial.fragments.TutorialFragment;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class TutorialActivity extends AppIntro2 {
 
@@ -41,10 +43,7 @@ public class TutorialActivity extends AppIntro2 {
                 getString(R.string.tutorial_challenges_desc),
                 R.drawable.tutorial_challenge,
                 R.color.md_light_blue_500));
-        addSlide(TutorialFragment.newInstance(getString(R.string.tutorial_pet_title),
-                getString(R.string.tutorial_pet_desc),
-                R.drawable.tutorial_pet,
-                R.color.md_orange_700));
+
         addSlide(TutorialFragment.newInstance(getString(R.string.tutorial_schedule_title),
                 getString(R.string.tutorial_schedule_desc),
                 R.drawable.tutorial_schedule,
@@ -70,5 +69,9 @@ public class TutorialActivity extends AppIntro2 {
     private void onFinish() {
         eventBus.post(new FinishTutorialActivityEvent());
         finish();
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

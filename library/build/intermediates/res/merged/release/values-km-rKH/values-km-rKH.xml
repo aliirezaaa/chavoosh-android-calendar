@@ -3,7 +3,6 @@
     <string name="mdtp_date_v1_monthyear">MMMM yyyy</string>
     <string msgid="3968620852217927702" name="mdtp_day_picker_description">"ក្រឡាចត្រង្គ​ខែ​នៃ​ថ្ងៃ"</string>
     <string msgid="6908431551612331381" name="mdtp_deleted_key">"បាន​លុប <ns1:g id="KEY">%1$s</ns1:g>"</string>
-    <string msgid="7007948707597430919" name="mdtp_done_label">"ធ្វើ​រួច"</string>
     <string msgid="7586639618712934060" name="mdtp_hour_picker_description">"គ្រាប់​រំកិល​រង្វង់​ម៉ោង"</string>
     <string msgid="2674929164900463786" name="mdtp_item_is_selected">"បាន​ជ្រើស <ns1:g id="ITEM">%1$s</ns1:g>"</string>
     <string msgid="6024811202872705251" name="mdtp_minute_picker_description">"គ្រាប់​រំកិល​រង្វង់​នាទី"</string>

@@ -37,7 +37,7 @@ import io.ipoli.android.app.ui.FabMenuView;
 import io.ipoli.android.app.ui.events.FabMenuTappedEvent;
 import io.ipoli.android.challenge.activities.ChallengeActivity;
 import io.ipoli.android.challenge.activities.EditChallengeActivity;
-import io.ipoli.android.challenge.activities.PickChallengeActivity;
+//import io.ipoli.android.challenge.activities.PickChallengeActivity;
 import io.ipoli.android.challenge.adapters.ChallengeListAdapter;
 import io.ipoli.android.challenge.data.Challenge;
 import io.ipoli.android.challenge.events.ChallengeCompletedEvent;
@@ -113,11 +113,11 @@ public class ChallengeListFragment extends BaseFragment implements OnDataChanged
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        /*switch (item.getItemId()) {
             case R.id.action_pick_challenge:
-                startActivity(new Intent(getContext(), PickChallengeActivity.class));
+//                startActivity(new Intent(getContext(), PickChallengeActivity.class));
                 return true;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 

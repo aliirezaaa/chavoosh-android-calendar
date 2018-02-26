@@ -88,7 +88,7 @@ public class GPSLocationDialog extends PreferenceDialogFragmentCompat {
         } else if (first) {
             first = false;
             ActivityCompat.requestPermissions(getActivity(),
-                    new String[] {
+                    new String[]{
                             Manifest.permission.ACCESS_COARSE_LOCATION,
                             Manifest.permission.ACCESS_FINE_LOCATION
                     },
@@ -164,9 +164,16 @@ public class GPSLocationDialog extends PreferenceDialogFragmentCompat {
             editor.commit();
         }
 
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             locationManager.removeUpdates(locationListener);
         }
     }
 }
+

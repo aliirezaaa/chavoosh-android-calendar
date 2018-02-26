@@ -33,22 +33,22 @@ public class ScheduleDailyChallengeReminderReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         App.getAppComponent(context).inject(this);
-        PendingIntent repeatingIntent = IntentUtils.getBroadcastPendingIntent(context, getDailyChallengeReminderIntent());
+//        PendingIntent repeatingIntent = IntentUtils.getBroadcastPendingIntent(context, getDailyChallengeReminderIntent());
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         int startMinute = localStorage.readInt(Constants.KEY_DAILY_CHALLENGE_REMINDER_START_MINUTE, Constants.DEFAULT_DAILY_CHALLENGE_REMINDER_START_MINUTE);
         long firstTriggerMillis = DateUtils.toMillis(LocalDate.now()) + Time.of(startMinute).toMillisOfDay();
         if (timeIsInThePast(firstTriggerMillis)) {
             firstTriggerMillis += TimeUnit.DAYS.toMillis(1);
         }
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstTriggerMillis,
-                AlarmManager.INTERVAL_DAY, repeatingIntent);
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, firstTriggerMillis,
+//                AlarmManager.INTERVAL_DAY, repeatingIntent);
     }
 
     private boolean timeIsInThePast(long firstTriggerMillis) {
         return firstTriggerMillis < System.currentTimeMillis();
     }
 
-    private Intent getDailyChallengeReminderIntent() {
-        return new Intent(DailyChallengeReminderReceiver.ACTION_SHOW_DAILY_CHALLENGE_REMINDER);
-    }
+//    private Intent getDailyChallengeReminderIntent() {
+//        return new Intent(DailyChallengeReminderReceiver.ACTION_SHOW_DAILY_CHALLENGE_REMINDER);
+//    }
 }

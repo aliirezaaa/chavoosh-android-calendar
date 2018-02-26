@@ -33,7 +33,7 @@
         <item
             android:id="@+id/challenges"
             android:checked="false"
-            app:srcCompat="@drawable/ic_sword_white_24dp"
+            android:icon="@drawable/ic_sword_white_24dp"
             android:title="@string/challenges" />
 
         <item
@@ -60,6 +60,12 @@
             android:checked="false"
             android:icon="@drawable/ic_email_white_24dp"
             android:title="@string/contact_us" />
+        <item
+            android:id="@+id/about_us"
+            android:checkable="false"
+            android:checked="false"
+            android:icon="@drawable/ic_email_white_24dp"
+            android:title="@string/about_us" />
         <item
             android:id="@+id/invite_friends"
             android:checkable="false"

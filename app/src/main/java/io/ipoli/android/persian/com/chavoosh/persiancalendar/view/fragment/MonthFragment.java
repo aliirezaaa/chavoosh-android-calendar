@@ -28,6 +28,7 @@ import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.adapter.MonthAdapter;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.entity.DayEntity;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
+import io.ipoli.android.quest.activities.AddQuestActivity;
 
 
 public class MonthFragment extends Fragment implements View.OnClickListener {
@@ -169,6 +170,12 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
 
     public void onLongClickItem(PersianDate day) {
 //        persianCalendarFragment.addEventOnCalendar(day);
+        Intent intent = new Intent(getContext(),AddQuestActivity.class);
+        intent.putExtra("year", day.getYear());
+        intent.putExtra("month", day.getMonth());
+        intent.putExtra("day", day.getDayOfMonth());
+        startActivity(intent);
+
     }
 
     @Override

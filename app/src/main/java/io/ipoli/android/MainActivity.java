@@ -7,15 +7,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.drawable.GradientDrawable;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,11 +25,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.getkeepsafe.taptargetview.TapTarget;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -50,10 +55,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import io.ipoli.android.app.App;
 import io.ipoli.android.app.activities.BaseActivity;
-import io.ipoli.android.app.activities.SyncCalendarActivity;
 import io.ipoli.android.app.events.CalendarDayChangedEvent;
 import io.ipoli.android.app.events.ContactUsTapEvent;
 import io.ipoli.android.app.events.EventSource;
@@ -61,22 +64,20 @@ import io.ipoli.android.app.events.FriendsInvitedEvent;
 import io.ipoli.android.app.events.InviteFriendsCanceledEvent;
 import io.ipoli.android.app.events.InviteFriendsEvent;
 import io.ipoli.android.app.events.ScreenShownEvent;
-import io.ipoli.android.app.events.SyncCalendarRequestEvent;
 import io.ipoli.android.app.events.UndoCompletedQuestEvent;
-import io.ipoli.android.app.rate.RateDialogConstants;
+import io.ipoli.android.app.settings.HelpActivity;
 import io.ipoli.android.app.settings.SettingsActivity;
 import io.ipoli.android.app.share.ShareQuestDialog;
+import io.ipoli.android.app.tutorial.InteractiveTutorial;
 import io.ipoli.android.app.utils.EmailUtils;
 import io.ipoli.android.app.utils.LocalStorage;
-import io.ipoli.android.app.utils.ResourceUtils;
 import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.challenge.fragments.ChallengeListFragment;
 import io.ipoli.android.persian.calendar.DateConverter;
 import io.ipoli.android.persian.calendar.PersianDate;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
-import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.ApplicationPreferenceFragment;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.PersianCalendarFragment;
-import io.ipoli.android.pet.PetActivity;
+//import io.ipoli.android.pet.PetActivity;
 import io.ipoli.android.pet.data.Pet;
 import io.ipoli.android.player.ExperienceForLevelGenerator;
 import io.ipoli.android.player.Player;
@@ -105,8 +106,10 @@ import io.ipoli.android.quest.persistence.QuestPersistenceService;
 import io.ipoli.android.quest.ui.events.EditRepeatingQuestRequestEvent;
 import io.ipoli.android.reminder.data.Reminder;
 
-import me.cheshmak.android.sdk.core.Cheshmak;
-import me.cheshmak.android.sdk.core.CheshmakConfig;
+/*import me.cheshmak.android.sdk.core.Cheshmak;
+import me.cheshmak.android.sdk.core.CheshmakConfig;*/
+//import me.cheshmak.android.sdk.core.Cheshmak;
+//import me.cheshmak.android.sdk.core.CheshmakConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -127,6 +130,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.content_container)
     View contentContainer;
 
+    @BindView(R.id.setting_spot)
+    LinearLayout settingSpot;
+
     @Inject
     Bus eventBus;
 
@@ -139,6 +145,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Inject
     PlayerPersistenceService playerPersistenceService;
 
+    @Inject
+    InteractiveTutorial interactiveTutorial;
+
     Fragment currentFragment;
 
     private boolean isRateDialogShown;
@@ -149,6 +158,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private boolean snoozeAction;
     private Quest tSnoozeQuest;
     private boolean tShowAction;
+    private Toolbar toolbar;
+    private boolean restartFragment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,8 +167,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
 
 //        changeLanguage("fa");
-        cheshmakInit();
+
 //        changDirection();
+
         instance = this.getApplication();
         appComponent().inject(this);
 
@@ -183,14 +195,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         navigationView.setNavigationItemSelectedListener(this);
 
-
+        onReceivePush();
 //        startCalendar();
-       startPersianCalendar();
+        startPersianCalendar();
+        LocalBroadcastManager.getInstance(this).registerReceiver(preferences_update,
+                new IntentFilter("UPDATE_LOCATION"));
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
             @Override
             public void onDrawerOpened(View drawerView) {
+                if (toolbar != null) {
+                }
                 navigationItemSelected = null;
+                if (localStorage.readBool("main_tutorial", true)) {
+                    showTourGuide();
+                    localStorage.saveBool("main_tutorial", false);
+                }
+
             }
 
             @Override
@@ -204,17 +225,40 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         Utils.getInstance(getContext()).changLayoutDirection(this);
         initLocalDateBroadCast();
+//        isOnScreen(navigationView.getChildAt(0));
+//        toolbar.post(() -> {
+//            //create your anim here
+////            showTourGuide(view);
+//                showTapTargetView();
+////            localStorage.saveBool("week",true);
+//        });
+
 
     }
 
-    private void cheshmakInit() {
-        CheshmakConfig config = new CheshmakConfig();
-        config.setIsEnableAutoActivityReports(true);
-        config.setIsEnableExceptionReporting(true);
-        Cheshmak.with(getApplicationContext(), config);
-
-        Cheshmak.initTracker("G0qe5bjhhByjKq6K26y1RQ==");
+    private void onReceivePush() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.getExtras() != null && intent.getExtras().getString("title") != null) {
+                Toast.makeText(this, "Cheshmak push notification data" +
+                        intent.getExtras().getString("me.cheshmak.data") + "\n" +
+                        intent.getExtras().getString("title") + "\n" +
+                        intent.getExtras().getString("message") + "\n", Toast.LENGTH_SHORT).show();
+            }
+        }
+        //some code​
     }
+
+    /* private void cheshmakInit() {
+         CheshmakConfig config = new CheshmakConfig();
+         config.setIsEnableAutoActivityReports(true);
+         config.setIsEnableExceptionReporting(true);
+         Cheshmak.with(getApplicationContext(), config);
+
+         Cheshmak.initTracker("G0qe5bjhhByjKq6K26y1RQ==");
+     }
+ */
+
 
     private void changeLanguage(String langouage) {
         Resources res = getResources();
@@ -237,6 +281,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onResume();
         eventBus.register(this);
         updatePlayerInDrawer(getPlayer());
+        if (restartFragment) {
+            startPersianCalendar();
+            restartFragment = false;
+        }
+
     }
 
     private void onItemSelectedFromDrawer() {
@@ -310,6 +359,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 eventBus.post(new ContactUsTapEvent());
                 EmailUtils.send(MainActivity.this, "درباره تقویم چاووش", localStorage.readString(Constants.KEY_PLAYER_ID), getString(R.string.contact_us_email_chooser_title));
                 break;
+
+            case R.id.about_us:
+                startActivity(new Intent(this, HelpActivity.class));
+                break;
         }
 
         if (source != null) {
@@ -366,15 +419,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void updatePetInDrawer(Pet pet) {
-        View header = navigationView.getHeaderView(0);
+//        View header = navigationView.getHeaderView(0);
 
-        CircleImageView petPictureView = (CircleImageView) header.findViewById(R.id.pet_picture);
-        petPictureView.setImageResource(ResourceUtils.extractDrawableResource(MainActivity.this, pet.getPicture() + "_head"));
-        petPictureView.setOnClickListener(v -> startActivity(new Intent(this, PetActivity.class)));
+//        CircleImageView petPictureView = (CircleImageView) header.findViewById(R.id.pet_picture);
+//        petPictureView.setImageResource(ResourceUtils.extractDrawableResource(MainActivity.this, pet.getPicture() + "_head"));
+//        petPictureView.setOnClickListener(v -> startActivity(new Intent(this, PetActivity.class)));
 
-        ImageView petStateView = (ImageView) header.findViewById(R.id.pet_state);
-        GradientDrawable drawable = (GradientDrawable) petStateView.getBackground();
-        drawable.setColor(ContextCompat.getColor(this, pet.getStateColor()));
+//        ImageView petStateView = (ImageView) header.findViewById(R.id.pet_state);
+//        GradientDrawable drawable = (GradientDrawable) petStateView.getBackground();
+//        drawable.setColor(ContextCompat.getColor(this, pet.getStateColor()));
     }
 
     private int getCurrentProgress(Player player) {
@@ -390,8 +443,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public void startPersianCalendar() {
-
         changeCurrentFragment(new PersianCalendarFragment());
+//        if (restartFragment) {
+//
+//            Fragment frg;
+//            frg = getSupportFragmentManager().findFragmentByTag(PersianCalendarFragment.class.getName());
+//            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.detach(frg);
+//            ft.attach(frg);
+//            ft.commit();
+//            restartFragment=false;
+//        } else {
+//
+//        }
+
+
     }
 
     @Override
@@ -455,6 +521,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         actionBarDrawerToggle.syncState();
+        this.toolbar = toolbar;
+        this.toolbar.inflateMenu(R.menu.main_navigation_drawer_menu);
+//        showTapTargetView();
     }
 
     @Subscribe
@@ -475,8 +544,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onDuplicateQuestRequest(DuplicateQuestRequestEvent e) {
         boolean showAction = e.source != EventSource.OVERVIEW;
         if (e.date == null) {
-            dShowAction=e.source != EventSource.OVERVIEW;
-            dEvent=e;
+            dShowAction = e.source != EventSource.OVERVIEW;
+            dEvent = e;
 //            DatePickerFragment fragment = DatePickerFragment.newInstance(LocalDate.now(), true,
 //                    date ->
 //                            duplicateQuest(e.quest, date, showAction));
@@ -555,8 +624,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void pickTimeAndSnoozeQuest(Quest quest, boolean showAction) {
-        tSnoozeQuest=quest;
-        tShowAction=showAction;
+        tSnoozeQuest = quest;
+        tShowAction = showAction;
 //        Time time = quest.hasStartTime() ? Time.of(quest.getStartMinute()) : null;
 //        TimePickerFragment.newInstance(false, time, newTime -> {
 //            quest.setStartMinute(newTime.toMinuteOfDay());
@@ -566,8 +635,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void pickDateAndSnoozeQuest(Quest quest, boolean showAction) {
-        snoozeQuest=quest;
-        snoozeAction=showAction;
+        snoozeQuest = quest;
+        snoozeAction = showAction;
 //        DatePickerFragment.newInstance(LocalDate.now(), true, date -> {
 //            quest.setScheduledDate(date);
 //            saveSnoozedQuest(quest, true, showAction);
@@ -630,8 +699,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void inviteFriends() {
-        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable( getApplicationContext() );
-        if(status == ConnectionResult.SUCCESS) {
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+        if (status == ConnectionResult.SUCCESS) {
             //alarm to go and install Google Play Services
             eventBus.post(new InviteFriendsEvent());
             Intent intent = new AppInviteInvitation.IntentBuilder(getString(R.string.invite_title))
@@ -640,8 +709,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     .setCallToActionText(getString(R.string.invite_call_to_action))
                     .build();
             startActivityForResult(intent, INVITE_FRIEND_REQUEST_CODE);
-        }else if(status == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED){
-            Toast.makeText(getContext(),"لطفا گوگل پلی سرویس دستگاه خود را بروزرسانی کنید", Toast.LENGTH_SHORT).show();
+        } else if (status == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED) {
+            Toast.makeText(getContext(), "لطفا گوگل پلی سرویس دستگاه خود را بروزرسانی کنید", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -658,9 +727,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             String picture = data.getStringExtra(Constants.PICTURE_NAME_EXTRA_KEY);
             if (!TextUtils.isEmpty(picture)) {
                 Player player = getPlayer();
-                ImageView avatarImage = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.player_picture);
-                avatarImage.setImageResource(ResourceUtils.extractDrawableResource(this, picture));
-                player.setPicture(picture);
+//                ImageView avatarImage = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.player_picture);
+//                avatarImage.setImageResource(ResourceUtils.extractDrawableResource(this, picture));
+//                player.setPicture(picture);
                 playerPersistenceService.save(player);
             }
         }
@@ -700,6 +769,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 new IntentFilter("ON_DATE_SET_FOR_SNOOZE"));
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(snoozeTimeReceiver,
                 new IntentFilter("ON_DATE_SET_FOR_SNOOZE_TIME"));
+
     }
 
     private BroadcastReceiver dateReceiver = new BroadcastReceiver() {
@@ -729,22 +799,149 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
-            int hour = intent.getIntExtra("hour",0);
-            int minute = intent.getIntExtra("minute",0);
+            int hour = intent.getIntExtra("hour", 0);
+            int minute = intent.getIntExtra("minute", 0);
 //
-            Time tm=Time.at(hour,minute);
+            Time tm = Time.at(hour, minute);
 
             tSnoozeQuest.setStartMinute(tm.toMinuteOfDay());
             saveSnoozedQuest(tSnoozeQuest, false, tShowAction);
 
         }
     };
+
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(dateReceiver);
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(snoozeDateReceiver);
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(snoozeTimeReceiver);
         super.onDestroy();
 
     }
+
+    private void showTourGuide() {
+        navigationView.post(() -> {
+      /*  new SpotlightView.Builder(this)
+                .introAnimationDuration(400)
+                .enableRevealAnimation(true)
+                .performClick(true)
+                .fadeinTextDuration(400)
+                .headingTvColor(Color.parseColor("#eb273f"))
+                .headingTvSize(32)
+                .headingTvText("Love")
+                .subHeadingTvColor(Color.parseColor("#ffffff"))
+                .subHeadingTvSize(16)
+                .subHeadingTvText("Like the picture?\nLet others know.")
+                .maskColor(Color.parseColor("#dc000000"))
+                .target(view)
+                .lineAnimDuration(400)
+                .lineAndArcColor(Color.parseColor("#eb273f"))
+                .dismissOnTouch(true)
+                .dismissOnBackPress(true)
+                .enableDismissAfterShown(true)
+                .usageId("1") //UNIQUE ID
+                .show();*/
+//        RecyclerView recyclerView = (RecyclerView) navigationView.getChildAt(0);
+//        LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//        layoutManager.scrollToPositionWithOffset(4, 0);
+
+            NavigationMenuView navView = (NavigationMenuView) navigationView.getChildAt(0);
+            Menu menu = navigationView.getMenu();
+            MenuItem setting = menu.findItem(R.id.settings);
+            Log.i("menu find", setting.getTitle().toString());
+//            ViewTarget target = new ViewTarget(navView.getChildAt(11));
+//            NavigationMenuItemView item = (NavigationMenuItemView) navView.getChildAt(11);
+////        Log.i("getitemid", item.getChildAt(0) + "");
+            smoothScrollToView(navView);
+
+//            ViewTarget target_item = new ViewTarget(item.getChildAt(0));
+//            Rect rect = new Rect(navView.getWidth()+navView.getRight(),
+//                    navView.getTop() + navView.getHeight() - 100,
+//                    navView.getWidth()/2-navView.getWidth()/4,
+//                    navView.getBottom());
+            List<TapTarget> targets = new ArrayList<>();
+            targets.add(interactiveTutorial.createTutorialForView(
+                    settingSpot,
+                    this,
+                    "شما تصمیم بگیرید",
+                    "به تنظیمات برنامه سر بزنید و برنامه را برای استفاده خود شخصی سازی کنید"));
+//        ViewTarget target = new ViewTarget(toolbar).getView();
+//                isOnScreen(navigationView.getChildAt(0));
+
+            interactiveTutorial.showTutorials(targets, this, "cal_view");
+            settingSpot.setVisibility(View.GONE);
+        });
+    }
+
+    public void smoothScrollToView(View view) {
+        navigationView.post(() -> {
+                    int[] location = new int[2];
+                    view.getLocationInWindow(location);
+                    final int bottom = location[1];
+                    //Do something after 100ms
+                    NavigationMenuView navView = (NavigationMenuView) navigationView.getChildAt(0);
+                    navView.smoothScrollBy(0, navigationView.getBottom());
+
+//            ObjectAnimator objectAnimator = ObjectAnimator.ofInt(settingScroll, "scrollY", view.getTop()).setDuration(200);
+//            objectAnimator.start();
+
+                }
+
+        );
+
+
+    }
+
+    private boolean isOnScreen(View view) {
+        ViewTreeObserver vto = view.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final int i[] = new int[2];
+                final Rect scrollBounds = new Rect();
+
+                view.getHitRect(scrollBounds);
+                navigationView.getLocationOnScreen(i);
+
+                if (i[1] >= scrollBounds.bottom) {
+                    view.post(new Runnable() {
+                        @Override
+                        public void run() {
+//                            sView.smoothScrollTo(0, sView.getScrollY() + (i[1] - scrollBounds.bottom));
+                            Log.i("observ", "its on screen");
+                        }
+                    });
+                }
+
+                vto.removeOnGlobalLayoutListener(this);
+            }
+        });
+
+
+        return false;
+    }
+
+    private boolean isViewVisible(View view) {
+        Rect scrollBounds = new Rect();
+        view.getDrawingRect(scrollBounds);
+
+        float top = view.getY();
+        float bottom = top + view.getHeight();
+
+        if (scrollBounds.top < top && scrollBounds.bottom > bottom) {
+            Log.i("isvisible", "its on screen");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private BroadcastReceiver preferences_update = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            restartFragment = true;
+
+        }
+    };
 }

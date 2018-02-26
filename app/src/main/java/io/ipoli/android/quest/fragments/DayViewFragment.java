@@ -440,7 +440,7 @@ public class DayViewFragment extends BaseFragment implements CalendarListener<Qu
         Quest quest = e.quest;
         quest.setStartMinute(e.startMinute);
         saveQuest(quest);
-        Toast.makeText(getContext(), "Suggestion accepted", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "ساعت پیشنهادی پذیرفته شد", Toast.LENGTH_SHORT).show();
     }
 
     @Subscribe
@@ -449,7 +449,7 @@ public class DayViewFragment extends BaseFragment implements CalendarListener<Qu
             calendarAdapter.notifyDataSetChanged();
             calendarDayView.smoothScrollToTime(Time.of(e.calendarEvent.getStartMinute()));
         } else {
-            Toast.makeText(getContext(), "No more suggestions", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "پیشنهاد دیگری وجود ندارد", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -64,8 +64,8 @@
                     "startLine": 5,
                     "startColumn": 4,
                     "startOffset": 386,
-                    "endColumn": 79,
-                    "endOffset": 461
+                    "endColumn": 104,
+                    "endOffset": 486
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-si-rLK\\values-si-rLK.xml",
@@ -73,8 +73,8 @@
                         "startLine": 5,
                         "startColumn": 4,
                         "startOffset": 386,
-                        "endColumn": 79,
-                        "endOffset": 461
+                        "endColumn": 104,
+                        "endOffset": 486
                     }
                 }
             },
@@ -82,18 +82,18 @@
                 "to": {
                     "startLine": 6,
                     "startColumn": 4,
-                    "startOffset": 466,
-                    "endColumn": 104,
-                    "endOffset": 566
+                    "startOffset": 491,
+                    "endColumn": 120,
+                    "endOffset": 607
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-si-rLK\\values-si-rLK.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 466,
-                        "endColumn": 104,
-                        "endOffset": 566
+                        "startOffset": 491,
+                        "endColumn": 120,
+                        "endOffset": 607
                     }
                 }
             },
@@ -101,18 +101,18 @@
                 "to": {
                     "startLine": 7,
                     "startColumn": 4,
-                    "startOffset": 571,
-                    "endColumn": 120,
-                    "endOffset": 687
+                    "startOffset": 612,
+                    "endColumn": 111,
+                    "endOffset": 719
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-si-rLK\\values-si-rLK.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
-                        "startOffset": 571,
-                        "endColumn": 120,
-                        "endOffset": 687
+                        "startOffset": 612,
+                        "endColumn": 111,
+                        "endOffset": 719
                     }
                 }
             },
@@ -120,18 +120,18 @@
                 "to": {
                     "startLine": 8,
                     "startColumn": 4,
-                    "startOffset": 692,
-                    "endColumn": 111,
-                    "endOffset": 799
+                    "startOffset": 724,
+                    "endColumn": 93,
+                    "endOffset": 813
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-si-rLK\\values-si-rLK.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
-                        "startOffset": 692,
-                        "endColumn": 111,
-                        "endOffset": 799
+                        "startOffset": 724,
+                        "endColumn": 93,
+                        "endOffset": 813
                     }
                 }
             },
@@ -139,18 +139,18 @@
                 "to": {
                     "startLine": 9,
                     "startColumn": 4,
-                    "startOffset": 804,
-                    "endColumn": 93,
-                    "endOffset": 893
+                    "startOffset": 818,
+                    "endColumn": 86,
+                    "endOffset": 900
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-si-rLK\\values-si-rLK.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
-                        "startOffset": 804,
-                        "endColumn": 93,
-                        "endOffset": 893
+                        "startOffset": 818,
+                        "endColumn": 86,
+                        "endOffset": 900
                     }
                 }
             },
@@ -158,18 +158,18 @@
                 "to": {
                     "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 898,
-                    "endColumn": 86,
-                    "endOffset": 980
+                    "startOffset": 905,
+                    "endColumn": 93,
+                    "endOffset": 994
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-si-rLK\\values-si-rLK.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
-                        "startOffset": 898,
-                        "endColumn": 86,
-                        "endOffset": 980
+                        "startOffset": 905,
+                        "endColumn": 93,
+                        "endOffset": 994
                     }
                 }
             },
@@ -177,18 +177,18 @@
                 "to": {
                     "startLine": 11,
                     "startColumn": 4,
-                    "startOffset": 985,
-                    "endColumn": 93,
-                    "endOffset": 1074
+                    "startOffset": 999,
+                    "endColumn": 85,
+                    "endOffset": 1080
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-si-rLK\\values-si-rLK.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
-                        "startOffset": 985,
-                        "endColumn": 93,
-                        "endOffset": 1074
+                        "startOffset": 999,
+                        "endColumn": 85,
+                        "endOffset": 1080
                     }
                 }
             },
@@ -196,37 +196,18 @@
                 "to": {
                     "startLine": 12,
                     "startColumn": 4,
-                    "startOffset": 1079,
-                    "endColumn": 85,
-                    "endOffset": 1160
+                    "startOffset": 1085,
+                    "endColumn": 100,
+                    "endOffset": 1181
                 },
                 "from": {
                     "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-si-rLK\\values-si-rLK.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
-                        "startOffset": 1079,
-                        "endColumn": 85,
-                        "endOffset": 1160
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 13,
-                    "startColumn": 4,
-                    "startOffset": 1165,
-                    "endColumn": 100,
-                    "endOffset": 1261
-                },
-                "from": {
-                    "file": "C:\\Users\\Client-9\\StudioProjects\\ChavooshCalendar\\library\\build\\intermediates\\bundles\\debug\\res\\values-si-rLK\\values-si-rLK.xml",
-                    "position": {
-                        "startLine": 13,
-                        "startColumn": 4,
-                        "startOffset": 1165,
+                        "startOffset": 1085,
                         "endColumn": 100,
-                        "endOffset": 1261
+                        "endOffset": 1181
                     }
                 }
             }

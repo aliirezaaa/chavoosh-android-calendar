@@ -11,17 +11,21 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
+import net.fortuna.ical4j.model.Recur;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.ipoli.android.Constants;
 import io.ipoli.android.R;
 import io.ipoli.android.app.activities.BaseActivity;
 import io.ipoli.android.app.events.EventSource;
@@ -29,6 +33,8 @@ import io.ipoli.android.app.utils.KeyboardUtils;
 import io.ipoli.android.app.utils.StringUtils;
 import io.ipoli.android.note.data.Note;
 import io.ipoli.android.quest.data.Category;
+import io.ipoli.android.quest.data.Quest;
+import io.ipoli.android.quest.data.Recurrence;
 import io.ipoli.android.quest.data.RepeatingQuest;
 import io.ipoli.android.quest.events.CategoryChangedEvent;
 import io.ipoli.android.quest.events.ChangeQuestNameRequestEvent;
@@ -46,6 +52,8 @@ import io.ipoli.android.quest.events.NewQuestTimePickedEvent;
 import io.ipoli.android.quest.events.NewQuestTimesADayPickedEvent;
 import io.ipoli.android.quest.events.NewRepeatingQuestEvent;
 import io.ipoli.android.quest.events.NewRepeatingQuestRecurrencePickedEvent;
+import io.ipoli.android.quest.events.RepeatingQuestSummaryStart;
+import io.ipoli.android.quest.events.SummaryFragmentStart;
 import io.ipoli.android.quest.fragments.AddNameFragment;
 import io.ipoli.android.quest.fragments.AddQuestPriorityFragment;
 import io.ipoli.android.quest.fragments.AddQuestSummaryFragment;
@@ -61,11 +69,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AddRepeatingQuestActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
-    public static final int REPEATING_QUEST_NAME_FRAGMENT_INDEX = 0;
-    public static final int REPEATING_QUEST_RECURRENCE_FRAGMENT_INDEX = 1;
-    public static final int REPEATING_QUEST_TIME_FRAGMENT_INDEX = 2;
-    public static final int REPEATING_QUEST_PRIORITY_FRAGMENT_INDEX = 3;
-    private static final int REPEATING_QUEST_SUMMARY_FRAGMENT_INDEX = 4;
+    public static final int REPEATING_QUEST_NAME_FRAGMENT_INDEX = 1;
+    public static final int REPEATING_QUEST_RECURRENCE_FRAGMENT_INDEX = 2;
+    public static final int REPEATING_QUEST_TIME_FRAGMENT_INDEX = 3;
+    public static final int REPEATING_QUEST_PRIORITY_FRAGMENT_INDEX = 4;
+    private static final int REPEATING_QUEST_SUMMARY_FRAGMENT_INDEX = 0;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -110,12 +118,14 @@ public class AddRepeatingQuestActivity extends BaseActivity implements ViewPager
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (fragmentPager.getCurrentItem() == REPEATING_QUEST_NAME_FRAGMENT_INDEX) {
+                if (fragmentPager.getCurrentItem() == REPEATING_QUEST_SUMMARY_FRAGMENT_INDEX) {
                     finish();
                 } else {
-                    fragmentPager.setCurrentItem(fragmentPager.getCurrentItem() - 1);
+                    fragmentPager.setCurrentItem(0);
                 }
+
                 return true;
+
             case R.id.action_save:
                 saveRepeatingQuest();
                 return true;
@@ -149,14 +159,30 @@ public class AddRepeatingQuestActivity extends BaseActivity implements ViewPager
 
     @Subscribe
     public void onNewQuestNameAndCategoryPicked(NameAndCategoryPickedEvent e) {
-        repeatingQuest = new RepeatingQuest(e.name);
+//        repeatingQuest = new RepeatingQuest(e.name);
         repeatingQuest. setName(e.name);
         repeatingQuest.addReminder(new Reminder(0));
         repeatingQuest.setCategoryType(e.category);
         KeyboardUtils.hideKeyboard(this);
         goToNextPage();
     }
+    @Subscribe
+    public void onRepeatingQuestSummaryStart(RepeatingQuestSummaryStart e) {
+        Log.i("ev","start");
+        repeatingQuest = new RepeatingQuest(e.name);
+        repeatingQuest. setName(e.name);
+        repeatingQuest.addReminder(new Reminder(0));
+        repeatingQuest.setCategoryType(e.category);
+        KeyboardUtils.hideKeyboard(this);
+        Recurrence recurrence = Recurrence.create();
+        Recur recur = new Recur(Recur.WEEKLY, null);
+        recurrence.setRrule(recur.toString());
+        recurrence.setRecurrenceType(Recurrence.RepeatType.WEEKLY);
+        recurrence.setFlexibleCount(1);
+        repeatingQuest.setRecurrence(recurrence);
+        summaryFragment.setRepeatingQuest(repeatingQuest);
 
+    }
     @Subscribe
     public void onNewRepeatingQuestRecurrencePicked(NewRepeatingQuestRecurrencePickedEvent e) {
         repeatingQuest.setRecurrence(e.recurrence);
@@ -235,7 +261,7 @@ public class AddRepeatingQuestActivity extends BaseActivity implements ViewPager
     }
 
     private void goToNextPage() {
-        fragmentPager.postDelayed(() -> fragmentPager.setCurrentItem(fragmentPager.getCurrentItem() + 1),
+        fragmentPager.postDelayed(() -> fragmentPager.setCurrentItem(0),
                 getResources().getInteger(android.R.integer.config_shortAnimTime));
     }
 
@@ -327,5 +353,7 @@ public class AddRepeatingQuestActivity extends BaseActivity implements ViewPager
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
-
+    public Toolbar getToolbar(){
+        return this.toolbar;
+    }
 }

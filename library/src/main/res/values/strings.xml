@@ -19,7 +19,6 @@
     <string name="mdtp_date_v1_monthyear">MMMM yyyy</string>
 
     <!-- Label forf date or time [CHAR LIMIT=30] -->
-    <string name="mdtp_done_label">Done</string>
     <string name="mdtp_ok">باشه</string>
     <string name="mdtp_cancel">رد کردن</string>
     <!--

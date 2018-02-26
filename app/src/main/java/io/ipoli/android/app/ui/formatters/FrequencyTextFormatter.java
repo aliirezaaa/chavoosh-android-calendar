@@ -10,16 +10,16 @@ import io.ipoli.android.quest.data.Recurrence;
 public class FrequencyTextFormatter {
     public static String formatReadable(Recurrence recurrence) {
         if (recurrence == null) {
-            return "Does not repeat";
+            return "بدون تکرار";
         }
         return StringUtils.capitalize(recurrence.getRecurrenceType().name());
     }
 
     public static String formatInterval(int frequency, Recurrence recurrence) {
-        String frequencyText = frequency == 1 ? "Once " : frequency + " times ";
+        String frequencyText = frequency == 1 ? "یکبار " : frequency + " بار ";
         if (recurrence.getRecurrenceType() == Recurrence.RepeatType.MONTHLY) {
-            return frequencyText + "a month";
+            return frequencyText + "در ماه";
         }
-        return frequencyText + "a week";
+        return frequencyText + "در هفته";
     }
 }

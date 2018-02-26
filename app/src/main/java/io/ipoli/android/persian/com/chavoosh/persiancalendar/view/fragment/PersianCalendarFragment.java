@@ -1,7 +1,13 @@
 package io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment;
 
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -21,10 +27,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.getkeepsafe.taptargetview.TapTarget;
 import com.squareup.otto.Bus;
+import com.wooplr.spotlight.SpotlightView;
+import com.wooplr.spotlight.target.ViewTarget;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +45,9 @@ import io.ipoli.android.R;
 import io.ipoli.android.app.App;
 import io.ipoli.android.app.BaseFragment;
 import io.ipoli.android.app.events.CalendarDayChangedEvent;
+import io.ipoli.android.app.tutorial.InteractiveTutorial;
 import io.ipoli.android.app.ui.EmptyStateRecyclerView;
-import io.ipoli.android.app.utils.DateUtils;
+import io.ipoli.android.app.utils.LocalStorage;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
 
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.adapter.CalendarAdapter;
@@ -121,9 +134,18 @@ public class PersianCalendarFragment extends BaseFragment
     private RelativeLayout ishaLayout;
     private RelativeLayout midnightLayout;
     private LocalDate selectedDay;
+    private WebView news_web_view;
+    private String title;
+    private String description;
+    private String imgUrl;
+    private String url;
+    private boolean isGif;
+    private boolean isPersistence;
+    Toolbar toolbar;
 
     private int viewPagerPosition;
     private ScrollViewExt about_layout;
+    boolean show = true;
     @Inject
     QuestPersistenceService questPersistenceService;
 
@@ -133,7 +155,16 @@ public class PersianCalendarFragment extends BaseFragment
 
     @BindView(R.id.agenda_list)
     EmptyStateRecyclerView questList;
+
+    @BindView(R.id.news_image)
+    AppCompatImageView newsImage;
+
     private CardView user_event;
+
+    @Inject
+    LocalStorage localStorage;
+    @Inject
+    InteractiveTutorial interactiveTutorial;
 
     @Nullable
     @Override
@@ -155,7 +186,7 @@ public class PersianCalendarFragment extends BaseFragment
         viewPagerPosition = 0;
         uiInit(view);
         //toolbar
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((MainActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
@@ -165,25 +196,34 @@ public class PersianCalendarFragment extends BaseFragment
         ((MainActivity) getActivity()).actionBarDrawerToggle.syncState();
 
         utils.setToolbar(toolbar);
+        ((MainActivity) getActivity()).initToolbar(toolbar, R.string.title_fragment_inbox);
 
         //personal events
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         questList.setLayoutManager(layoutManager);
         questList.setHasFixedSize(true);
-        selectedDay=DateConverter.persianToLocalDate(utils.getSelectedPersianDate());
+        selectedDay = DateConverter.persianToLocalDate(utils.getSelectedPersianDate());
 
 //        questList.setEmptyView(questListContainer, R.string.empty_agenda_text, R.drawable.ic_calendar_blank_grey_24dp);
 
 
-        if (utils.isNetworkConnected()) {
-            try {
-                showNews();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (utils.isNetworkConnected()) {
+//            try {
+//                showNews();
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+            onReceivePush();
+
+
+
         about_layout = (ScrollViewExt) view.findViewById(R.id.about_layout);
+        Rect scrollBounds = new Rect();
+        about_layout.getHitRect(scrollBounds);
+
         about_layout.setScrollViewListener(new ScrollViewListener() {
             @Override
             public void onScrollChanged(ScrollViewExt scrollView, int x, int y, int oldx, int oldy) {
@@ -194,6 +234,20 @@ public class PersianCalendarFragment extends BaseFragment
                 if (diff == 0) {
                     // do stuff
                     Log.i("scroll", "  reached");
+                }
+
+                if (!event.getLocalVisibleRect(scrollBounds) || scrollBounds.height() < event.getHeight()) {
+
+                    // Any portion of the imageView, even a single pixel, is within the visible window
+                } else {
+                    // NONE of the imageView is within the visible window
+                    Log.i("show", event.toString());
+
+                    if (show) {
+//                        showTourGuide(view);
+                        show = false;
+                    }
+
                 }
             }
         });
@@ -235,15 +289,133 @@ public class PersianCalendarFragment extends BaseFragment
         PersianDate today = utils.getToday();
         utils.setActivityTitleAndSubtitle(getActivity(), utils.getMonthName(today),
                 utils.formatNumber(today.getYear()));
-
+        initLocalBrodcasts();
 
 //        View toolbar_view = inflater.inflate(R.layout.activity_cal_fa, container, false);
 
-//        ImageView submit_img=(ImageView)toolbar_view.findViewById(R.id.submit_img);
-//        submit_img.setOnClickListener(v -> {
+//        ImageView toolbar_hint=(ImageView)view.findViewById(R.id.toolbar_hint);
+
+//        FrameLayout toolbar_hint=(FrameLayout)view.findViewById(R.id.toolbar_hint);
+
+//        toolbar_hint.setOnClickListener(v -> {
 //            Log.i("selected date ",utils.dateToString(utils.getToday()));
 //        });
+
+        toolbar.setOnClickListener(v -> {
+//            Log.i("selected date ", utils.dateToString(utils.getToday()));
+            Utils.getInstance(getContext()).pickDate(PersianCalendarFragment.this, "ON_DATE_SET_FOR_MONTH_VIEW");
+        });
+
+        owghat.post(() -> {
+            //create your anim here
+//            showTourGuide(view);
+            if (localStorage.readBool("persian_tutorial", true)) {
+                createAndShowTutorials(view);
+                localStorage.saveBool("persian_tutorial", false);
+            }
+
+
+        });
+
+
         return view;
+    }
+
+    private void createAndShowTutorials(View view) {
+        List<TapTarget> targets = new ArrayList<>();
+        targets.add(interactiveTutorial.createTutorialForView(
+                view.findViewById(R.id.fab_add_quest),
+                getActivity(),
+                "دکمه جادویی",
+                "با این دکمه در سراسر برنامه میتوانید کارهای خود را اضافه کنید"));
+
+        ViewTarget target = new ViewTarget(monthViewPager);
+        targets.add(interactiveTutorial.createTutorialForRect(
+                target.getRect(),
+                getActivity(),
+                "به سرعت عمل کنید",
+                "با کلیک و نگه داشتن بر روی هر روز از ماه ، یک کار در آن روز ثبت کنید"));
+        targets.add(interactiveTutorial.createTutorialForView(
+                toolbar.getChildAt(0),
+                getActivity(),
+                "در زمان سفر کنید",
+                "با کلیک روی این نوار میتوانید به تاریخ مورد نظر به سرعت دسترسی داشته باشید"));
+//        ViewTarget target = new ViewTarget(monthViewPager);
+        targets.add(interactiveTutorial.createTutorialForNav(
+                toolbar,
+                getActivity(),
+                "همه چیز اینجاست",
+                "با این منو به همه ی قسمت های برنامه دسترسی داشته باشید"));
+
+
+        interactiveTutorial.showTutorials(targets, getActivity(), "persian_cal");
+    }
+
+    private void initLocalBrodcasts() {
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(newsReceiver,
+                new IntentFilter("ON_NEWS_CHANGE_LISTENER"));
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(dateReceiver,
+                new IntentFilter("ON_DATE_SET_FOR_MONTH_VIEW"));
+    }
+
+    private void showTourGuide(View view) {
+
+
+        new SpotlightView.Builder(this.getActivity())
+                .introAnimationDuration(400)
+                .enableRevealAnimation(true)
+                .performClick(true)
+                .fadeinTextDuration(400)
+                .headingTvColor(Color.parseColor("#eb273f"))
+                .headingTvSize(32)
+                .headingTvText("اوقات شرعی")
+                .subHeadingTvColor(Color.parseColor("#ffffff"))
+                .subHeadingTvSize(16)
+                .subHeadingTvText("با انتخاب هر شهر ?\nاوقات شرعی آن را ملاحظه کنید.")
+                .maskColor(Color.parseColor("#dc000000"))
+                .target(event)
+                .lineAnimDuration(400)
+                .lineAndArcColor(Color.parseColor("#eb273f"))
+                .dismissOnTouch(true)
+                .dismissOnBackPress(true)
+                .enableDismissAfterShown(true)
+                .usageId("8") //UNIQUE ID
+                .show();
+
+
+//        about_layout.scrollTo(0, owghat.getBottom());
+
+    }
+
+    private void showTapTargetView(View view) {
+     /*   TapTargetView.showFor(getActivity(),                 // `this` is an Activity
+                TapTarget.forToolbarNavigationIcon(toolbar, "This is a target", "We have the best targets, believe me")
+                        // All options below are optional
+                        .outerCircleColor(R.color.mdtp_accent_color)      // Specify a color for the outer circle
+                        .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
+                        .targetCircleColor(R.color.color4)   // Specify a color for the target circle
+                        .titleTextSize(20)                  // Specify the size (in sp) of the title text
+                        .titleTextColor(R.color.color2)      // Specify the color of the title text
+                        .descriptionTextSize(10)            // Specify the size (in sp) of the description text
+                        .descriptionTextColor(R.color.color3)  // Specify the color of the description text
+                        .textColor(R.color.color1)            // Specify a color for both the title and description text
+                        .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                        .dimColor(R.color.md_black)            // If set, will dim behind the view with 30% opacity of the given color
+                        .drawShadow(true)                   // Whether to draw a drop shadow or not
+                        .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                        .tintTarget(false)                   // Whether to tint the target view's color
+                        .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
+//                        .icon(Drawable)                     // Specify a custom drawable to draw as the target
+                        .targetRadius(60),                  // Specify the target radius (in dp)
+                new TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
+                    @Override
+                    public void onTargetClick(TapTargetView view) {
+                        super.onTargetClick(view);      // This call is optional
+//                        doSomething();
+
+                    }
+                });*/
+
     }
 
     private void uiInit(View view) {
@@ -311,6 +483,9 @@ public class PersianCalendarFragment extends BaseFragment
         news_title = (TextView) view.findViewById(R.id.news_title);
         card_news = (CardView) view.findViewById(R.id.cardNews);
         user_event = (CardView) view.findViewById(R.id.mycardEvent);
+
+//        news_web_view=(WebView)view.findViewById(R.id.news_webview);
+
     }
 
     private void showQuestsForDate(LocalDate date) {
@@ -325,14 +500,14 @@ public class PersianCalendarFragment extends BaseFragment
 //        journeyText.setText(getString(R.string.agenda_daily_journey, dateFormat.format(startOfDayDate)));
         questPersistenceService.findAllNonAllDayForDate(date, quests -> {
             List<AgendaViewModel> vms = new ArrayList<>();
-            if(quests.size()!=0){
+            if (quests.size() != 0) {
                 for (Quest quest : quests) {
                     vms.add(new AgendaViewModel(getContext(), quest, true));
 //                Log.i("vms", quest.getName());
                 }
                 questList.setAdapter(new AgendaAdapter(getContext(), eventBus, vms));
                 user_event.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 user_event.setVisibility(View.GONE);
             }
         });
@@ -380,7 +555,7 @@ public class PersianCalendarFragment extends BaseFragment
         Log.i("select day ", utils.dateToString(persianDate));
         setOwghat(civilDate);
         showEvent(persianDate);
-        selectedDay=DateConverter.persianToLocalDate(persianDate);
+        selectedDay = DateConverter.persianToLocalDate(persianDate);
         showQuestsForDate(selectedDay);
         utils.setSelectedPersianDate(persianDate);
     }
@@ -574,5 +749,74 @@ public class PersianCalendarFragment extends BaseFragment
     public void onPause() {
         eventBus.unregister(this);
         super.onPause();
+    }
+
+    public void onReceivePush() {
+        if (!localStorage.readBool("show_news", false)) {
+            card_news.setVisibility(View.GONE);
+            return;
+        }
+        title = localStorage.readString("news_title");
+        description = localStorage.readString("news_description");
+        imgUrl = localStorage.readString("news_img_url");
+        url = localStorage.readString("news_url");
+        isGif = localStorage.readBool("isGif", false);
+
+        if (isGif && imgUrl != null) {
+            Glide.with(getContext())
+                    .load(imgUrl)
+                    .asGif()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(newsImage);
+            newsImage.setVisibility(View.VISIBLE);
+        } else if (imgUrl != null && !isGif) {
+            Glide.with(getContext())
+                    .load(imgUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(newsImage);
+            newsImage.setVisibility(View.VISIBLE);
+        }
+        news_card_title.setText(title);
+        news_title.setText(description);
+        news_title.setOnClickListener(v -> {
+            if (url != null) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browserIntent);
+            }
+        });
+        card_news.setVisibility(View.VISIBLE);
+
+    }
+
+
+    private BroadcastReceiver newsReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+
+            onReceivePush();
+        }
+    };
+    private BroadcastReceiver dateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            int year = intent.getIntExtra("year", 0);
+            int month = intent.getIntExtra("month", 0);
+            int day = intent.getIntExtra("day", 0);
+
+            PersianDate pDate = new PersianDate(year, month, day);
+            bringDate(pDate);
+            //post to next fragment
+
+
+        }
+    };
+
+    public void onDestroy() {
+
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(dateReceiver);
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(newsReceiver);
     }
 }

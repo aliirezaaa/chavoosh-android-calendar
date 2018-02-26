@@ -26,18 +26,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 //import com.ibm.icu.util.Calendar;
 
+import com.getkeepsafe.taptargetview.TapTarget;
 import com.ibm.icu.util.ULocale;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+import com.wooplr.spotlight.target.ViewTarget;
 
 import org.threeten.bp.LocalDate;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -53,10 +57,12 @@ import io.ipoli.android.app.BaseFragment;
 import io.ipoli.android.app.events.CalendarDayChangedEvent;
 import io.ipoli.android.app.events.EventSource;
 import io.ipoli.android.app.help.HelpDialog;
+import io.ipoli.android.app.tutorial.InteractiveTutorial;
 import io.ipoli.android.app.ui.FabMenuView;
 import io.ipoli.android.app.ui.events.FabMenuTappedEvent;
 import io.ipoli.android.app.ui.events.ToolbarCalendarTapEvent;
 import io.ipoli.android.app.utils.DateUtils;
+import io.ipoli.android.app.utils.LocalStorage;
 import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.persian.calendar.CivilDate;
 import io.ipoli.android.persian.calendar.DateConverter;
@@ -77,7 +83,8 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 
     public static final int MID_POSITION = 49;
     public static final int MAX_VISIBLE_DAYS = 100;
-
+    @Inject
+    InteractiveTutorial interactiveTutorial;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
 
@@ -95,6 +102,9 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 
     @Inject
     Bus eventBus;
+
+    @Inject
+    LocalStorage localStorage;
 
     private FragmentStatePagerAdapter adapter;
 
@@ -166,6 +176,14 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
 //        );
 //        Log.i("calendar now after define ",""+dpd.getEndDate().get(2));
         //end define date picker
+        toolbar.post(() -> {
+            if(localStorage.readBool("calendar_tutorial",true)){
+                createAndShowTutorials(view);
+                localStorage.saveBool("calendar_tutorial",false);
+            }
+
+                });
+
         return view;
     }
 
@@ -193,6 +211,7 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.calendar_menu, menu);
+
     }
 
     @Override
@@ -479,5 +498,27 @@ public class CalendarFragment extends BaseFragment implements View.OnClickListen
         Log.d("cf", "onDestroy");
 
         super.onDestroyView();
+    }
+
+
+    private void createAndShowTutorials(View view) {
+        List<TapTarget> targets = new ArrayList<>();
+        targets.add(interactiveTutorial.createTutorialForView(
+                view.findViewById(R.id.toolbar_expand_container),
+                getActivity(),
+                "در زمان سفر کنید",
+                "با کلیک روی این نوار میتوانید به تاریخ مورد نظر به سرعت دسترسی داشته باشید"));
+//        ViewTarget target = new ViewTarget(toolbar).getView();
+        targets.add(interactiveTutorial.createTutorialForMenuItem(
+                toolbar,
+                R.id.action_today,
+                getActivity(),
+                "در لحظه باشید",
+                "با کلیک روی این گزینه در هر تاریخی که هستید، شما را به امروز منتقل میکند"));
+
+
+
+
+        interactiveTutorial.showTutorials(targets, getActivity(),"cal_view");
     }
 }

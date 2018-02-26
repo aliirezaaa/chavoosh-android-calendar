@@ -16,6 +16,7 @@ import io.ipoli.android.app.modules.ApiModule;
 import io.ipoli.android.app.modules.AppModule;
 import io.ipoli.android.app.modules.BusModule;
 import io.ipoli.android.app.modules.CouchbaseModule;
+import io.ipoli.android.app.modules.InteractiveTutorialModule;
 import io.ipoli.android.app.modules.LocalStorageModule;
 import io.ipoli.android.app.modules.ObjectMapperModule;
 import io.ipoli.android.app.modules.PersistenceModule;
@@ -27,7 +28,9 @@ import io.ipoli.android.app.rate.RateDialog;
 import io.ipoli.android.app.receivers.AndroidCalendarEventChangedReceiver;
 import io.ipoli.android.app.receivers.BootCompleteReceiver;
 import io.ipoli.android.app.receivers.DateChangedReceiver;
+import io.ipoli.android.app.services.PushService;
 import io.ipoli.android.app.settings.SettingsActivity;
+import io.ipoli.android.app.tutorial.InteractiveTutorial;
 import io.ipoli.android.app.tutorial.TutorialActivity;
 import io.ipoli.android.app.tutorial.fragments.PickTutorialQuestsFragment;
 import io.ipoli.android.app.tutorial.fragments.PickTutorialRepeatingQuestsFragment;
@@ -35,18 +38,18 @@ import io.ipoli.android.app.ui.dialogs.AndroidCalendarsPickerFragment;
 import io.ipoli.android.challenge.activities.AddChallengeActivity;
 import io.ipoli.android.challenge.activities.ChallengeActivity;
 import io.ipoli.android.challenge.activities.EditChallengeActivity;
-import io.ipoli.android.challenge.activities.PersonalizeChallengeActivity;
-import io.ipoli.android.challenge.activities.PickChallengeActivity;
-import io.ipoli.android.challenge.activities.PickChallengeQuestsActivity;
-import io.ipoli.android.challenge.activities.PickDailyChallengeQuestsActivity;
+//import io.ipoli.android.challenge.activities.PersonalizeChallengeActivity;
+//import io.ipoli.android.challenge.activities.PickChallengeActivity;
+//import io.ipoli.android.challenge.activities.PickChallengeQuestsActivity;
+//import io.ipoli.android.challenge.activities.PickDailyChallengeQuestsActivity;
 import io.ipoli.android.challenge.fragments.AddChallengeQuestsFragment;
 import io.ipoli.android.challenge.fragments.AddChallengeReasonsFragment;
 import io.ipoli.android.challenge.fragments.AddChallengeResultsFragment;
 import io.ipoli.android.challenge.fragments.ChallengeListFragment;
-import io.ipoli.android.challenge.receivers.DailyChallengeReminderReceiver;
+//import io.ipoli.android.challenge.receivers.DailyChallengeReminderReceiver;
 import io.ipoli.android.challenge.receivers.ScheduleDailyChallengeReminderReceiver;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.PersianCalendarFragment;
-import io.ipoli.android.pet.PetActivity;
+//import io.ipoli.android.pet.PetActivity;
 import io.ipoli.android.player.activities.PickAvatarPictureActivity;
 import io.ipoli.android.player.fragments.GrowthFragment;
 import io.ipoli.android.quest.activities.AddQuestActivity;
@@ -77,10 +80,10 @@ import io.ipoli.android.quest.ui.dialogs.EditReminderFragment;
 import io.ipoli.android.quest.ui.dialogs.RecurrencePickerFragment;
 import io.ipoli.android.quest.widgets.AgendaWidgetProvider;
 import io.ipoli.android.quest.widgets.QuestRemoteViewsFactory;
-import io.ipoli.android.reward.activities.EditRewardActivity;
-import io.ipoli.android.reward.fragments.RewardListFragment;
-import io.ipoli.android.shop.activities.CoinStoreActivity;
-import io.ipoli.android.shop.activities.ShopActivity;
+//import io.ipoli.android.reward.activities.EditRewardActivity;
+//import io.ipoli.android.reward.fragments.RewardListFragment;
+//import io.ipoli.android.shop.activities.CoinStoreActivity;
+//import io.ipoli.android.shop.activities.ShopActivity;
 
 /**
  * Created by Venelin Valkov <venelin@curiousily.com>
@@ -101,7 +104,8 @@ import io.ipoli.android.shop.activities.ShopActivity;
                 TimeParserModule.class,
                 ApiModule.class,
                 UrlProviderModule.class,
-                AndroidCalendarModule.class
+                AndroidCalendarModule.class,
+                InteractiveTutorialModule.class
         }
 )
 public interface AppComponent {
@@ -150,9 +154,9 @@ public interface AppComponent {
 
     void inject(ChallengeListFragment challengeListFragment);
 
-    void inject(RewardListFragment rewardListFragment);
+//    void inject(RewardListFragment rewardListFragment);
 
-    void inject(EditRewardActivity editRewardActivity);
+//    void inject(EditRewardActivity editRewardActivity);
 
     void inject(PickAvatarPictureActivity pickAvatarPictureActivity);
 
@@ -162,7 +166,7 @@ public interface AppComponent {
 
     void inject(RecurrencePickerFragment recurrencePickerFragment);
 
-    void inject(PickDailyChallengeQuestsActivity pickDailyChallengeQuestsActivity);
+//    void inject(PickDailyChallengeQuestsActivity pickDailyChallengeQuestsActivity);
 
     void inject(ChallengePickerFragment challengePickerFragment);
 
@@ -170,27 +174,27 @@ public interface AppComponent {
 
     void inject(ChallengeActivity challengeActivity);
 
-    void inject(PickChallengeQuestsActivity pickChallengeQuestsActivity);
+//    void inject(PickChallengeQuestsActivity pickChallengeQuestsActivity);
 
     void inject(EditReminderFragment editReminderFragment);
 
     void inject(ScheduleDailyChallengeReminderReceiver scheduleDailyChallengeReminderReceiver);
 
-    void inject(DailyChallengeReminderReceiver dailyChallengeReminderReceiver);
+//    void inject(DailyChallengeReminderReceiver dailyChallengeReminderReceiver);
 
     void inject(ScheduleNextRemindersReceiver scheduleNextRemindersReceiver);
 
     void inject(SignInActivity signInActivity);
 
-    void inject(PetActivity petActivity);
+//    void inject(PetActivity petActivity);
 
-    void inject(ShopActivity shopActivity);
+//    void inject(ShopActivity shopActivity);
 
     void inject(DateChangedReceiver dateChangedReceiver);
 
-    void inject(PickChallengeActivity pickChallengeActivity);
+//    void inject(PickChallengeActivity pickChallengeActivity);
 
-    void inject(PersonalizeChallengeActivity personalizeChallengeActivity);
+//    void inject(PersonalizeChallengeActivity personalizeChallengeActivity);
 
     void inject(StartQuestReceiver startQuestReceiver);
 
@@ -236,8 +240,13 @@ public interface AppComponent {
 
     void inject(SettingsActivity settingsActivity);
 
-    void inject(CoinStoreActivity coinStoreActivity);
+//    void inject(CoinStoreActivity coinStoreActivity);
 
     void inject(PersianCalendarFragment persianCalendarFragment);
+
+    void inject(InteractiveTutorial interactiveTutorial);
+
+    void inject(PushService pushService);
+
 }
 
