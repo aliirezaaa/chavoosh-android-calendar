@@ -7,51 +7,38 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.design.internal.NavigationMenuItemView;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
-import com.wooplr.spotlight.SpotlightView;
-import com.wooplr.spotlight.target.ViewTarget;
 
 import org.threeten.bp.LocalDate;
 
@@ -68,10 +55,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import io.ipoli.android.app.App;
 import io.ipoli.android.app.activities.BaseActivity;
-import io.ipoli.android.app.activities.SyncCalendarActivity;
 import io.ipoli.android.app.events.CalendarDayChangedEvent;
 import io.ipoli.android.app.events.ContactUsTapEvent;
 import io.ipoli.android.app.events.EventSource;
@@ -79,22 +64,18 @@ import io.ipoli.android.app.events.FriendsInvitedEvent;
 import io.ipoli.android.app.events.InviteFriendsCanceledEvent;
 import io.ipoli.android.app.events.InviteFriendsEvent;
 import io.ipoli.android.app.events.ScreenShownEvent;
-import io.ipoli.android.app.events.SyncCalendarRequestEvent;
 import io.ipoli.android.app.events.UndoCompletedQuestEvent;
-import io.ipoli.android.app.rate.RateDialogConstants;
 import io.ipoli.android.app.settings.HelpActivity;
 import io.ipoli.android.app.settings.SettingsActivity;
 import io.ipoli.android.app.share.ShareQuestDialog;
 import io.ipoli.android.app.tutorial.InteractiveTutorial;
 import io.ipoli.android.app.utils.EmailUtils;
 import io.ipoli.android.app.utils.LocalStorage;
-import io.ipoli.android.app.utils.ResourceUtils;
 import io.ipoli.android.app.utils.Time;
 import io.ipoli.android.challenge.fragments.ChallengeListFragment;
 import io.ipoli.android.persian.calendar.DateConverter;
 import io.ipoli.android.persian.calendar.PersianDate;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;
-import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.ApplicationPreferenceFragment;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.PersianCalendarFragment;
 //import io.ipoli.android.pet.PetActivity;
 import io.ipoli.android.pet.data.Pet;
@@ -178,6 +159,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private Quest tSnoozeQuest;
     private boolean tShowAction;
     private Toolbar toolbar;
+    private boolean restartFragment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +169,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //        changeLanguage("fa");
 
 //        changDirection();
+
         instance = this.getApplication();
         appComponent().inject(this);
 
@@ -215,8 +198,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         onReceivePush();
 //        startCalendar();
         startPersianCalendar();
-
-
+        LocalBroadcastManager.getInstance(this).registerReceiver(preferences_update,
+                new IntentFilter("UPDATE_LOCATION"));
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
             @Override
@@ -298,6 +281,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onResume();
         eventBus.register(this);
         updatePlayerInDrawer(getPlayer());
+        if (restartFragment) {
+            startPersianCalendar();
+            restartFragment = false;
+        }
+
     }
 
     private void onItemSelectedFromDrawer() {
@@ -455,8 +443,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public void startPersianCalendar() {
-
         changeCurrentFragment(new PersianCalendarFragment());
+//        if (restartFragment) {
+//
+//            Fragment frg;
+//            frg = getSupportFragmentManager().findFragmentByTag(PersianCalendarFragment.class.getName());
+//            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.detach(frg);
+//            ft.attach(frg);
+//            ft.commit();
+//            restartFragment=false;
+//        } else {
+//
+//        }
+
+
     }
 
     @Override
@@ -845,9 +846,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //        layoutManager.scrollToPositionWithOffset(4, 0);
 
             NavigationMenuView navView = (NavigationMenuView) navigationView.getChildAt(0);
-            Menu menu=navigationView.getMenu();
-            MenuItem setting=menu.findItem(R.id.settings);
-            Log.i("menu find",setting.getTitle().toString());
+            Menu menu = navigationView.getMenu();
+            MenuItem setting = menu.findItem(R.id.settings);
+            Log.i("menu find", setting.getTitle().toString());
 //            ViewTarget target = new ViewTarget(navView.getChildAt(11));
 //            NavigationMenuItemView item = (NavigationMenuItemView) navView.getChildAt(11);
 ////        Log.i("getitemid", item.getChildAt(0) + "");
@@ -874,23 +875,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void smoothScrollToView(View view) {
         navigationView.post(() -> {
-            int[] location = new int[2];
-            view.getLocationInWindow(location);
-            final int bottom = location[1];
-            //Do something after 100ms
-            NavigationMenuView navView = (NavigationMenuView) navigationView.getChildAt(0);
-            navView.smoothScrollBy(0, navigationView.getBottom());
+                    int[] location = new int[2];
+                    view.getLocationInWindow(location);
+                    final int bottom = location[1];
+                    //Do something after 100ms
+                    NavigationMenuView navView = (NavigationMenuView) navigationView.getChildAt(0);
+                    navView.smoothScrollBy(0, navigationView.getBottom());
 
 //            ObjectAnimator objectAnimator = ObjectAnimator.ofInt(settingScroll, "scrollY", view.getTop()).setDuration(200);
 //            objectAnimator.start();
 
-        }
+                }
 
         );
 
 
     }
-    private boolean isOnScreen(View view){
+
+    private boolean isOnScreen(View view) {
         ViewTreeObserver vto = view.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -906,7 +908,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         @Override
                         public void run() {
 //                            sView.smoothScrollTo(0, sView.getScrollY() + (i[1] - scrollBounds.bottom));
-                            Log.i("observ","its on screen");
+                            Log.i("observ", "its on screen");
                         }
                     });
                 }
@@ -916,10 +918,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         });
 
 
-
-
         return false;
     }
+
     private boolean isViewVisible(View view) {
         Rect scrollBounds = new Rect();
         view.getDrawingRect(scrollBounds);
@@ -928,11 +929,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         float bottom = top + view.getHeight();
 
         if (scrollBounds.top < top && scrollBounds.bottom > bottom) {
-            Log.i("isvisible","its on screen");
+            Log.i("isvisible", "its on screen");
             return true;
         } else {
             return false;
         }
     }
 
+    private BroadcastReceiver preferences_update = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            restartFragment = true;
+
+        }
+    };
 }

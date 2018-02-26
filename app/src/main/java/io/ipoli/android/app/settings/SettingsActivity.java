@@ -234,7 +234,6 @@ public class SettingsActivity extends BaseActivity implements
 
     }
 
-
     @Override
     protected boolean useParentOptionsMenu() {
         return false;

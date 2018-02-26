@@ -55,6 +55,7 @@ public class PushService extends Service {
 //            news_intent.putExtra("url", object.getString("url"));
 //            news_intent.putExtra("isGif", object.getBoolean("isGif"));
 //            news_intent.putExtra("showNews", object.getBoolean("showNews"));
+            Log.i("push receive",object.toString());
             updateData(object);
             LocalBroadcastManager.getInstance(getContext()).sendBroadcast(news_intent);
         } catch (JSONException exepetion) {

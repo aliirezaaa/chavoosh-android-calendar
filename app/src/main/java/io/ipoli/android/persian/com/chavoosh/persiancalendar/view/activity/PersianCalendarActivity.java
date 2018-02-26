@@ -24,7 +24,8 @@ import io.ipoli.android.app.activities.BaseActivity;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.Constants;
 
 //import io.ipoli.android.persian.com.chavoosh.persiancalendar.adapter.DrawerAdapter;
-//import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.UpdateUtils;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.service.ApplicationService;
+import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.UpdateUtils;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.util.Utils;;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.ApplicationPreferenceFragment;
 import io.ipoli.android.persian.com.chavoosh.persiancalendar.view.fragment.PersianCalendarFragment;
@@ -46,7 +47,7 @@ public class PersianCalendarActivity extends BaseActivity {
 
     private static final int CALENDAR = 1;
     private static final int CONVERTER = 2;
-    //    private UpdateUtils updateUtils;
+    private UpdateUtils updateUtils;
     private static final int COMPASS = 3;
     //    private DrawerAdapter adapter;
     private static final int PREFERENCE = 4;
@@ -88,13 +89,13 @@ public class PersianCalendarActivity extends BaseActivity {
 //        utils.loadLanguageResource();
 //        lastLocale = utils.getAppLanguage();
 //        lastTheme = utils.getTheme();
-//        updateUtils = UpdateUtils.getInstance(getApplicationContext());
+       updateUtils = UpdateUtils.getInstance(getApplicationContext());
 
-//        if (!Utils.getInstance(this).isServiceRunning(ApplicationService.class)) {
-//            startService(new Intent(getBaseContext(), ApplicationService.class));
-//        }
+        if (!Utils.getInstance(this).isServiceRunning(ApplicationService.class)) {
+            startService(new Intent(getBaseContext(), ApplicationService.class));
+        }
 
-//        updateUtils.update(true);
+        updateUtils.update(true);
 
         //Start init cheshmak push notification
 
@@ -194,7 +195,6 @@ public class PersianCalendarActivity extends BaseActivity {
     }
 
 
-
 //    private void googleAnalyticsInit() {
 //        // Obtain the shared Tracker instance.
 //        AnalyticsUtils application = (AnalyticsUtils) getApplication();
@@ -233,6 +233,7 @@ public class PersianCalendarActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        restartActivity();
         if (dayIsPassed) {
             dayIsPassed = false;
             restartActivity();
@@ -272,7 +273,7 @@ public class PersianCalendarActivity extends BaseActivity {
             return;
 
         utils.updateStoredPreference();
-//        updateUtils.update(true);
+        updateUtils.update(true);
 
         boolean needsActivityRestart = false;
 

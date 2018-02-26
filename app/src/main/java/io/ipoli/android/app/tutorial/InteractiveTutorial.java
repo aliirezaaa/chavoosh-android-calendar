@@ -60,7 +60,7 @@ public class InteractiveTutorial {
                 .textTypeface(typeface)  // Specify a typeface for the text
                 .dimColor(R.color.md_black)            // If set, will dim behind the view with 30% opacity of the given color
                 .drawShadow(true)                   // Whether to draw a drop shadow or not
-                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                .cancelable(true)                  // Whether tapping outside the outer circle dismisses the view
                 .tintTarget(false)                   // Whether to tint the target view's color
                 .transparentTarget(true)
                 // Specify whether the target is transparent (displays the content underneath)
@@ -90,7 +90,7 @@ public class InteractiveTutorial {
                 .textTypeface(typeface)  // Specify a typeface for the text
                 .dimColor(dim_color)            // If set, will dim behind the view with 30% opacity of the given color
                 .drawShadow(true)                   // Whether to draw a drop shadow or not
-                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                .cancelable(true)                  // Whether tapping outside the outer circle dismisses the view
                 .tintTarget(false)                   // Whether to tint the target view's color
                 .transparentTarget(true)
                 // Specify whether the target is transparent (displays the content underneath)
@@ -117,7 +117,7 @@ public class InteractiveTutorial {
                 .textTypeface(typeface)  // Specify a typeface for the text
                 .dimColor(R.color.md_black)            // If set, will dim behind the view with 30% opacity of the given color
                 .drawShadow(true)                   // Whether to draw a drop shadow or not
-                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                .cancelable(true)                  // Whether tapping outside the outer circle dismisses the view
                 .tintTarget(false)                   // Whether to tint the target view's color
                 .transparentTarget(true)
                 // Specify whether the target is transparent (displays the content underneath)
@@ -142,7 +142,7 @@ public class InteractiveTutorial {
                 .textTypeface(typeface)  // Specify a typeface for the text
                 .dimColor(R.color.md_black)            // If set, will dim behind the view with 30% opacity of the given color
                 .drawShadow(true)                   // Whether to draw a drop shadow or not
-                .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                .cancelable(true)                  // Whether tapping outside the outer circle dismisses the view
                 .tintTarget(false)                   // Whether to tint the target view's color
                 .transparentTarget(true)
                 // Specify whether the target is transparent (displays the content underneath)

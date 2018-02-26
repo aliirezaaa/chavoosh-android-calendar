@@ -39,6 +39,8 @@ public class LocationPreference extends DialogPreference {
         final boolean isBlocking = shouldDisableDependents();
         if (isBlocking != wasBlocking) notifyDependencyChange(isBlocking);
         LocalBroadcastManager.getInstance(getContext())
+                .sendBroadcast(new Intent("UPDATE_LOCATION"));
+        LocalBroadcastManager.getInstance(getContext())
                 .sendBroadcast(new Intent("update-preference"));
     }
 }

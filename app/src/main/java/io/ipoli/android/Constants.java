@@ -73,7 +73,7 @@ public interface Constants {
 
     String KEY_SCHEMA_VERSION = "SCHEMA_VERSION";
 
-    String IPOLI_EMAIL = "aliirezaaa@gmail.com";
+    String IPOLI_EMAIL = "apps@chavoosh.com";
 
     String API_RESOURCE_SOURCE = "ipoli-android";
     int DEFAULT_PLAYER_XP = 0;
@@ -107,7 +107,7 @@ public interface Constants {
 
     boolean DEFAULT_DAILY_CHALLENGE_ENABLE_REMINDER = true;
 
-    boolean DEFAULT_ONGOING_NOTIFICATION_ENABLED = true;
+    boolean DEFAULT_ONGOING_NOTIFICATION_ENABLED = false;
     int[] REMINDER_PREDEFINED_MINUTES = new int[]{0, 10, 15, 30, 60};
     int MIN_FLEXIBLE_TIMES_A_WEEK_COUNT = 1;
     int MAX_FLEXIBLE_TIMES_A_WEEK_COUNT = 6;

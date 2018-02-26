@@ -29,7 +29,6 @@ public class PersianSettingsActivity extends BaseActivity {
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
-
         /*start persian fragment*/
         Fragment fragment=new ApplicationPreferenceFragment();
         getSupportFragmentManager().beginTransaction()
@@ -41,7 +40,6 @@ public class PersianSettingsActivity extends BaseActivity {
     protected void onPause(){
         finish();
         overridePendingTransition(android.R.anim.fade_in, R.anim.slide_out_bottom);
-
         super.onPause();
     }
 

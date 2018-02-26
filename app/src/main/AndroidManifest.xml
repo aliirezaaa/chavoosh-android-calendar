@@ -395,7 +395,7 @@
             android:name=".app.settings.HelpActivity"
             android:label="@string/title_activity_help"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.iPoli"></activity>
+            android:theme="@style/Theme.iPoli" />
     </application>
 
 </manifest>

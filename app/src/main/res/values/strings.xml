@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">تقویم فارسی</string>
+    <string name="app_name">Chavoosh Calendar</string>
     <string name="latitude">عرض جغرافیایی</string>
     <string name="longitude">طول جغرافیایی</string>
     <string name="settings">تنظیمات</string>
@@ -97,7 +97,7 @@
         <item>30 روز گذشته</item>
     </string-array>
 
-    <string name="title_activity_main">تقویم</string>
+    <string name="title_activity_main">تقویم چاووش</string>
 
     <string name="save">ذخیره</string>
     <string name="tutorial_welcome_title">*سه قدم ساده برای بهبود زندگی خود *انتخاب هدف* برانگیختن خود* *انجام دادن</string>
@@ -420,7 +420,7 @@
     <string name="on_date">در تاریخ</string>
     <string name="at_time">در زمان</string>
     <string name="for_while">به مدت</string>
-    <string name="about_us">درباره ما</string>
+    <string name="about_us">درباره چاووش</string>
     <string name="sec1txt">شرکت چاووش فعالیت خود را از سال 1378 با نام کامل چاووش رایانه  سپاهان آغاز نمود. زمینه اصلی فعالیت این شرکت ، ارائه خدمات و محصولات فن آوری اطلاعات و ارتباطات ، ابتدا با تمرکز بر کاربری های فن آوری های مرتبط با اینترنت و اطلاع رسانی شکل گرفت و بعدا زمینه های جدید به آن افزوده شد . از آنجا که پدیده فن آوری اطلاعات و کاربردهای آن نسبت به صنایع و حرفه های موجود جدید تر است ، هدف اصلی این شرکت معرفی و استفاده  موثر ار کاربردهای مذکور برای بهبود فرایند ها و وال های کاری مشتریان از همه ابعاد می باشد و در حال حاضر بر مشاوره و ارائه راه کار های فن آوری اطلاعات تمرکز دارد.</string>
     <string name="sec2txt">
  زمینه های فعالیت :"\n"
